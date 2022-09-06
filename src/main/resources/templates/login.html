@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VallyTool</title>
+</head>
+<body>
+    <form action="http://localhost:8080/" method="post">
+        <label for="input-cpf">CPF</label>
+        <input type="text" name="cpf" id="input-cpf" autocomplete="username" maxlength="14" required>
+        <label for="input-senha">Senha</label>
+        <input type="password" name="senha" id="input-senha" autocomplete="current-password" required>
+        <input type="submit" value="Entrar">
+    </form>
+</body>
+<script>
+    let input = document.getElementById("input-cpf");
+    input.addEventListener("input", bloqueiaCaractere);
+    input.addEventListener("input", cpfMask);
+
+    function bloqueiaCaractere() {
+        if (isNaN(input.value.substr(-1))) {
+            input.value = input.value.slice(0, -1);
+        }
+    }
+
+    function cpfMask() {
+        if (input.value.length == 3 || input.value.length == 7) {
+            input.value += ".";
+        }
+        if (input.value.length == 11) {
+            input.value += "-";
+        }
+    }
+</script>
+</html>
