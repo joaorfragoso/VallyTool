@@ -1,15 +1,19 @@
 package com.etejk.vallytool.entities;
 
 import java.util.ArrayList;
-
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 public class Disciplina {
 	private String nome;
 	
 	private List<Competencia> competencias = new ArrayList<>(); 
 	
-	public Disciplina() { }
+	public Disciplina() {
+	}
+	
 	public Disciplina(String nome) {
 		this.nome = nome;
 	}

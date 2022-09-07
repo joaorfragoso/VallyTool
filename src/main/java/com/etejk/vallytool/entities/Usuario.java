@@ -1,9 +1,24 @@
 package com.etejk.vallytool.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name= "usuarios")
 public class Usuario {
-	protected String nome;
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	protected Integer id;
+	
 	protected String cpf;
 	private String senha;
+	
+	protected String nome;
+	protected Cargo cargo;
+	
 	
 	public Usuario(String nome, String cpf, String senha) {
 		this.nome = nome;
@@ -11,30 +26,57 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	protected String getNome() {
-		return nome;
+
+	public Integer getId() {
+		return id;
 	}
 
-	protected void setNome(String nome) {
-		this.nome = nome;
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	protected String getCpf() {
+
+	public String getCpf() {
 		return cpf;
 	}
 
-	protected void setCpf(String cpf) {
+
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+
 
 	public String getSenha() {
 		return senha;
 	}
 
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
+
+
 	public static void realizarLogin(Usuario usuario) {
 		
 	}
