@@ -1,18 +1,24 @@
 <html>
+
 <head>
-	<meta charset="UTF-8">	
-	<style>
-		.container {
-			display: flex;
-			align-items: center;
-			justify-items: center;
-		}
-	</style>
+	<meta charset="UTF-8">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 </head>
+
 <body>
-	<div class="container" th:each="usuario : ${usuarios}">
-		<div th:text="${usuario.id}">id</div>
-		<div th:text="${usuario.nome}">nome</div>
+	<div>
+		<table class="table table-dark">
+			<tr class="table">
+				<td>Id</td>
+				<td>Nome</td>
+			</tr>
+			<tr th:each="usuario : ${usuarios}">
+				<td th:text="${usuario.id}">id</td>
+				<td th:text="${usuario.nome}">nome</td>
+			</tr>
+		</table>
 	</div>
 </body>
+
 </html>

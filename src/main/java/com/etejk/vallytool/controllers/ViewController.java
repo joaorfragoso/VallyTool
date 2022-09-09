@@ -14,6 +14,11 @@ public class ViewController {
 	@Autowired
 	public UsuarioService service;
 	
+	@GetMapping("")
+	public String redirect() {
+		return "redirect:/login";
+	}
+	
 	@GetMapping("register")
 	public String register(RequisicaoNovoUsuario usuario) {
 		return "register";
@@ -27,6 +32,6 @@ public class ViewController {
 	
 	@GetMapping("login")
 	public String login() {
-		return "login";
+		return "login/login";
 	}
 }
