@@ -16,7 +16,7 @@ public class Usuario {
 	protected String cpf;
 	private String senha;
 	
-	protected String nome;
+	protected String nome;	
 	protected Character cargo;
 	
 	public Usuario() {

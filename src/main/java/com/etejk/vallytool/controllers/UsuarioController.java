@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.services.UsuarioService;
-@RestController
+@Controller
 @RequestMapping(value= "/api")
 public class UsuarioController {
 	
@@ -35,6 +35,13 @@ public class UsuarioController {
 	@GetMapping(value= "list")
 	public List<Usuario> findUsuarios(){
 		return service.findUsuarios();	
+	}
+	
+	@GetMapping("/usuarios")
+	public String usuarios(Model model) {
+		
+		model.addAttribute("usuarios", service.findUsuarios());
+		return "usuarios";
 	}
 	
 	@GetMapping("/cargo")

@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 public class Disciplina {
 	private String nome;
 	
+	@OneToMany()
 	private List<Competencia> competencias = new ArrayList<>(); 
 	
 	public Disciplina() {
