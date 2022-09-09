@@ -1,42 +1,58 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VallyTool</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+	<title>VallyTool</title>
 </head>
+
 <body>
-    <form th:object="${requisicaoNovoUsuario}" action="/register" method="post">
-        <label for="input-cpf">CPF</label>
-        <input th:field="*{cpf}" type="text" autocomplete="username" maxlength="14" required>
-        <label for="input-senha">Senha</label>
-        <input th:field="*{senha}" type="password" autocomplete="current-password" required>
-        <label for="input-nome">Nome</label>
-        <input th:field="*{nome}" type="text" required>
-        <label for="input-cargo">Cargo</label>
-        <input th:field="*{cargo}"type="text" required>
-        <input type="submit" value="Entrar">
-    </form>
+	<form action="/register" method="post">
+		<div class="container d-flex justify-content-center align-items-center align-self-center flex-wrap align-content-center flex-column">
+			<div class="col mb-2">
+				<label class="form-label" for="input-cpf">CPF</label>
+				<input class="form-control" type="text" autocomplete="username" maxlength="14" required>
+			</div>
+			<div class="col mb-2">
+				<label class="form-label" for="input-senha">Senha</label>
+				<input class="form-control" type="password" autocomplete="current-password" required>
+			</div>
+			<div class="col mb-2">
+				<label class="form-label" for="input-nome">Nome</label>
+				<input class="form-control" type="text" required>
+			</div>
+			<div class="col mb-2">
+				<label class="form-label" for="input-cargo">Cargo</label>
+				<input class="form-control" type="text" required>
+			</div>
+			<button class="btn btn-primary" type="submit">Cadastar</button>
+		</div>
+	</form>
 </body>
 <script>
-    let input = document.getElementById("input-cpf");
-    input.addEventListener("input", bloqueiaCaractere);
-    input.addEventListener("input", cpfMask);
+	let input = document.getElementById("input-cpf");
+	input.addEventListener("input", bloqueiaCaractere);
+	input.addEventListener("input", cpfMask);
 
-    function bloqueiaCaractere() {
-        if (isNaN(input.value.substr(-1))) {
-            input.value = input.value.slice(0, -1);
-        }
-    }
+	function bloqueiaCaractere() {
+		if (isNaN(input.value.substr(-1))) {
+			input.value = input.value.slice(0, -1);
+		}
+	}
 
-    function cpfMask() {
-        if (input.value.length == 3 || input.value.length == 7) {
-            input.value += ".";
-        }
-        if (input.value.length == 11) {
-            input.value += "-";
-        }
-    }
+	function cpfMask() {
+		if (input.value.length == 3 || input.value.length == 7) {
+			input.value += ".";
+		}
+		if (input.value.length == 11) {
+			input.value += "-";
+		}
+	}
 </script>
+
 </html>
