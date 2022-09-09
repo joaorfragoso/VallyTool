@@ -17,13 +17,17 @@ public class Usuario {
 	private String senha;
 	
 	protected String nome;
-	protected Cargo cargo;
+	protected Character cargo;
 	
+	public Usuario() {
+		
+	}
 	
-	public Usuario(String nome, String cpf, String senha) {
+	public Usuario(String nome, String cpf, String senha, Character cargo) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.senha = senha;
+		this.cargo = cargo;
 	}
 
 
@@ -67,12 +71,12 @@ public class Usuario {
 	}
 
 
-	public Cargo getCargo() {
+	public Character getCargo() {
 		return cargo;
 	}
 
 
-	public void setCargo(Cargo cargo) {
+	public void setCargo(Character cargo) {
 		this.cargo = cargo;
 	}
 

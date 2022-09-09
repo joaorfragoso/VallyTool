@@ -1,0 +1,18 @@
+<html>
+<head>
+	<meta charset="UTF-8">	
+	<style>
+		.container {
+			display: flex;
+			align-items: center;
+			justify-items: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" th:each="usuario : ${usuarios}">
+		<div th:text="${usuario.id}">id</div>
+		<div th:text="${usuario.nome}">nome</div>
+	</div>
+</body>
+</html>

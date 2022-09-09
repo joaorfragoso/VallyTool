@@ -7,11 +7,15 @@
     <title>VallyTool</title>
 </head>
 <body>
-    <form action="http://localhost:8080/" method="post">
+    <form th:object="${requisicaoNovoUsuario}" action="/register" method="post">
         <label for="input-cpf">CPF</label>
-        <input type="text" name="cpf" id="input-cpf" autocomplete="username" maxlength="14" required>
+        <input th:field="*{cpf}" type="text" autocomplete="username" maxlength="14" required>
         <label for="input-senha">Senha</label>
-        <input type="password" name="senha" id="input-senha" autocomplete="current-password" required>
+        <input th:field="*{senha}" type="password" autocomplete="current-password" required>
+        <label for="input-nome">Nome</label>
+        <input th:field="*{nome}" type="text" required>
+        <label for="input-cargo">Cargo</label>
+        <input th:field="*{cargo}"type="text" required>
         <input type="submit" value="Entrar">
     </form>
 </body>
