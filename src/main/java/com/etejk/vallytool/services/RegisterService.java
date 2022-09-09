@@ -18,6 +18,6 @@ public class RegisterService {
 		Usuario usuario = reqUsuario.toUsuario();
 		repository.save(usuario);
 		
-		return "redirect:/api/usuarios";
+		return "redirect:/usuarios";
 	}
 }

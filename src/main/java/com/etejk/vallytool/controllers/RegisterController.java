@@ -18,11 +18,6 @@ import com.etejk.vallytool.services.RegisterService;
 @Controller
 public class RegisterController {
 	
-	@RequestMapping(value="/register", method=RequestMethod.GET)
-	public String register(RequisicaoNovoUsuario usuario) {
-		return "register";
-	}
-	
 	@Autowired
 	private RegisterService register;
 	

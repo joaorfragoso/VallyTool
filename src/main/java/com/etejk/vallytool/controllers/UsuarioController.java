@@ -19,14 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.services.UsuarioService;
-@Controller
+@RestController
 @RequestMapping(value= "/api")
 public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService service;
 	
-	@RequestMapping(value="/all", method=RequestMethod.GET)
+	@GetMapping("all")
 	public Page<Usuario> findUsuarios(Pageable pageable){
 		ModelAndView mv = new ModelAndView();
 		return service.findUsuarios(pageable);
@@ -36,15 +36,8 @@ public class UsuarioController {
 	public List<Usuario> findUsuarios(){
 		return service.findUsuarios();	
 	}
-	
-	@GetMapping("/usuarios")
-	public String usuarios(Model model) {
-		
-		model.addAttribute("usuarios", service.findUsuarios());
-		return "usuarios";
-	}
-	
-	@GetMapping("/cargo")
+	 
+	@GetMapping("cargo")
 	public Page<Usuario> findUsuarios(
 			@RequestParam(value= "cargo", defaultValue = "") Character cargo,
 			Pageable pageable){
