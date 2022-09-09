@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang=pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VallyTool</title>
+</head>
+<body>
+    <header>
+        <img src="./images/faetec.png" alt="Logo Faetec">
+        <hr>
+    </header>
+    <form action="http://localhost:8080/" method="post">
+        <img src="./images/jk-logo.png" alt="">
+        <h2>VallyTool</h2>
+        <label for="input-cpf">CPF</label>
+        <input type="text" name="cpf" id="input-cpf" autocomplete="username" maxlength="14" required>
+        <label for="input-senha">Senha</label>
+        <input type="password" name="senha" id="input-senha" autocomplete="current-password" required>
+        <input type="submit" value="Entrar">
+    </form>
+    <footer></footer>
+</body>
+<script>
+    let cpfInput = document.getElementById("input-cpf");
+
+    const bloqueiaCaractere = (function () {
+        let cpfInputAnterior = cpfInput.value;
+        return function (event) {
+            if (isNaN(event.data)) {cpfInput.value = cpfInputAnterior}
+            cpfInputAnterior = cpfInput.value;
+        }
+    })()
+
+    cpfInput.addEventListener("input", bloqueiaCaractere);
+</script>
+</html>

@@ -24,4 +24,9 @@ public class ViewController {
 		model.addAttribute("usuarios", service.findUsuarios());
 		return "usuarios";
 	}
+	
+	@GetMapping("login")
+	public String login() {
+		return "login";
+	}
 }
