@@ -21,6 +21,11 @@ public class ViewController {
 	public String usuarios() {
 		return "usuarios";
 	}
+
+	@GetMapping("professor")
+	public String usuarios() {
+		return "professor";
+	}
 	
 	@GetMapping("login")
 	public String login() {
