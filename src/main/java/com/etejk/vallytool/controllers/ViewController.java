@@ -23,7 +23,7 @@ public class ViewController {
 	}
 
 	@GetMapping("professor")
-	public String usuarios() {
+	public String professor() {
 		return "professor";
 	}
 	
