@@ -1,14 +1,19 @@
 package com.etejk.vallytool.entities;
 
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 @Entity
 @Table(name= "usuarios")
-public class Usuario {
+public class Usuario implements UserDetails{
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	protected Integer id;
@@ -40,27 +45,6 @@ public class Usuario {
 		this.id = id;
 	}
 
-
-	public String getCpf() {
-		return cpf;
-	}
-
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-
-	public String getSenha() {
-		return senha;
-	}
-
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-
 	public String getNome() {
 		return nome;
 	}
@@ -68,6 +52,14 @@ public class Usuario {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 
@@ -83,6 +75,48 @@ public class Usuario {
 
 	public static void realizarLogin(Usuario usuario) {
 		
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.senha;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.cpf;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 }
