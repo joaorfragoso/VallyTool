@@ -13,7 +13,7 @@
 
 <body>
 	<div class="container-fluid">
-		<form action="http://localhost:8080/" method="post">
+		<form th:action="@{/login}" method="post">
 			<div class="container">
 				<div class="container mx-0 w-25 col float-left text-center">
 					<img class="rounded" src="./images/jk-logo.png" alt="">
@@ -45,18 +45,5 @@
 	</div>
 	<footer></footer>
 </body>
-<script>
-	let cpfInput = document.getElementById("input-cpf");
-
-	const bloqueiaCaractere = (function () {
-		let cpfInputAnterior = cpfInput.value;
-		return function (event) {
-			if (isNaN(event.data)) {cpfInput.value = cpfInputAnterior}
-			cpfInputAnterior = cpfInput.value;
-		}
-	})()
-
-	cpfInput.addEventListener("input", bloqueiaCaractere);
-</script>
 
 </html>

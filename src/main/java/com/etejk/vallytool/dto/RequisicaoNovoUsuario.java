@@ -1,6 +1,9 @@
 package com.etejk.vallytool.dto;
 
 import javax.validation.constraints.NotBlank;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.etejk.vallytool.entities.Usuario;
 
 public class RequisicaoNovoUsuario {
@@ -43,7 +46,7 @@ public class RequisicaoNovoUsuario {
 		usuario.setCpf(this.cpf);
 		usuario.setCargo(this.cargo);
 		usuario.setNome(this.nome);
-		usuario.setSenha(this.senha);
+		usuario.setSenha(new BCryptPasswordEncoder().encode(this.senha));
 		return usuario;
 	}
 }
