@@ -18,9 +18,10 @@ public class ImplementsUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
 		Usuario usuario = ur.findByCpf(cpf);
 		if(usuario == null) {
+			System.out.println("puta que pariu");
 			throw new UsernameNotFoundException("Usuario não encontrado");
 		}
-		return usuario;	
+		return usuario;
 	}
 
 }
