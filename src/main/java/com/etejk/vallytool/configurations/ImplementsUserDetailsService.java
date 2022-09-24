@@ -1,22 +1,27 @@
 package com.etejk.vallytool.configurations;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.transaction.Transactional;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.UsuarioRepository;
 
-@Repository
+@Service
+@Transactional
 public class ImplementsUserDetailsService implements UserDetailsService {
 	
-	@Autowired
-	private UsuarioRepository ur;
-	
+    final UsuarioRepository userRepository;
+
+    public ImplementsUserDetailsService(UsuarioRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+    
 	@Override
 	public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
-		Usuario usuario = ur.findByCpf(cpf);
+		Usuario usuario = userRepository.findByCpf(cpf);
 		if(usuario == null) {
 			System.out.println("puta que pariu");
 			throw new UsernameNotFoundException("Usuario não encontrado");

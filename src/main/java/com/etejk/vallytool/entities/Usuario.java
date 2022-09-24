@@ -1,21 +1,33 @@
 package com.etejk.vallytool.entities;
 
+import java.io.Serializable;
+
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class Usuario implements UserDetails {
+public class Usuario implements UserDetails, Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer Id;
-	
+	@Column(nullable = false, unique = true)
 	private Character cargo;
+	@Column(nullable = false)
 	private String cpf;
+	@Column(nullable = false)
 	private String nome;
+	@Column(nullable = false)
 	private String senha;
 	
 	public Usuario() {}
