@@ -19,19 +19,18 @@ public class ViewController {
 		return "redirect:/login";
 	}
 	
-	@GetMapping("register")
+	@GetMapping("sop")
 	public String register(RequisicaoNovoUsuario usuario) {
-		return "register";
+		return "site/sop";
 	}
 	
-	@GetMapping("usuarios")
+	@GetMapping("professor")
 	public String usuarios(Model model) {
-		model.addAttribute("usuarios", service.findUsuarios());
-		return "usuarios";
+		return "site/professor";
 	}
 	
 	@GetMapping("login")
 	public String login() {
-		return "login/login";
+		return "site/login";
 	}
 }

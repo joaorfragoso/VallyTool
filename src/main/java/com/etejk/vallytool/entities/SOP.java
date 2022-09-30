@@ -8,8 +8,8 @@ public class SOP extends Usuario {
 	private List<Professor> professores = new ArrayList<>();
 	private List<Turma> turmas = new ArrayList<>();
 
-	public SOP(String nome, String cpf, String senha, Character cargo) {
-		super(nome, cpf, senha, cargo);
+	public SOP(Integer id, String nome, String cpf, String senha, Character cargo) {
+		super(id, cargo, cpf, nome, senha);
 	}
 
 	public List<Professor> getProfessores() {

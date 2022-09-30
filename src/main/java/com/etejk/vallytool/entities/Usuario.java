@@ -1,7 +1,9 @@
 package com.etejk.vallytool.entities;
 
+import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name= "usuarios")
-public class Usuario implements UserDetails{
+public class Usuario implements UserDetails, Serializable{
 	/**
 	 * 
 	 */
@@ -23,23 +25,29 @@ public class Usuario implements UserDetails{
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	protected Integer id;
 	
+	@Column(nullable = false)
+	
 	protected String cpf;
+	@Column(nullable = false)
 	private String senha;
 	
-	protected String nome;	
+	@Column(nullable = false)
+	protected String nome;
+	
+	@Column(nullable = false)
 	protected Character cargo;
 	
 	public Usuario() {
 		
 	}
-	
-	public Usuario(String nome, String cpf, String senha, Character cargo) {
-		this.nome = nome;
-		this.cpf = cpf;
-		this.senha = senha;
+	public Usuario(Integer id, Character cargo, String cpf, String nome, String senha) {
+		super();
+		this.id = id;
 		this.cargo = cargo;
+		this.cpf = cpf;
+		this.nome = nome;
+		this.senha = senha;
 	}
-
 
 	public Integer getId() {
 		return id;
@@ -59,8 +67,16 @@ public class Usuario implements UserDetails{
 		this.nome = nome;
 	}
 	
+	public String getCpf(){
+		return cpf;
+	}
+	
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+	
+	public String getSenha(){
+		return senha;
 	}
 	
 	public void setSenha(String senha) {
