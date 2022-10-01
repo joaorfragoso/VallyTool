@@ -1,16 +1,22 @@
 package com.etejk.vallytool.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+@Entity
+@Table(name = "turmas")
 public class Turma {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer Id;
 	private String codigo;
-	
-	private List<Disciplina> disciplinas = new ArrayList<>();
-	
+
 	public Turma() { }
-	public Turma(String codigo) {
+	public Turma(Integer id, String codigo) {
 		this.codigo = codigo;
+		this.Id = id;
 	}
 	public String getCodigo() {
 		return codigo;
@@ -18,12 +24,13 @@ public class Turma {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	public List<Disciplina> getDisciplinas() {
-		return disciplinas;
+	public Integer getId() {
+		return Id;
 	}
-	public void addDisciplina(Disciplina disciplina) {
-		disciplinas.add(disciplina);
+	public void setId(Integer id) {
+		Id = id;
 	}
+	
 	
 	
 }

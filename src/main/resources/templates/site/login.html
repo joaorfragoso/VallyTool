@@ -1,62 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- CSS only -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 	<title>VallyTool</title>
 </head>
-
 <body>
-	<div class="container-fluid">
-		<form th:action="@{/login}" method="post">
-			<div class="container">
-				<div class="container mx-0 w-25 col float-left text-center">
-					<img class="rounded" src="./images/jk-logo.png" alt="">
-					<h2>VallyTool</h2>
-				</div>
-				<div class="col w-75 mx-0 float-right">
-					<div class="row mb-3">
-						<div class="col-sm-1">
-							<label for="input-cpf" class="col-sm-2 col-form-label">CPF</label>
-						</div>
-						<div class="col-sm-5">
-							<input class="form-control" type="text" name="username" id="input-cpf" autocomplete="username"
-								maxlength="14" required>
-						</div>
-					</div>
-					<div class="row mb-3">
-						<div class="col-sm-1">
-							<label for="input-senha" class="col-sm-2 col-form-label">Senha</label>
-						</div>
-						<div class="col-sm-5">
-							<input type="password" class="form-control" name="password" id="input-senha"
-								autocomplete="current-password" required>
-						</div>
-					</div>
-				</div>
-				<button class="btn btn-primary" type="submit" value="Entrar">Entrar</button>
-			</div>
-		</form>
-	</div>
-	<footer></footer>
+    <header class="header">
+        <img th:src="@{/images/vallytool-logo.png}" alt="VallyTool Logo" class="vallytool-logo">
+        <h1>VallyTool</h1>
+    </header>
+    <div class="main">
+        <form th:action="@{/login}" method="post" class="login">
+            <div class="dados">
+                <div>
+                    <label for="input-cpf">CPF</label>
+                    <input type="text" name="username" id="input-cpf" autocomplete="username" maxlength="14" required>
+                </div>
+                <div>
+                    <div class="senha-div">
+                        <label for="input-senha">Senha</label>
+                        <a href="redefinir_senha.html" class="redefinir-senha">Esqueci a senha</a>
+                    </div>
+                    <input type="password" name="password" id="input-senha" autocomplete="current-password" maxlength="8" required>
+                </div>
+            </div>
+            <div class="botao-div">
+                <input type="submit" value="Entrar">
+            </div>
+        </form>
+    </div>
+    <footer>
+        <strong>&copy;VallyTool</strong>
+    </footer>
 </body>
-<script>
-	let cpfInput = document.getElementById("input-cpf");
-
-	const bloqueiaCaractere = (function () {
-		let cpfInputAnterior = cpfInput.value;
-		return function (event) {
-			if (isNaN(event.data)) {cpfInput.value = cpfInputAnterior}
-			cpfInputAnterior = cpfInput.value;
-		}
-	})()
-
-	cpfInput.addEventListener("input", bloqueiaCaractere);
-</script>
-
+<script src="./modules/script.js"></script>
 </html>

@@ -9,8 +9,8 @@
 </head>
 <body>
     <header class="header">
-        <img src="./images/jk-logo.png" alt="Logo Jk">
-        <img src="./images/faetec.png" alt="Faetec">
+        <img th:src="@{/images/jk-logo.png}" alt="Logo Jk">
+        <img th:src="@{/images/faetec.png}" alt="Faetec">
     </header>
     <div class="">
         <div class="inserir-cpf">
@@ -23,7 +23,7 @@
         </div>
         <div class="email-enviado">
             <p>Email enviado para <br> {email}</p>
-            <img src="./images/check-solid.svg" alt="">
+            <img th:src="@{/images/check-solid.svg}" alt="">
         </div>
     </div>
     <footer>

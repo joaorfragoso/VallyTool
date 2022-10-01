@@ -1,13 +1,22 @@
 package com.etejk.vallytool.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "competencias")
 public class Competencia {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer Id;
 	private String nome;
-	private Nota nota;
 	
 	public Competencia() {}
-	public Competencia(String nome, Nota nota) {
+	public Competencia(String nome) {
 		this.nome = nome;
-		this.nota = nota;
 	}
 	public String getNome() {
 		return nome;
@@ -15,11 +24,11 @@ public class Competencia {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Nota getNota() {
-		return nota;
+	public Integer getId() {
+		return Id;
 	}
-	public void setNota(Nota nota) {
-		this.nota = nota;
+	public void setId(Integer id) {
+		Id = id;
 	}
-	
+
 }
