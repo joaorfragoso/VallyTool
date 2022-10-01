@@ -9,7 +9,7 @@ public class ViewController {
 	
 	@GetMapping("")
 	public String redirect() {
-		return "redirect:/login";
+		return "redirect:/sop";
 	}
 	
 	@GetMapping("register")
@@ -17,18 +17,18 @@ public class ViewController {
 		return "register";
 	}
 	
-	@GetMapping("usuarios")
-	public String usuarios() {
-		return "usuarios";
+	@GetMapping("sop")
+	public String sop() {
+		return "site/sop";
 	}
 
 	@GetMapping("professor")
 	public String professor() {
-		return "professor";
+		return "site/professor";
 	}
 	
 	@GetMapping("login")
 	public String login() {
-		return "login/login";
+		return "site/login";
 	}
 }

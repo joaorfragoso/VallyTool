@@ -13,7 +13,7 @@
 
 <body>
 	<div class="container-fluid">
-		<form action="http://localhost:8080/" method="post">
+		<form th:action="@{/login}" method="post">
 			<div class="container">
 				<div class="container mx-0 w-25 col float-left text-center">
 					<img class="rounded" src="./images/jk-logo.png" alt="">
@@ -25,7 +25,7 @@
 							<label for="input-cpf" class="col-sm-2 col-form-label">CPF</label>
 						</div>
 						<div class="col-sm-5">
-							<input class="form-control" type="text" name="cpf" id="input-cpf" autocomplete="username"
+							<input class="form-control" type="text" name="username" id="input-cpf" autocomplete="username"
 								maxlength="14" required>
 						</div>
 					</div>
@@ -34,7 +34,7 @@
 							<label for="input-senha" class="col-sm-2 col-form-label">Senha</label>
 						</div>
 						<div class="col-sm-5">
-							<input type="password" class="form-control" name="senha" id="input-senha"
+							<input type="password" class="form-control" name="password" id="input-senha"
 								autocomplete="current-password" required>
 						</div>
 					</div>

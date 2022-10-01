@@ -12,7 +12,7 @@ public class WebSecurityConfig{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .httpBasic()
+                .formLogin().loginPage("/login")
                 .and()
                 .authorizeHttpRequests()
 //                .antMatchers(HttpMethod.GET, "/parking-spot/**").permitAll()
