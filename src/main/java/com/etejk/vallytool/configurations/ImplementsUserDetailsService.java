@@ -1,6 +1,7 @@
 package com.etejk.vallytool.configurations;
 import javax.transaction.Transactional;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,7 +27,7 @@ public class ImplementsUserDetailsService implements UserDetailsService {
 			System.out.println("puta que pariu");
 			throw new UsernameNotFoundException("Usuario não encontrado");
 		}
-		return usuario;
+		return new User(usuario.getCpf(), usuario.getSenha(), true, true, true, true, usuario.getAuthorities());
 	}
 
 }

@@ -2,13 +2,18 @@ package com.etejk.vallytool.entities;
 
 import java.io.Serializable;
 
+
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +34,11 @@ public class Usuario implements UserDetails, Serializable {
 	private String nome;
 	@Column(nullable = false)
 	private String senha;
+	@ManyToMany
+	@JoinTable(name = "TB_USUARIOS_ROLES",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private List<RoleModel> roles;
 	
 	public Usuario() {}
 	public Usuario(Integer id, Character cargo, String cpf, String nome, String senha) {
@@ -72,7 +82,7 @@ public class Usuario implements UserDetails, Serializable {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.roles;
 	}
 	@Override
 	public String getPassword() {
