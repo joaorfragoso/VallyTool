@@ -17,6 +17,8 @@ public class WebSecurityConfig{
                 .and()
                 .authorizeHttpRequests()
                 .antMatchers(HttpMethod.GET, "/images/**").permitAll()
+                .antMatchers("/sop").hasRole("SOP")
+                .antMatchers("/professor").hasRole("PROFESSOR")
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
