@@ -22,8 +22,10 @@ public class ImplementsUserDetailsService implements UserDetailsService {
     
 	@Override
 	public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
-		Usuario usuario = userRepository.findByCpf(cpf);
+		String cpfTrue = cpf.replace(".", "").replace("-", "");
+		Usuario usuario = userRepository.findByCpf(cpfTrue);
 		if(usuario == null) {
+			System.out.println(cpfTrue);
 			System.out.println("puta que pariu");
 			throw new UsernameNotFoundException("Usuario não encontrado");
 		}
