@@ -9,7 +9,7 @@ public class VallytoolApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(VallytoolApplication.class, args);
-		System.out.println(new BCryptPasswordEncoder().encode("prof"));
+		System.out.println(new BCryptPasswordEncoder().encode("sop"));
 	}
 
 }

@@ -17,6 +17,8 @@ public class WebSecurityConfig{
                 .and()
                 .authorizeHttpRequests()
                 .antMatchers(HttpMethod.GET, "/images/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/styles/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/modules/**").permitAll()
                 .antMatchers("/sop").hasRole("SOP")
                 .antMatchers("/professor").hasRole("PROFESSOR")
                 .anyRequest().authenticated()

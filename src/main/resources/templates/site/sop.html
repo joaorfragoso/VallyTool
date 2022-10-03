@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
     <title>VallyTool</title>
+    <link rel="stylesheet" href="./styles/reset.css">
 </head>
 <body>
     <header>
@@ -19,7 +20,7 @@
         </div>
         <div class="header-rodape">
             <button>Sair</button>
-            <img th:src="@{/images/jk-logo.png}" alt="">
+            <img src="jk-logo" alt="">
             <span>&copy;VallyTool</span>
         </div>
     </header>
@@ -30,11 +31,11 @@
                 <input type="text" name="usuario" placeholder="Buscar Usuário">
                 <input type="submit" value="">
             </form>
-            <button><img th:src="@{/images/plus-solid.svg}" alt=""></button>
+            <button><img src="./images/plus-solid.svg" alt=""></button>
             <div id="lista-usuarios"></div>
 
             <div class="criar-usuario">
-                <button><img th:src="@{/images/xmark-solid.svg}" alt=""></button>
+                <button><img src="./images/xmark-solid.svg" alt=""></button>
                 <form action="" method="post">
                     <label>Nome</label>
                     <input type="text" name="nome">
@@ -52,9 +53,9 @@
             </div>
 
             <div class="editar-usuario">
-                <button><img th:src="@{/images/xmark-solid.svg}" alt=""></button>
-                <button><img th:src="@{/images/database-solid.svg}" alt=""></button>
-                <button><img th:src="@{/images/link-solid.svg}" alt=""></button>
+                <button><img src="./images/xmark-solid.svg" alt=""></button>
+                <button><img src="./images/database-solid.svg" alt=""></button>
+                <button><img src="./images/link-solid.svg" alt=""></button>
 
                 <div class="dados">
                     <form action="">
@@ -75,7 +76,7 @@
                     <form action="" method="post">
                         <select name="turma" id="turmas"></select>
                         <select name="materia" id="materias"></select>
-                        <button><img th:src="@{/images/plus-solid.svg}" alt=""></button>
+                        <button><img src="./images/plus-solid.svg" alt=""></button>
                     </form>
                     <div id="lista-vinculos"></div>
                 </div>
@@ -89,17 +90,17 @@
             </form>
             <form action="" method="post">
                 <input type="text">
-                <button><img th:src="@{/images/plus-solid.svg}" alt=""></button>
+                <button><img src="./images/plus-solid.svg" alt=""></button>
             </form>
             <div class="disciplinas">
-                <button><img th:src="@{/images/xmark-solid.svg}" alt=""></button>
+                <button><img src="./images/xmark-solid.svg" alt=""></button>
                 <div>
                     <h2 class="turma"></h2>
                 </div>
                 <h2>Disciplinas</h2>
                 <form action="" method="post">
                     <input type="text">
-                    <button><img th:src="@{/images/plus-solid.svg}" alt=""></button>
+                    <button><img src="./images/plus-solid.svg" alt=""></button>
                 </form>
                 <div class="lista-disciplinas"></div>
             </div>
@@ -110,7 +111,7 @@
             <div class="lista-turmas"></div>
             
             <div class="historico">
-                <button><img th:src="@{/images/xmark-solid.svg}" alt=""></button>
+                <button><img src="./images/xmark-solid.svg" alt=""></button>
                 <div>
                     <h2 class="turma"></h2>
                 </div>

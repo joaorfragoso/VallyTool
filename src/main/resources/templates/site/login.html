@@ -1,14 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>VallyTool</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VallyTool</title>
+    <link rel="stylesheet" href="./styles/reset.css">
+    <style>
+        .login {
+            background-color: white;
+            width: 300px;
+            height: 360px;
+            box-sizing: border-box;
+            border-radius: 10px;
+            box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
+            display: grid;
+            grid-template-rows: 80% 20%;
+        }
+        .login .dados {
+            font-size: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            row-gap: 15%;
+            padding: 0px 10%;
+        }
+        .senha-div {
+            position: relative;
+        }
+        .senha-legenda-div {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .redefinir-senha {
+            font-size: 14px;
+            color: #0C90F0;
+            text-decoration: none;
+        }
+        .senha-visibilidade {
+            background-color: transparent;
+            position: absolute;
+            background-image: url(./images/eye.svg);
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 36px;
+            height: 30px;
+            bottom: 5px;
+            right: 10px;
+            padding: 0;
+            border: 0;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" href="./styles/login.css">
 </head>
 <body>
     <header class="header">
-        <img th:src="@{/images/vallytool-logo.png}" alt="VallyTool Logo" class="vallytool-logo">
+        <a href="login.html">
+            <img src="./images/vallytool-logo.png" alt="VallyTool Logo" class="vallytool-logo">
+        </a>
         <h1>VallyTool</h1>
     </header>
     <div class="main">
@@ -16,14 +67,15 @@
             <div class="dados">
                 <div>
                     <label for="input-cpf">CPF</label>
-                    <input type="text" name="username" id="input-cpf" autocomplete="username" maxlength="14" required>
+                    <input type="text" name="username" id="input-cpf" autocomplete="username" pattern=".{11}" maxlength="14" required>
                 </div>
-                <div>
-                    <div class="senha-div">
+                <div class="senha-div">
+                    <div class="senha-legenda-div">
                         <label for="input-senha">Senha</label>
                         <a href="redefinir_senha.html" class="redefinir-senha">Esqueci a senha</a>
                     </div>
                     <input type="password" name="password" id="input-senha" autocomplete="current-password" maxlength="8" required>
+                    <button class="senha-visibilidade" id="senha-visibilidade" type="button" onclick="revelarSenha()"></button>
                 </div>
             </div>
             <div class="botao-div">
@@ -35,5 +87,23 @@
         <strong>&copy;VallyTool</strong>
     </footer>
 </body>
-<script src="./modules/script.js"></script>
+<script>
+    const senhaInput = document.getElementById("input-senha");
+    const senhaVisibilidadeButton = document.getElementById("senha-visibilidade");
+
+    const revelarSenha = (function () {
+        let senhaRevelada = false;
+        return function() {
+            if (senhaRevelada) {
+                senhaInput.type = "password";
+                senhaVisibilidadeButton.style.backgroundImage = "url(./images/eye.svg)";
+                senhaRevelada = false;
+            } else {
+                senhaInput.type = "text";
+                senhaVisibilidadeButton.style.backgroundImage = "url(./images/eye-slash.svg)";
+                senhaRevelada = true;
+            }
+        }
+    })()
+</script>
 </html>
