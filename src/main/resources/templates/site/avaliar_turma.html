@@ -4,141 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>VallyTool</title>
-    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="../../static/styles/reset.css">
+    <link rel="stylesheet" href="../../static/styles/professor.css">
     <style>
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            height: 100vh;
-            display: grid;
-            grid-template-rows: 110px auto;
-        }
-        strong {
-            font-weight: 600;
-        }
-        header {
-            z-index: 2;
-            position: fixed;
-            grid-row: 1/2;
-            width: 100%;
-            height: 110px;
-            display: grid;
-            grid-template-columns: 70px auto 36px;
-            box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.25);
-        }
-        .menu-div, .logo-div, .botoes-div {
-            height: 110px;
-        }
-        .menu-div, .logo-div{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .botoes-div {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 5px 0px;
-            box-sizing: border-box;
-        }
-        .vallytool-logo {
-            height: 100px;
-        }
-        .menu-botao {
-            background: transparent url(./images/bars-solid.svg) no-repeat center;
-            width: 48px;
-            height: 55px;
-            border: 0;
-        }
-        .tema-botao {
-            background: transparent url(./images/circle-half-stroke-solid.svg) no-repeat center;
-            width: 30px;
-            height: 30px;
-            border: 0;
-        }
-        .sair-botao {
-            background: transparent url(./images/logout.png) no-repeat center;
-            background-size: cover;
-            width: 30px;
-            height: 30px;
-            border: 0;
-            margin-left: 3px;
-        }
-
-        .menu-extendido-div {
-            z-index: 1;
-            position: absolute;
-            background-color: white;
-            top: 0;
-            left: 0;
-            width: 180px;
-            height: 100%;
-            box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.25);
-            display: none;
-            grid-template-rows: 90px auto;
-            row-gap: 30px;
-        }
-        .usuario-div {
-            box-sizing: border-box;
-            padding: 6px;
-            display: grid;
-            grid-template-columns: 60px auto;
-            grid-template-rows: 70px 20px;
-            column-gap: 6px;
-            width: 100%;
-        }
-        hr {
-            width: 100%;
-            height: 0;
-            grid-column: 1/3;
-        }
-        .usuario-imagem-div {
-            background-color: white;
-            width: 50px;
-            height: 50px;
-            border: 4px solid black;
-            border-radius: 50%;
-            justify-self: center;
-            align-self: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .usuario-imagem {
-            width: 27px;
-        }
-        .usuario-legenda {
-            align-self: center;
-        }
-        .nome {
-            display: inline-block;
-            width: 100px;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .cargo {
-            color: rgb(108, 108, 108);
-        }
-        .botoes-menu li {
-            background-color: rgb(12, 144, 240);
-            width: 140px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-left: 3px solid #07417E;
-            border-radius: 0px 4px 4px 0px;
-            box-shadow: inset 4px 0px 4px rgba(0, 0, 0, 0.25);
-            margin-bottom: 20px;
-        }
-        .botoes-menu a {
-            color: white;
-            text-decoration: none;
-        }
-
         .main {
             position: relative;
             grid-row: 2/3;
@@ -154,34 +24,126 @@
             box-sizing: border-box;
             padding: 0px 15px 15px 15px;
             display: grid;
-            grid-template-rows: 60px 100px auto;
+            grid-template-rows: fit-content fit-content auto;
+            row-gap: 40px;
             box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
             border-radius: 6px;
             text-align: center;
         }
-        .turma-select {
-            background-color: rgb(12, 144, 240);
-            width: 100px;
-            height: 40px;
-            color: white;
-            text-align: center;
-            border: 0;
-            border-radius: 0px 0px 6px 6px;
-            box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
+
+        .disciplina-div, .turma-div {
+            align-self: flex-start;
+            justify-self: center;
         }
-        .disciplina-select {
-            width: 200px;
-            height: 40px;
+        .turma-div {
+            --largura-opcoes: 100px;
+            --altura-opcoes: 40px;
+            --cor-select: #0C90F0;
+            --cor-texto: white;
+        }
+        .disciplina-div {
+            --largura-opcoes: 200px;
+            --altura-opcoes: 40px;
+            --cor-select: white;
+            --cor-texto: black;
+        }
+        /* Customizando o Select*/
+        .select-customizado {
+            position: relative;
+            width: fit-content;
+            height: fit-content;
+            color: var(--cor-texto);
+            font-weight: 300;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
+            border-radius: 4px;
+            background-color: var(--cor-select);
+        }
+        .select-customizado select {
+            display: none;
+        }
+        .opcao-selecionada {
             border-radius: 6px;
         }
+        .opcao-selecionada::after, .opcao-selecionada::before {
+            content: '';
+            position: absolute;
+            border: 6px solid transparent;
+        }
+        .opcao-selecionada::before {
+            top: 6px;
+            right: 10px;
+            border-color: transparent transparent rgba(0, 0, 0, 0.4) transparent;
+        }
+        .opcao-selecionada::after {
+            top: 22px;
+            right: 10px;
+            border-color: rgba(0, 0, 0, 0.4) transparent transparent transparent;
+        }
+        .opcao-selecionada, .opcoes div {
+            width: var(--largura-opcoes);
+            height: var(--altura-opcoes);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .oculto {
+            display: none;
+        }
+        .opcoes div {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .opcoes div:last-child {
+            border-radius:  0 0 6px 6px;
+        }
+        .opcoes div:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .selecionado {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        */
+        .opcoes div:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        .selecionado {
+            background-color: rgba(0, 0, 0, 0.1)!important;
+        }
+        /*----*/
+
         .avaliacao-div {
+            display: flex;
+            flex-direction: column;
+            row-gap: 20px;
+        }
+        .competencia-div {
             display: flex;
             flex-direction: column;
             row-gap: 10px;
         }
-        .avaliacao-range {
-            width: 200px;
+        :root {
+            --altura-slider: 10px;
+            --largura-slider: 200px;
+        }
+        .slider {
+            background-color: rgb(216, 216, 216);
+            width: var(--largura-slider);
+            height: var(--altura-slider);
             margin: auto;
+            border-radius: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            box-shadow: inset calc(var(--largura-slider)/2) 0 #8D8D8D;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 50%;
+            background-color: rgb(12, 144, 240);
+            height: calc(var(--altura-slider) + 5px);
+            width: calc(var(--altura-slider) + 5px);
+            outline: 2px solid white;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -191,7 +153,7 @@
             <button class="menu-botao" onclick="abrirMenu()"></button>
         </div>
         <div class="logo-div">
-            <img src="./images/vallytool-logo.png" alt="vallytool-logo" class="vallytool-logo">
+            <img src="../../static/images/vallytool-logo.png" alt="vallytool-logo" class="vallytool-logo">
         </div>
         <div class="botoes-div">
             <button class="tema-botao"></button>
@@ -202,7 +164,7 @@
         <div class="menu-extendido-div" id="menu-extendido-div">
             <div class="usuario-div">
                 <div class="usuario-imagem-div">
-                    <img class="usuario-imagem" src="./images/user-solid.svg" alt="usuario">
+                    <img class="usuario-imagem" src="../../static/images/user-solid.svg" alt="usuario">
                 </div>
                 <div class="usuario-legenda">
                     <div class="nome">Marcos Guimarães</div> <br>
@@ -219,25 +181,52 @@
             </nav>
         </div>
         <form class="tela">
-            <div class="turma-div">
-                <select name="turma" class="turma-select" id="turmas"></select>
+            <div class="turma-div select-customizado">
+                <select name="turma" class="turma-select" id="turmas" required toggle="aberto">
+                    <option>Turmas</option>
+                    <option value="">350</option>
+                    <option value="">230</option>
+                    <option value="">120</option>
+                </select>
             </div>
-            <div class="disciplina-div">
-                <select name="disciplina" class="disciplina-select" id="disciplinas"></select>
+            <div class="disciplina-div select-customizado">
+                <select name="disciplina" class="disciplina-select" id="disciplinas" required>
+                    <option>Disciplinas</option>
+                    <option value="">Matemática</option>
+                    <option value="">História</option>
+                </select>
             </div>
             <div class="avaliacao-div">
-                <label for="">Aproveitamento</label>
-                <input type="range" max="4" name="aproveitamento" class="avaliacao-range" id="" oninput="mudarNota(this)">
-                <label for="">Atitude</label>
-                <input type="range" max="4" name="atitude" class="avaliacao-range" id="" oninput="mudarNota(this)">
-                <label for="">Participação</label>
-                <input type="range" max="4" name="participacao" class="avaliacao-range" id="" oninput="mudarNota(this)">
-                <label for="">Entrosamento</label>
-                <input type="range" max="4" name="entrosamento" class="avaliacao-range" id="" oninput="mudarNota(this)">
-                <label for="">Frequência</label>
-                <input type="range" max="4" name="frequencia" class="avaliacao-range" id="" oninput="mudarNota(this)">
-                <label for="">Relação</label>
-                <input type="range" max="4" name="relacao" class="avaliacao-range" id="" oninput="mudarNota(this)">
+                <div class="competencia-div">
+                    <label>Aproveitamento</label>
+                    <input type="range" max="4" name="aproveitamento" class="slider">
+                    <label></label>
+                </div>
+                <div class="competencia-div">
+                    <label>Atitude</label>
+                    <input type="range" max="4" name="atitude" class="slider">
+                    <label></label>
+                </div>
+                <div class="competencia-div">
+                    <label>Participação</label>
+                    <input type="range" max="4" name="participacao" class="slider">
+                    <label></label>
+                </div>
+                <div class="competencia-div">
+                    <label>Entrosamento</label>
+                    <input type="range" max="4" name="entrosamento" class="slider">
+                    <label></label>
+                </div>
+                <div class="competencia-div">
+                    <label>Frequência</label>
+                    <input type="range" max="4" name="frequencia" class="slider">
+                    <label></label>
+                </div>
+                <div class="competencia-div">
+                    <label>Relação</label>
+                    <input type="range" max="4" name="relacao" class="slider">
+                    <label></label>
+                </div>
             </div>
         </form>
     </div>
@@ -252,8 +241,96 @@
         } else {abaMenu.style.display = "";}
     }
 
-    function mudarNota(x) {
-        console.log(x.value)
+    let sliders = document.getElementsByClassName("slider");
+    for (i = 0; i < sliders.length; i++) {
+        sliders[i].addEventListener("input", function() {
+            let tamanho = this.getBoundingClientRect().width;
+            let valorMax = this.max;
+            let valorAtual = this.value;
+            //Preenchido é em Porcentagem
+            let preenchido = valorAtual*100/valorMax;
+            let tamanhoPreenchido = tamanho*(preenchido/100);
+            let boxShadow = `inset ${tamanhoPreenchido}px 0 `;
+            //Definir a Cor
+            if (valorAtual < valorMax/2) {
+                boxShadow += "#C61010";
+            } else if (valorAtual > valorMax/2) {
+                boxShadow += "#23CC1F";
+            } else {
+                boxShadow += "#8D8D8D";
+            }
+            this.style.boxShadow = boxShadow;
+        })
+
+        sliders[i].addEventListener("input", function(){
+            let label = this.nextSibling.nextSibling;
+            switch (this.value) {
+                case '0':
+                    label.innerHTML = "Péssimo";
+                    label.style.color = "#C61010";
+                    break;
+                case '1':
+                    label.innerHTML = "Insuficiente";
+                    label.style.color = "#C61010";
+                    break;
+                case '2':
+                    label.innerHTML = "Regular";
+                    label.style.color = "#888888";
+                    break;
+                case '3':
+                    label.innerHTML = "Bom";
+                    label.style.color = "#23CC1F";
+                    break;
+                case '4':
+                    label.innerHTML = "Muito Bom";
+                    label.style.color = "#23CC1F";
+                    break;
+            }
+        })
+    }
+</script>
+<script>
+    let divSelect = document.getElementsByClassName("select-customizado");
+    
+    for (i = 0; i < divSelect.length; i++) {
+        //Opção Selecionada
+        let select = divSelect[i].getElementsByTagName("select")[0];
+        let opcoesSelect = select.options;
+        let opcaoSelecionadaDiv = document.createElement("div");
+        opcaoSelecionadaDiv.setAttribute("class", "opcao-selecionada");
+        opcaoSelecionadaDiv.innerHTML = opcoesSelect[0].innerHTML;
+        divSelect[i].appendChild(opcaoSelecionadaDiv);
+
+        opcaoSelecionadaDiv.addEventListener("click", function(e) {
+            e.stopPropagation;
+            this.nextSibling.classList.toggle("oculto");
+        })
+
+        //Opções
+        let opcaoDiv = document.createElement("div");
+        opcaoDiv.setAttribute("class", "opcoes oculto");
+        divSelect[i].appendChild(opcaoDiv);
+        for (j = 1; j < opcoesSelect.length; j++) {
+            let opcoes = document.createElement("div");
+            opcoes.innerHTML = opcoesSelect[j].innerHTML;
+
+            opcoes.addEventListener("click", function() {
+                let select = this.parentNode.parentElement.getElementsByTagName("select")[0];
+                opcaoSelecionadaDiv.innerHTML = this.innerHTML;
+                let opcaoAnteriorSelecionada = this.parentNode.getElementsByClassName("selecionado");
+                for (i = 0; i < opcaoAnteriorSelecionada.length; i++) {
+                    opcaoAnteriorSelecionada[i].removeAttribute("class");
+                }
+                this.setAttribute("class", "selecionado");
+                for (i = 0; i < opcoesSelect.length; i++) {
+                    if (this.innerHTML == opcoesSelect[i].innerHTML) {
+                        select.selectedIndex = i;
+                    }
+                }
+                this.parentNode.classList.toggle("oculto");
+            });
+            opcaoDiv.appendChild(opcoes);
+        }
     }
 </script>
 </html>
