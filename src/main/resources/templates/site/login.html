@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VallyTool</title>
-    <link rel="stylesheet" href="../../static/styles/reset.css">
+    <link rel="stylesheet" href="styles/reset.css">
     <style>
         .login {
             background-color: white;
@@ -53,12 +53,12 @@
             cursor: pointer;
         }
     </style>
-    <link rel="stylesheet" href="../../static/styles/login.css">
+    <link rel="stylesheet" href="styles/login.css">
 </head>
 <body>
     <header class="header">
         <a href="login.html">
-            <img src="../../static/images/vallytool-logo.png" alt="VallyTool Logo" class="vallytool-logo">
+            <img src="images/vallytool-logo.png" alt="VallyTool Logo" class="vallytool-logo">
         </a>
         <h1>VallyTool</h1>
     </header>
@@ -72,7 +72,7 @@
                 <div class="senha-div">
                     <div class="senha-legenda-div">
                         <label for="input-senha">Senha</label>
-                        <a href="redefinir_senha.html" class="redefinir-senha">Esqueci a senha</a>
+                        <a href="/redefinir" class="redefinir-senha">Esqueci a senha</a>
                     </div>
                     <input type="password" name="password" id="input-senha" autocomplete="current-password" maxlength="8" required>
                     <button class="senha-visibilidade" id="senha-visibilidade" type="button" onclick="revelarSenha()"></button>
@@ -87,7 +87,7 @@
         <strong>&copy;VallyTool</strong>
     </footer>
 </body>
-<script src="../../static/modules/script.js"></script>
+<script src="modules/cpfInput.js"></script>
 <script>
     const senhaInput = document.getElementById("input-senha");
     const senhaVisibilidadeButton = document.getElementById("senha-visibilidade");

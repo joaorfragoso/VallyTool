@@ -21,7 +21,11 @@ public class WebSecurityConfig{
                 .antMatchers(HttpMethod.GET, "/modules/**").permitAll()
                 .antMatchers("/sop").hasRole("SOP")
                 .antMatchers("/professor").hasRole("PROFESSOR")
+                .antMatchers("/redefinir").hasAnyRole("PROFESSOR", "SOP")
                 .anyRequest().authenticated()
+                .and()
+                .logout()
+                .logoutUrl("/logout")
                 .and()
                 .csrf().disable();
         return http.build();

@@ -17,6 +17,16 @@ public class ViewController {
 		return "register";
 	}
 	
+	@GetMapping("avaliar")
+	public String avaliar() {
+		return "site/avaliar_turma";
+	}
+	
+	@GetMapping("redefinir")
+	public String redefinir() {
+		return "site/redefinir_senha";
+	}
+	
 	@GetMapping("sop")
 	public String sop() {
 		return "site/sop";
