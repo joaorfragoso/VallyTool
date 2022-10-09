@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./styles/reset.css">
+	<title>VallyTool</title>
+	<style>
+		body {
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+			height: 100vh;
+			display: grid;
+			grid-template-rows: 110px auto;
+		}
+
+		strong {
+			font-weight: 600;
+		}
+
+		header {
+			z-index: 2;
+			position: fixed;
+			grid-row: 1/2;
+			width: 100%;
+			height: 110px;
+			display: grid;
+			grid-template-columns: 70px auto 36px;
+			box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.25);
+		}
+
+		.menu-div,
+		.logo-div,
+		.botoes-div {
+			height: 110px;
+		}
+
+		.menu-div,
+		.logo-div {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.botoes-div {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: flex-start;
+			padding: 5px 0px;
+			box-sizing: border-box;
+		}
+
+		.vallytool-logo {
+			height: 100px;
+		}
+
+		.menu-botao {
+			background: transparent url(./images/bars-solid.svg) no-repeat center;
+			width: 48px;
+			height: 55px;
+			border: 0;
+		}
+
+		.tema-botao {
+			background: transparent url(./images/circle-half-stroke-solid.svg) no-repeat center;
+			width: 30px;
+			height: 30px;
+			border: 0;
+		}
+
+		.sair-botao {
+			background: transparent url(./images/logout.png) no-repeat center;
+			background-size: cover;
+			width: 30px;
+			height: 30px;
+			border: 0;
+			margin-left: 3px;
+		}
+
+		.menu-extendido-div {
+			z-index: 1;
+			position: absolute;
+			background-color: white;
+			top: 0;
+			left: 0;
+			width: 180px;
+			height: 100%;
+			box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.25);
+			display: none;
+			grid-template-rows: 90px auto;
+			row-gap: 30px;
+		}
+
+		.usuario-div {
+			box-sizing: border-box;
+			padding: 6px;
+			display: grid;
+			grid-template-columns: 60px auto;
+			grid-template-rows: 70px 20px;
+			column-gap: 6px;
+			width: 100%;
+		}
+
+		hr {
+			width: 100%;
+			height: 0;
+			grid-column: 1/3;
+		}
+
+		.usuario-imagem-div {
+			background-color: white;
+			width: 50px;
+			height: 50px;
+			border: 4px solid black;
+			border-radius: 50%;
+			justify-self: center;
+			align-self: center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.usuario-imagem {
+			width: 27px;
+		}
+
+		.usuario-legenda {
+			align-self: center;
+		}
+
+		.nome {
+			display: inline-block;
+			width: 100px;
+			font-weight: 500;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.cargo {
+			color: rgb(108, 108, 108);
+		}
+
+		.botoes-menu li {
+			background-color: rgb(12, 144, 240);
+			width: 140px;
+			height: 35px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-left: 3px solid #07417E;
+			border-radius: 0px 4px 4px 0px;
+			box-shadow: inset 4px 0px 4px rgba(0, 0, 0, 0.25);
+			margin-bottom: 20px;
+		}
+
+		.botoes-menu a {
+			color: white;
+			text-decoration: none;
+		}
+
+		.main {
+			position: relative;
+			grid-row: 2/3;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.tela {
+			position: relative;
+			width: 330px;
+			height: 500px;
+			box-sizing: border-box;
+			padding: 15px;
+			display: grid;
+			grid-template-rows: auto 30px;
+			box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
+			border-radius: 6px;
+			text-align: center;
+		}
+
+		.tela h1 {
+			font-size: 24px;
+			margin-bottom: 10px;
+		}
+
+		.avaliar-turma-botao {
+			background-color: rgb(12, 144, 240);
+			width: 140px;
+			height: 40px;
+			border: 1px solid rgb(209, 209, 209);
+			border-radius: 4px;
+			color: white;
+			font-size: 15px;
+			margin-top: 40px;
+		}
+
+		.tela footer {
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<header sec:authorize="isAuthenticated()">
+		<div class="menu-div">
+			<button class="menu-botao" onclick="abrirMenu()"></button>
+		</div>
+		<div class="logo-div">
+			<img src="./images/vallytool-logo.png" alt="vallytool-logo" class="vallytool-logo">
+		</div>
+		<div class="botoes-div">
+			<button class="tema-botao"></button>
+			<form th:action="@{/logout}" method="post">
+				<button type="submit" class="sair-botao"></button>
+			</form>
+		</div>
+	</header>
+	<div sec:authorize="hasRole('PROFESSOR')" class="main">
+		<div class="menu-extendido-div" id="menu-extendido-div">
+			<div class="usuario-div">
+				<div class="usuario-imagem-div">
+					<img class="usuario-imagem" src="./images/user-solid.svg" alt="usuario">
+				</div>
+				<div class="usuario-legenda">
+					<div sec:authentication="name">Marcos Guimarães</div> <br>
+					<span class="cargo">Professor</span>
+				</div>
+				<hr>
+			</div>
+			<nav>
+				<ul class="botoes-menu">
+					<li><a href="professor.html">Início</a></li>
+					<li><a href="avaliar_turma.html">Avaliar Turmas</a></li>
+					<li><a href="configuracoes_professor.html">Configurações</a></li>
+				</ul>
+			</nav>
+		</div>
+		<div class="tela">
+			<div>
+				<h1>Bem-Vindo ao VallyTool</h1>
+				<p>Comece já a avaliar suas turmas</p>
+				<a href="/avaliar"><button class="avaliar-turma-botao">Avaliar Turmas</button></a>
+				<ul class="turmas-nao-avaliadas"></ul>
+			</div>
+			<footer>
+				<strong>3º Trimestre</strong>
+			</footer>
+		</div>
+	</div>
+	<header sec:authorize="hasRole('SOP')">
+		<div class="header-intodrucao">
+			<h1>Bem-Vindo</h1>
+		</div>
+		<div class="header-buttons">
+			<button>Usuários</button>
+			<button>Turmas</button>
+			<button>Resultados</button>
+		</div>
+		<div class="header-rodape">
+			<button>Sair</button>
+			<img src="jk-logo" alt="">
+			<span>&copy;VallyTool</span>
+		</div>
+	</header>
+
+	<div class="tela" sec:authorize="hasRole('SOP')">
+		<div class="aba-usuario">
+			<form action="" method="post">
+				<input type="text" name="usuario" placeholder="Buscar Usuário">
+				<input type="submit" value="">
+			</form>
+			<button><img src="./images/plus-solid.svg" alt=""></button>
+			<div id="lista-usuarios"></div>
+
+			<div class="criar-usuario">
+				<button><img src="./images/xmark-solid.svg" alt=""></button>
+				<form action="" method="post">
+					<label>Nome</label>
+					<input type="text" name="nome">
+					<label>CPF</label>
+					<input type="text" name="cpf">
+					<label>Email</label>
+					<input type="text" name="senha">
+					<label>Cargo</label>
+					<select name="cargo">
+						<option value="PROFESSOR">Professor</option>
+						<option value="SOP">SOP</option>
+					</select>
+					<input type="submit" value="Criar Usuário">
+				</form>
+			</div>
+
+			<div class="editar-usuario">
+				<button><img src="./images/xmark-solid.svg" alt=""></button>
+				<button><img src="./images/database-solid.svg" alt=""></button>
+				<button><img src="./images/link-solid.svg" alt=""></button>
+
+				<div class="dados">
+					<form action="">
+						<label>Nome</label>
+						<input type="text" name="nome">
+						<label>Email</label>
+						<input type="text" name="senha">
+						<label>Cargo</label>
+						<select name="cargo">
+							<option value="PROFESSOR">Professor</option>
+							<option value="SOP">SOP</option>
+						</select>
+						<input type="submit" value="Salvar">
+					</form>
+				</div>
+
+				<div class="vinculos">
+					<form action="" method="post">
+						<select name="turma" id="turmas"></select>
+						<select name="materia" id="materias"></select>
+						<button><img src="./images/plus-solid.svg" alt=""></button>
+					</form>
+					<div id="lista-vinculos"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="aba-turmas">
+			<form action="" method="post">
+				<input type="text" name="turma" placeholder="Buscar Turma">
+				<input type="submit" value="">
+			</form>
+			<form action="" method="post">
+				<input type="text">
+				<button><img src="./images/plus-solid.svg" alt=""></button>
+			</form>
+			<div class="disciplinas">
+				<button><img src="./images/xmark-solid.svg" alt=""></button>
+				<div>
+					<h2 class="turma"></h2>
+				</div>
+				<h2>Disciplinas</h2>
+				<form action="" method="post">
+					<input type="text">
+					<button><img src="./images/plus-solid.svg" alt=""></button>
+				</form>
+				<div class="lista-disciplinas"></div>
+			</div>
+		</div>
+
+		<div class="aba-resultados">
+			<button>Gerar PDF</button>
+			<div class="lista-turmas"></div>
+
+			<div class="historico">
+				<button><img src="./images/xmark-solid.svg" alt=""></button>
+				<div>
+					<h2 class="turma"></h2>
+				</div>
+				<div class="anos"></div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+    function abrirMenu() {
+        let abaMenu = document.getElementById("menu-extendido-div");
+        let abaMenuDisplay = abaMenu.style.display;
+
+        if (abaMenuDisplay ===  "") {
+            abaMenu.style.display = "grid";
+        } else {abaMenu.style.display = "";}
+    }
+</script>
+</html>

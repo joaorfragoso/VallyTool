@@ -9,14 +9,10 @@ public class ViewController {
 	
 	@GetMapping("")
 	public String redirect() {
-		return "redirect:/sop";
+		return "redirect:/inicio";
 	}
 	
-	@GetMapping("register")
-	public String register() {
-		return "register";
-	}
-	
+
 	@GetMapping("avaliar")
 	public String avaliar() {
 		return "site/avaliar_turma";
@@ -27,14 +23,10 @@ public class ViewController {
 		return "site/redefinir_senha";
 	}
 	
-	@GetMapping("sop")
-	public String sop() {
-		return "site/sop";
-	}
-
-	@GetMapping("professor")
-	public String professor() {
-		return "site/professor";
+	
+	@GetMapping("inicio")
+	public String inicio() {
+		return "site/inicio";
 	}
 	
 	@GetMapping("login")

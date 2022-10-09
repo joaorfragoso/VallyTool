@@ -13,7 +13,7 @@ public class WebSecurityConfig{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin().defaultSuccessUrl("/inicio", true).loginPage("/login").permitAll()
                 .and()
                 .authorizeHttpRequests()
                 .antMatchers(HttpMethod.GET, "/images/**").permitAll()
