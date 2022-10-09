@@ -7,27 +7,18 @@
     <meta name="robots" content="noindex, nofollow">
     <title>VallyTool</title>
     <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/professor.css">
     <style>
-        .main {
-            position: relative;
-            grid-row: 2/3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .botoes-menu li:nth-child(2){
+            width: 150px;
         }
-        .tela {
-            position: relative;
-            overflow-y: scroll;
-            width: 330px;
-            height: 500px;
+        .avaliacao-form {
             box-sizing: border-box;
+            width: 100%;
+            height: 100%;
             padding: 0px 15px 15px 15px;
+            grid-template-rows: max-content max-content auto max-content;
             display: grid;
-            grid-template-rows: fit-content fit-content auto;
             row-gap: 40px;
-            box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
-            border-radius: 6px;
             text-align: center;
         }
 
@@ -145,7 +136,27 @@
             outline: 2px solid white;
             cursor: pointer;
         }
+        .nota {
+            color: #8D8D8D;
+        }
+        .botao-submit {
+            width: 200px;
+            height: 40px;
+            border-radius: 4px;
+            border: 0;
+            color: white;
+            background-color: #16CD54;
+            box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
+            font-size: 20px;
+            justify-self: center;
+            align-self: flex-end;
+            cursor: pointer;
+        }
+        .botao-submit:hover {
+            background-color: #14bb4c;
+        }
     </style>
+        <link rel="stylesheet" href="styles/professor.css">
 </head>
 <body>
     <header>
@@ -154,6 +165,7 @@
         </div>
         <div class="logo-div">
             <img src="images/vallytool-logo.png" alt="vallytool-logo" class="vallytool-logo">
+            <h1 class="titulo-logo">VallyTool</h1>
         </div>
         <div class="botoes-div">
             <button class="tema-botao"></button>
@@ -161,74 +173,74 @@
         </div>
     </header>
     <div class="main">
-        <div class="menu-extendido-div" id="menu-extendido-div">
-            <div class="usuario-div">
-                <div class="usuario-imagem-div">
-                    <img class="usuario-imagem" src="../../static/images/user-solid.svg" alt="usuario">
+        <div class="tela">
+            <div class="menu-extendido-div" id="menu-extendido-div">
+                <div class="usuario-div">
+                    <div class="usuario-imagem-div">
+                        <img class="usuario-imagem" src="images/user-solid.svg" alt="usuario">
+                    </div>
+                    <div class="nome">Marcos Guimarães <br><span class="cargo">Professor</span></div>
+                    <hr>
                 </div>
-                <div class="usuario-legenda">
-                    <div class="nome">Marcos Guimarães</div> <br>
-                    <span class="cargo">Professor</span>
-                </div>
-                <hr>
+                <nav>
+                    <ul class="botoes-menu">
+                        <li><a href="/professor"><span>Início</span></a></li>
+                        <li><a href="/avaliar"><span>Avaliar Turmas</span></a></li>
+                        <li><a href="/configuracoes_professor"><span>Configurações</span></a></li>
+                    </ul>
+                </nav>
             </div>
-            <nav>
-                <ul class="botoes-menu">
-                    <li><a href="professor.html">Início</a></li>
-                    <li><a href="avaliar_turma.html">Avaliar Turmas</a></li>
-                    <li><a href="configuracoes_professor.html">Configurações</a></li>
-                </ul>
-            </nav>
+            <form class="aba avaliacao-form">
+                <div class="turma-div select-customizado">
+                    <select name="turma" class="turma-select" id="turmas" required toggle="aberto">
+                        <option>Turmas</option>
+                        <option value="">350</option>
+                        <option value="">230</option>
+                        <option value="">120</option>
+                    </select>
+                </div>
+                <div class="disciplina-div select-customizado">
+                    <select name="disciplina" class="disciplina-select" id="disciplinas" required>
+                        <option>Disciplinas</option>
+                        <option value="">Matemática</option>
+                        <option value="">História</option>
+                    </select>
+                </div>
+                <div class="avaliacao-div">
+                    <div class="competencia-div">
+                        <label>Aproveitamento</label>
+                        <input type="range" max="4" name="aproveitamento" class="slider">
+                        <label class="nota">Regular</label>
+                    </div>
+                    <div class="competencia-div">
+                        <label>Atitude</label>
+                        <input type="range" max="4" name="atitude" class="slider">
+                        <label class="nota">Regular</label>
+                    </div>
+                    <div class="competencia-div">
+                        <label>Participação</label>
+                        <input type="range" max="4" name="participacao" class="slider">
+                        <label class="nota">Regular</label>
+                    </div>
+                    <div class="competencia-div">
+                        <label>Entrosamento</label>
+                        <input type="range" max="4" name="entrosamento" class="slider">
+                        <label class="nota">Regular</label>
+                    </div>
+                    <div class="competencia-div">
+                        <label>Frequência</label>
+                        <input type="range" max="4" name="frequencia" class="slider">
+                        <label class="nota">Regular</label>
+                    </div>
+                    <div class="competencia-div">
+                        <label>Relação</label>
+                        <input type="range" max="4" name="relacao" class="slider">
+                        <label class="nota">Regular</label>
+                    </div>
+                </div>
+                <input type="submit" class="botao-submit" value="Enviar">
+            </form>
         </div>
-        <form class="tela">
-            <div class="turma-div select-customizado">
-                <select name="turma" class="turma-select" id="turmas" required toggle="aberto">
-                    <option>Turmas</option>
-                    <option value="">350</option>
-                    <option value="">230</option>
-                    <option value="">120</option>
-                </select>
-            </div>
-            <div class="disciplina-div select-customizado">
-                <select name="disciplina" class="disciplina-select" id="disciplinas" required>
-                    <option>Disciplinas</option>
-                    <option value="">Matemática</option>
-                    <option value="">História</option>
-                </select>
-            </div>
-            <div class="avaliacao-div">
-                <div class="competencia-div">
-                    <label>Aproveitamento</label>
-                    <input type="range" max="4" name="aproveitamento" class="slider">
-                    <label></label>
-                </div>
-                <div class="competencia-div">
-                    <label>Atitude</label>
-                    <input type="range" max="4" name="atitude" class="slider">
-                    <label></label>
-                </div>
-                <div class="competencia-div">
-                    <label>Participação</label>
-                    <input type="range" max="4" name="participacao" class="slider">
-                    <label></label>
-                </div>
-                <div class="competencia-div">
-                    <label>Entrosamento</label>
-                    <input type="range" max="4" name="entrosamento" class="slider">
-                    <label></label>
-                </div>
-                <div class="competencia-div">
-                    <label>Frequência</label>
-                    <input type="range" max="4" name="frequencia" class="slider">
-                    <label></label>
-                </div>
-                <div class="competencia-div">
-                    <label>Relação</label>
-                    <input type="range" max="4" name="relacao" class="slider">
-                    <label></label>
-                </div>
-            </div>
-        </form>
     </div>
 </body>
 <script>
