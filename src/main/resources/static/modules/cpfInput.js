@@ -3,7 +3,13 @@ let cpfInput = document.getElementById("input-cpf");
 const bloqueiaCaractere = (function () {
     let ValueAnterior = cpfInput.value;
     return function (event) {
-        if (isNaN(event.data)) {cpfInput.value = ValueAnterior}
+		if (event.inputType == "insertText") {
+        	if (isNaN(event.data)) {cpfInput.value = ValueAnterior}
+        }
+        //Caso o usuário cole um valor, ou caso ele use um valor gravado no navegador;
+        if (event.inputType == "insertFromPaste" || event.inputType == undefined) {
+			cpfInput.value = numeroParaString(cpfInput.value);
+		}
         ValueAnterior = cpfInput.value;
     }
 })()
@@ -12,16 +18,11 @@ cpfInput.addEventListener("input", bloqueiaCaractere);
 const cpfMask = (function () {
         let ValueAnterior = cpfInput.value;
         return function() {
-            let tamanhoAnterior = ValueAnterior.length;
-            let tamanhoAtual = cpfInput.value.length;
             let cpf = cpfInput.value.replaceAll(".", "").replace("-", "");
 
-            //Apagando
-            if (tamanhoAtual <= tamanhoAnterior) {
-                //Verifica se o usuário apagou um ponto ou um hifen
-                if (cpfInput.value + "." === ValueAnterior || cpfInput.value + "-" === ValueAnterior) {
-                    cpf = cpf.slice(0,-1);
-                }
+            //Verifica se o usuário apagou um ponto ou um hifen
+            if (cpfInput.value + "." === ValueAnterior || cpfInput.value + "-" === ValueAnterior) {
+                cpf = cpf.slice(0,-1);
             }
 
             novoCpf = "";
@@ -36,3 +37,13 @@ const cpfMask = (function () {
         }
 })()
 cpfInput.addEventListener("input", cpfMask);
+
+function numeroParaString(string) {
+	let num = "";
+	for(i = 0; i < string.length; i++) {
+		if(!isNaN(string[i])) {
+			num += string[i];
+		}
+	}
+	return num;
+}
