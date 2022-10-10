@@ -18,9 +18,19 @@ public class ViewController {
 		return "site/avaliar_turma";
 	}
 	
+	@GetMapping("professor")
+	public String teste() {
+		return "site/professor";
+	}
+	
 	@GetMapping("redefinir")
 	public String redefinir() {
 		return "site/redefinir_senha";
+	}
+	
+	@GetMapping("configuracoes")
+	public String configuracoes() {
+		return "site/configuracoes_professor";
 	}
 	
 	

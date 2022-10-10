@@ -5,184 +5,21 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./styles/reset.css">
+	<link rel="stylesheet" href="styles/reset.css">
 	<title>VallyTool</title>
 	<style>
-		body {
-			font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-			height: 100vh;
-			display: grid;
-			grid-template-rows: 110px auto;
+		.botoes-menu li:nth-child(1) {
+			width: 150px;
 		}
 
-		strong {
-			font-weight: 600;
-		}
-
-		header {
-			z-index: 2;
-			position: fixed;
-			grid-row: 1/2;
-			width: 100%;
-			height: 110px;
-			display: grid;
-			grid-template-columns: 70px auto 36px;
-			box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.25);
-		}
-
-		.menu-div,
-		.logo-div,
-		.botoes-div {
-			height: 110px;
-		}
-
-		.menu-div,
-		.logo-div {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.botoes-div {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			align-items: flex-start;
-			padding: 5px 0px;
-			box-sizing: border-box;
-		}
-
-		.vallytool-logo {
-			height: 100px;
-		}
-
-		.menu-botao {
-			background: transparent url(./images/bars-solid.svg) no-repeat center;
-			width: 48px;
-			height: 55px;
-			border: 0;
-		}
-
-		.tema-botao {
-			background: transparent url(./images/circle-half-stroke-solid.svg) no-repeat center;
-			width: 30px;
-			height: 30px;
-			border: 0;
-		}
-
-		.sair-botao {
-			background: transparent url(./images/logout.png) no-repeat center;
-			background-size: cover;
-			width: 30px;
-			height: 30px;
-			border: 0;
-			margin-left: 3px;
-		}
-
-		.menu-extendido-div {
-			z-index: 1;
-			position: absolute;
-			background-color: white;
-			top: 0;
-			left: 0;
-			width: 180px;
-			height: 100%;
-			box-shadow: 1px 0px 1px rgba(0, 0, 0, 0.25);
-			display: none;
-			grid-template-rows: 90px auto;
-			row-gap: 30px;
-		}
-
-		.usuario-div {
-			box-sizing: border-box;
-			padding: 6px;
-			display: grid;
-			grid-template-columns: 60px auto;
-			grid-template-rows: 70px 20px;
-			column-gap: 6px;
-			width: 100%;
-		}
-
-		hr {
-			width: 100%;
-			height: 0;
-			grid-column: 1/3;
-		}
-
-		.usuario-imagem-div {
-			background-color: white;
-			width: 50px;
-			height: 50px;
-			border: 4px solid black;
-			border-radius: 50%;
-			justify-self: center;
-			align-self: center;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.usuario-imagem {
-			width: 27px;
-		}
-
-		.usuario-legenda {
-			align-self: center;
-		}
-
-		.nome {
-			display: inline-block;
-			width: 100px;
-			font-weight: 500;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-
-		.cargo {
-			color: rgb(108, 108, 108);
-		}
-
-		.botoes-menu li {
-			background-color: rgb(12, 144, 240);
-			width: 140px;
-			height: 35px;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			border-left: 3px solid #07417E;
-			border-radius: 0px 4px 4px 0px;
-			box-shadow: inset 4px 0px 4px rgba(0, 0, 0, 0.25);
-			margin-bottom: 20px;
-		}
-
-		.botoes-menu a {
-			color: white;
-			text-decoration: none;
-		}
-
-		.main {
-			position: relative;
-			grid-row: 2/3;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.tela {
-			position: relative;
-			width: 330px;
-			height: 500px;
-			box-sizing: border-box;
-			padding: 15px;
+		.aba {
 			display: grid;
 			grid-template-rows: auto 30px;
-			box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
-			border-radius: 6px;
+			padding: 15px;
 			text-align: center;
 		}
 
-		.tela h1 {
+		.aba h1 {
 			font-size: 24px;
 			margin-bottom: 10px;
 		}
@@ -196,13 +33,21 @@
 			color: white;
 			font-size: 15px;
 			margin-top: 40px;
+			cursor: pointer;
 		}
 
-		.tela footer {
+		.avaliar-turma-botao:hover {
+			background-color: rgb(11, 134, 221);
+		}
+
+		.aba footer {
 			text-align: center;
 		}
 	</style>
+	<link rel="stylesheet" href="styles/professor.css">
 </head>
+
+<!-- PROFESSOR -->
 
 <body>
 	<header sec:authorize="isAuthenticated()">
@@ -210,7 +55,8 @@
 			<button class="menu-botao" onclick="abrirMenu()"></button>
 		</div>
 		<div class="logo-div">
-			<img src="./images/vallytool-logo.png" alt="vallytool-logo" class="vallytool-logo">
+			<img src="images/vallytool-logo.png" alt="vallytool-logo" class="vallytool-logo">
+			<h1 class="titulo-logo">VallyTool</h1>
 		</div>
 		<div class="botoes-div">
 			<button class="tema-botao"></button>
@@ -220,37 +66,38 @@
 		</div>
 	</header>
 	<div sec:authorize="hasRole('PROFESSOR')" class="main">
-		<div class="menu-extendido-div" id="menu-extendido-div">
-			<div class="usuario-div">
-				<div class="usuario-imagem-div">
-					<img class="usuario-imagem" src="./images/user-solid.svg" alt="usuario">
-				</div>
-				<div class="usuario-legenda">
-					<div sec:authentication="name">Marcos Guimarães</div> <br>
-					<span class="cargo">Professor</span>
-				</div>
-				<hr>
-			</div>
-			<nav>
-				<ul class="botoes-menu">
-					<li><a href="professor.html">Início</a></li>
-					<li><a href="avaliar_turma.html">Avaliar Turmas</a></li>
-					<li><a href="configuracoes_professor.html">Configurações</a></li>
-				</ul>
-			</nav>
-		</div>
 		<div class="tela">
-			<div>
-				<h1>Bem-Vindo ao VallyTool</h1>
-				<p>Comece já a avaliar suas turmas</p>
-				<a href="/avaliar"><button class="avaliar-turma-botao">Avaliar Turmas</button></a>
-				<ul class="turmas-nao-avaliadas"></ul>
+			<div class="menu-extendido-div" id="menu-extendido-div">
+				<div class="usuario-div">
+					<div class="usuario-imagem-div">
+						<img class="usuario-imagem" src="images/user-solid.svg" alt="usuario">
+					</div>
+					<div class="nome"><span sec:authentication="name">Sunda</span><br><span
+							class="cargo">Professor</span></div>
+					<hr>
+				</div>
+				<nav>
+					<ul class="botoes-menu">
+						<li><a href="/professor"><span>Início</span></a></li>
+						<li><a href="/avaliar"><span>Avaliar Turmas</span></a></li>
+						<li><a href="/configuracoes"><span>Configurações</span></a></li>
+					</ul>
+				</nav>
 			</div>
-			<footer>
-				<strong>3º Trimestre</strong>
-			</footer>
+			<div class="aba">
+				<div>
+					<h1>Bem-Vindo ao VallyTool</h1>
+					<p>Comece já a avaliar suas turmas</p>
+					<a href="/avaliar"><button class="avaliar-turma-botao">Avaliar Turmas</button></a>
+					<ul class="turmas-nao-avaliadas"></ul>
+				</div>
+				<footer>
+					<strong>3º Trimestre</strong>
+				</footer>
+			</div>
 		</div>
 	</div>
+	<!-- SOP -->
 	<header sec:authorize="hasRole('SOP')">
 		<div class="header-intodrucao">
 			<h1>Bem-Vindo</h1>
@@ -363,13 +210,14 @@
 	</div>
 </body>
 <script>
-    function abrirMenu() {
-        let abaMenu = document.getElementById("menu-extendido-div");
-        let abaMenuDisplay = abaMenu.style.display;
+	function abrirMenu() {
+		let abaMenu = document.getElementById("menu-extendido-div");
+		let abaMenuDisplay = abaMenu.style.display;
 
-        if (abaMenuDisplay ===  "") {
-            abaMenu.style.display = "grid";
-        } else {abaMenu.style.display = "";}
-    }
+		if (abaMenuDisplay === "") {
+			abaMenu.style.display = "grid";
+		} else {abaMenu.style.display = "";}
+	}
 </script>
+
 </html>
