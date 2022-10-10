@@ -100,113 +100,31 @@
 		</div>
 	</div>
 	<!-- SOP -->
-	<header sec:authorize="hasRole('SOP')">
-		<div class="header-intodrucao">
-			<h1>Bem-Vindo</h1>
-		</div>
-		<div class="header-buttons">
-			<button>Usuários</button>
-			<button>Turmas</button>
-			<button>Resultados</button>
-		</div>
-		<div class="header-rodape">
-			<button>Sair</button>
-			<img src="jk-logo" alt="">
-			<span>&copy;VallyTool</span>
-		</div>
-	</header>
-
-	<div class="tela" sec:authorize="hasRole('SOP')">
-		<div class="aba-usuario">
-			<form action="" method="post">
-				<input type="text" name="usuario" placeholder="Buscar Usuário">
-				<input type="submit" value="">
-			</form>
-			<button><img src="./images/plus-solid.svg" alt=""></button>
-			<div id="lista-usuarios"></div>
-
-			<div class="criar-usuario">
-				<button><img src="./images/xmark-solid.svg" alt=""></button>
-				<form action="" method="post">
-					<label>Nome</label>
-					<input type="text" name="nome">
-					<label>CPF</label>
-					<input type="text" name="cpf">
-					<label>Email</label>
-					<input type="text" name="senha">
-					<label>Cargo</label>
-					<select name="cargo">
-						<option value="PROFESSOR">Professor</option>
-						<option value="SOP">SOP</option>
-					</select>
-					<input type="submit" value="Criar Usuário">
-				</form>
-			</div>
-
-			<div class="editar-usuario">
-				<button><img src="./images/xmark-solid.svg" alt=""></button>
-				<button><img src="./images/database-solid.svg" alt=""></button>
-				<button><img src="./images/link-solid.svg" alt=""></button>
-
-				<div class="dados">
-					<form action="">
-						<label>Nome</label>
-						<input type="text" name="nome">
-						<label>Email</label>
-						<input type="text" name="senha">
-						<label>Cargo</label>
-						<select name="cargo">
-							<option value="PROFESSOR">Professor</option>
-							<option value="SOP">SOP</option>
-						</select>
-						<input type="submit" value="Salvar">
-					</form>
+	<div class="main" sec:authorize="hasRole('SOP')">
+		<div class="tela">
+			<div class="menu-extendido-div" id="menu-extendido-div">
+				<div class="usuario-div">
+					<div class="usuario-imagem-div">
+						<img class="usuario-imagem" src="images/user-solid.svg" alt="usuario">
+					</div>
+					<div class="nome"><span sec:authentication="name">Sunda</span><br><span class="cargo">SOP</span></div>
+					<hr>
 				</div>
-
-				<div class="vinculos">
-					<form action="" method="post">
-						<select name="turma" id="turmas"></select>
-						<select name="materia" id="materias"></select>
-						<button><img src="./images/plus-solid.svg" alt=""></button>
-					</form>
-					<div id="lista-vinculos"></div>
-				</div>
+				<nav>
+					<ul class="botoes-menu">
+						<li><a href=""><span>Usuários</span></a></li>
+						<li><a href=""><span>Turmas</span></a></li>
+						<li><a href=""><span>Resultados</span></a></li>
+						<li><a href=""><span>Configurações</span></a></li>
+					</ul>
+				</nav>
 			</div>
-		</div>
-
-		<div class="aba-turmas">
-			<form action="" method="post">
-				<input type="text" name="turma" placeholder="Buscar Turma">
-				<input type="submit" value="">
-			</form>
-			<form action="" method="post">
-				<input type="text">
-				<button><img src="./images/plus-solid.svg" alt=""></button>
-			</form>
-			<div class="disciplinas">
-				<button><img src="./images/xmark-solid.svg" alt=""></button>
+			<div class="aba">
 				<div>
-					<h2 class="turma"></h2>
 				</div>
-				<h2>Disciplinas</h2>
-				<form action="" method="post">
-					<input type="text">
-					<button><img src="./images/plus-solid.svg" alt=""></button>
-				</form>
-				<div class="lista-disciplinas"></div>
-			</div>
-		</div>
-
-		<div class="aba-resultados">
-			<button>Gerar PDF</button>
-			<div class="lista-turmas"></div>
-
-			<div class="historico">
-				<button><img src="./images/xmark-solid.svg" alt=""></button>
-				<div>
-					<h2 class="turma"></h2>
-				</div>
-				<div class="anos"></div>
+				<footer>
+					<strong>3º Trimestre</strong>
+				</footer>
 			</div>
 		</div>
 	</div>

@@ -169,7 +169,9 @@
         </div>
         <div class="botoes-div">
             <button class="tema-botao"></button>
-            <button class="sair-botao"></button>
+			<form th:action="@{/logout}" method="post">
+				<button type="submit" class="sair-botao"></button>
+			</form>
         </div>
     </header>
     <div class="main">
