@@ -25,7 +25,7 @@
             row-gap: 15%;
             padding: 0px 10%;
         }
-        .senha-div {
+        .senha-div, .cpf-div {
             position: relative;
         }
         .senha-legenda-div {
@@ -39,11 +39,8 @@
             text-decoration: none;
         }
         .senha-visibilidade {
-            background-color: transparent;
             position: absolute;
-            background-image: url(./images/eye.svg);
-            background-repeat: no-repeat;
-            background-size: contain;
+            background: transparent url(./images/eye.svg) no-repeat center;
             width: 36px;
             height: 30px;
             bottom: 5px;
@@ -65,7 +62,7 @@
     <div class="main">
         <form th:action="@{/login}" method="post" class="login">
             <div class="dados">
-                <div>
+                <div class="cpf-div">
                     <label for="input-cpf">CPF</label>
                     <input type="text" name="username" id="input-cpf" autocomplete="username" pattern=".{14}" maxlength="14" required>
                 </div>
@@ -76,6 +73,7 @@
                     </div>
                     <input type="password" name="password" id="input-senha" autocomplete="current-password" maxlength="10" required>
                     <button class="senha-visibilidade" id="senha-visibilidade" type="button" onclick="revelarSenha()"></button>
+                    <span class="incorreto">CPF ou Senha Incorreto</span>
                 </div>
             </div>
             <div class="botao-div">
