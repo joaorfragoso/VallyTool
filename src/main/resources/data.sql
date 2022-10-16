@@ -1,0 +1,20 @@
+CREATE DATABASE vallytooldb;
+use vallytooldb;
+
+INSERT INTO turmas VALUES (1, '110');
+INSERT INTO turmas VALUES (2, '120');
+INSERT INTO turmas VALUES (3, '130');
+INSERT INTO turmas VALUES (4, '140');
+INSERT INTO turmas VALUES (5, '150');
+INSERT INTO turmas VALUES (6, '210');
+INSERT INTO turmas VALUES (7, '220');
+INSERT INTO turmas VALUES (8, '230');
+INSERT INTO turmas VALUES (9, '240');
+INSERT INTO turmas VALUES (10, '250');
+INSERT INTO turmas VALUES (11, '310');
+INSERT INTO turmas VALUES (12, '320');
+INSERT INTO turmas VALUES (13, '330');
+INSERT INTO turmas VALUES (14, '340');
+INSERT INTO turmas VALUES (15, '350');
+
+

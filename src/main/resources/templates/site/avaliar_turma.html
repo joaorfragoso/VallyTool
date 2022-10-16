@@ -208,35 +208,10 @@
                         <option value="">História</option>
                     </select>
                 </div>
-                <div class="avaliacao-div">
+                <div th:each="competencia: ${competencias}" class="avaliacao-div">
                     <div class="competencia-div">
-                        <label>Aproveitamento</label>
+                        <label th:text="${competencia.nome}" >Aproveitamento</label>
                         <input type="range" max="4" name="aproveitamento" class="slider">
-                        <label class="nota">Regular</label>
-                    </div>
-                    <div class="competencia-div">
-                        <label>Atitude</label>
-                        <input type="range" max="4" name="atitude" class="slider">
-                        <label class="nota">Regular</label>
-                    </div>
-                    <div class="competencia-div">
-                        <label>Participação</label>
-                        <input type="range" max="4" name="participacao" class="slider">
-                        <label class="nota">Regular</label>
-                    </div>
-                    <div class="competencia-div">
-                        <label>Entrosamento</label>
-                        <input type="range" max="4" name="entrosamento" class="slider">
-                        <label class="nota">Regular</label>
-                    </div>
-                    <div class="competencia-div">
-                        <label>Frequência</label>
-                        <input type="range" max="4" name="frequencia" class="slider">
-                        <label class="nota">Regular</label>
-                    </div>
-                    <div class="competencia-div">
-                        <label>Relação</label>
-                        <input type="range" max="4" name="relacao" class="slider">
                         <label class="nota">Regular</label>
                     </div>
                 </div>

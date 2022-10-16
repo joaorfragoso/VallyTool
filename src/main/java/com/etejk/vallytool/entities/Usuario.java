@@ -3,6 +3,7 @@ package com.etejk.vallytool.entities;
 import java.io.Serializable;
 
 
+
 import java.util.Collection;
 import java.util.List;
 
@@ -39,6 +40,12 @@ public class Usuario implements UserDetails, Serializable {
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleModel> roles;
+	
+	@ManyToMany
+	@JoinTable(name = "TB_PROF_TURMAS",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "turma_id"))
+	private List<Turma> turmas;
 	
 	public Usuario() {}
 	public Usuario(Integer id, Character cargo, String cpf, String nome, String senha) {

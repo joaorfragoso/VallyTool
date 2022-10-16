@@ -12,12 +12,6 @@ public class ViewController {
 		return "redirect:/inicio";
 	}
 	
-
-	@GetMapping("avaliar")
-	public String avaliar() {
-		return "site/avaliar_turma";
-	}
-	
 	@GetMapping("redefinir")
 	public String redefinir() {
 		return "site/redefinir_senha";
