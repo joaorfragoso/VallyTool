@@ -196,16 +196,17 @@
                 <div class="turma-div select-customizado">
                     <select name="turma" class="turma-select" id="turmas" required toggle="aberto">
                         <option>Turmas</option>
-                        <option value="">350</option>
-                        <option value="">230</option>
-                        <option value="">120</option>
+                        <div th:each="turma: ${turmas}"> 
+                        	<option th:text="${turma.codigo}" value="">350</option>
+                        </div>
                     </select>
                 </div>
                 <div class="disciplina-div select-customizado">
                     <select name="disciplina" class="disciplina-select" id="disciplinas" required>
                         <option>Disciplinas</option>
-                        <option value="">Matemática</option>
-                        <option value="">História</option>
+                        <div th:each="disciplina: ${disciplinas}">
+                        	<option th:text="${disciplina.nome}" value="">Matemática</option>
+                        </div>
                     </select>
                 </div>
                 <div th:each="competencia: ${competencias}" class="avaliacao-div">

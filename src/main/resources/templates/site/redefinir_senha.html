@@ -16,6 +16,9 @@
             display: grid;
             grid-template-rows: 20% 80%;
         }
+        .cpf-div {
+			position: relative;
+		}
         .inserir-cpf {
             width: 300px;
             height: 360px;
@@ -66,8 +69,11 @@
             </div>
             <form action="redefinir_senha.html" method="post">
                 <div class="dados">
-                    <label for="input-cpf">CPF</label>
-                    <input type="text" name="cpf" id="input-cpf" pattern=".{14}" maxlength="14" required>
+					<div class="cpf-div">
+                    	<label for="input-cpf">CPF</label>
+                    	<input type="text" name="cpf" id="input-cpf" pattern=".{14}" maxlength="14" required>
+                    	<span class="incorreto">CPF Incorreto</span>
+					</div>
                 </div>
                 <div class="botao-div">
                     <input type="submit" value="Enviar Email">

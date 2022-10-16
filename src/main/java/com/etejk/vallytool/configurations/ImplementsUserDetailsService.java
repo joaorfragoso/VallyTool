@@ -25,11 +25,9 @@ public class ImplementsUserDetailsService implements UserDetailsService {
 		String cpfTrue = cpf.replace(".", "").replace("-", "");
 		Usuario usuario = userRepository.findByCpf(cpfTrue);
 		if(usuario == null) {
-			System.out.println(cpfTrue);
-			System.out.println("puta que pariu");
 			throw new UsernameNotFoundException("Usuario não encontrado");
 		}
-		return new User(usuario.getCpf(), usuario.getSenha(), true, true, true, true, usuario.getAuthorities());
+		return new User(usuario.getNome(), usuario.getSenha(), true, true, true, true, usuario.getAuthorities());
 	}
 
 }

@@ -17,4 +17,17 @@ INSERT INTO turmas VALUES (13, '330');
 INSERT INTO turmas VALUES (14, '340');
 INSERT INTO turmas VALUES (15, '350');
 
+INSERT INTO tb_prof_turmas VALUES (3, 1);
+INSERT INTO tb_prof_turmas VALUES (3, 6);
+INSERT INTO tb_prof_turmas VALUES (3, 11);
 
+INSERT INTO disciplinas VALUES (1, "Matemática");
+INSERT INTO disciplinas VALUES (2, "Língua Portuguesa");
+INSERT INTO disciplinas VALUES (3, "Inglês");
+INSERT INTO disciplinas VALUES (4, "Química");
+INSERT INTO disciplinas VALUES (5, "Física");
+INSERT INTO disciplinas VALUES (6, "Geografia");
+INSERT INTO disciplinas VALUES (7, "História");
+
+INSERT INTO tb_prof_disciplinas VALUES (3, 1);
+INSERT INTO tb_prof_disciplinas VALUES (3, 5);

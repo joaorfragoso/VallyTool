@@ -47,6 +47,12 @@ public class Usuario implements UserDetails, Serializable {
 			inverseJoinColumns = @JoinColumn(name = "turma_id"))
 	private List<Turma> turmas;
 	
+	@ManyToMany
+	@JoinTable(name = "TB_PROF_DISCIPLINAS",
+			joinColumns = @JoinColumn(name = "user_id"),
+			inverseJoinColumns = @JoinColumn(name = "disciplina_id"))
+	private List<Disciplina> disciplinas;
+	
 	public Usuario() {}
 	public Usuario(Integer id, Character cargo, String cpf, String nome, String senha) {
 		super();
@@ -85,6 +91,24 @@ public class Usuario implements UserDetails, Serializable {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	public List<RoleModel> getRoles() {
+		return roles;
+	}
+	public void setRoles(List<RoleModel> roles) {
+		this.roles = roles;
+	}
+	public List<Turma> getTurmas() {
+		return turmas;
+	}
+	public void setTurmas(List<Turma> turmas) {
+		this.turmas = turmas;
+	}
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
