@@ -28,12 +28,10 @@ public class Usuario implements UserDetails, Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer Id;
 	@Column(nullable = false, unique = true)
-	private Character cargo;
-	@Column(nullable = false)
 	private String cpf;
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String nome;
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String senha;
 	@ManyToMany
 	@JoinTable(name = "TB_USUARIOS_ROLES",
@@ -54,10 +52,9 @@ public class Usuario implements UserDetails, Serializable {
 	private List<Disciplina> disciplinas;
 	
 	public Usuario() {}
-	public Usuario(Integer id, Character cargo, String cpf, String nome, String senha) {
+	public Usuario(Integer id, String cpf, String nome, String senha) {
 		super();
 		Id = id;
-		this.cargo = cargo;
 		this.cpf = cpf;
 		this.nome = nome;
 		this.senha = senha;
@@ -67,12 +64,6 @@ public class Usuario implements UserDetails, Serializable {
 	}
 	public void setId(Integer id) {
 		Id = id;
-	}
-	public Character getCargo() {
-		return cargo;
-	}
-	public void setCargo(Character cargo) {
-		this.cargo = cargo;
 	}
 	public String getCpf() {
 		return cpf;
