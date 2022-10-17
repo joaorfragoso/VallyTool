@@ -209,8 +209,8 @@
                         </div>
                     </select>
                 </div>
-                <div th:each="competencia: ${competencias}" class="avaliacao-div">
-                    <div class="competencia-div">
+                <div class="avaliacao-div">
+                    <div th:each="competencia: ${competencias}" class="competencia-div">
                         <label th:text="${competencia.nome}" >Aproveitamento</label>
                         <input type="range" max="4" name="aproveitamento" class="slider">
                         <label class="nota">Regular</label>
