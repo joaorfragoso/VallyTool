@@ -11,42 +11,10 @@
 		.botoes-menu li:nth-child(1) {
 			width: 150px;
 		}
-
-		.aba {
-			height: 100%;
-            display: grid;
-            grid-template-rows: auto max-content;
-            padding: 15px;
-            text-align: center;
-            box-sizing: border-box;
-		}
-
-		.aba h1 {
-			font-size: 24px;
-			margin-bottom: 10px;
-		}
-
-		.avaliar-turma-botao {
-			background-color: rgb(12, 144, 240);
-			width: 140px;
-			height: 40px;
-			border: 1px solid rgb(209, 209, 209);
-			border-radius: 4px;
-			color: white;
-			font-size: 15px;
-			margin-top: 40px;
-			cursor: pointer;
-		}
-
-		.avaliar-turma-botao:hover {
-			background-color: rgb(11, 134, 221);
-		}
-
-		.aba footer {
-			text-align: center;
-		}
 	</style>
-	<link rel="stylesheet" href="styles/professor.css">
+	<link rel="stylesheet" href="styles/prof_sop.css">
+	<link rel="stylesheet" href="styles/professor.css" sec:authorize="hasRole('PROFESSOR')">
+	<link rel="stylesheet" href="styles/sop.css" sec:authorize="hasRole('SOP')">
 </head>
 
 <!-- PROFESSOR -->
@@ -114,17 +82,26 @@
 					<ul class="botoes-menu">
 						<li><a href=""><span>Usuários</span></a></li>
 						<li><a href=""><span>Turmas</span></a></li>
-						<li><a href=""><span>Resultados</span></a></li>
 						<li><a href=""><span>Configurações</span></a></li>
 					</ul>
 				</nav>
 			</div>
 			<div class="aba">
-				<div>
+				<form class="pesquisar-form">
+					<input type="text" placeholder="Buscar Usuário">
+					<button class="pesquisar-botao"></button>
+				</form>
+				<div class="lista-div">
+					<div class="item-div">
+						Novo Usuário
+					</div>
+					<div class="item-div">
+						<span class="nome">João Fragoso</span>
+						<span class="cargo">Prof</span>
+						<button class="editar" onclick="abrirTela('')"></button>
+					</div>
 				</div>
-				<footer>
-					<strong>3º Trimestre</strong>
-				</footer>
+				<button class="botao-cadastrar" onclick="abrirTela('')">Cadastrar Usuário</button>
 			</div>
 		</div>
 	</div>

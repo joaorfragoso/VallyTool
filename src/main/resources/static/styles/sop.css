@@ -1,0 +1,5 @@
+.aba {
+	padding: 20px 0px;
+	display: grid;
+	grid-template-rows: 15% 70% 15%;
+}
