@@ -20,40 +20,10 @@
 <!-- PROFESSOR -->
 
 <body>
-	<header sec:authorize="isAuthenticated()">
-		<div class="menu-div">
-			<button class="menu-botao" onclick="abrirMenu()"></button>
-		</div>
-		<div class="logo-div">
-			<img src="images/vallytool-logo.png" alt="vallytool-logo" class="vallytool-logo">
-			<h1 class="titulo-logo">VallyTool</h1>
-		</div>
-		<div class="botoes-div">
-			<button class="tema-botao"></button>
-			<form th:action="@{/logout}" method="post">
-				<button type="submit" class="sair-botao"></button>
-			</form>
-		</div>
-	</header>
+	<header sec:authorize="isAuthenticated()" th:replace="common/base::cabecalho_logado"></header>
 	<div sec:authorize="hasRole('PROFESSOR')" class="main">
 		<div class="tela">
-			<div class="menu-extendido-div" id="menu-extendido-div">
-				<div class="usuario-div">
-					<div class="usuario-imagem-div">
-						<img class="usuario-imagem" src="images/user-solid.svg" alt="usuario">
-					</div>
-					<div class="nome"><span sec:authentication="name">Sunda</span><br><span
-							class="cargo">Professor</span></div>
-					<hr>
-				</div>
-				<nav>
-					<ul class="botoes-menu">
-						<li><a href="/professor"><span>Início</span></a></li>
-						<li><a href="/avaliar"><span>Avaliar Turmas</span></a></li>
-						<li><a href="/configuracoes"><span>Configurações</span></a></li>
-					</ul>
-				</nav>
-			</div>
+			<div th:replace="common/base::menu_prof"></div>
 			<div class="aba">
 				<div>
 					<h1>Bem-Vindo ao VallyTool</h1>
@@ -70,22 +40,7 @@
 	<!-- SOP -->
 	<div class="main" sec:authorize="hasRole('SOP')">
 		<div class="tela">
-			<div class="menu-extendido-div" id="menu-extendido-div">
-				<div class="usuario-div">
-					<div class="usuario-imagem-div">
-						<img class="usuario-imagem" src="images/user-solid.svg" alt="usuario">
-					</div>
-					<div class="nome"><span sec:authentication="name">Sunda</span><br><span class="cargo">SOP</span></div>
-					<hr>
-				</div>
-				<nav>
-					<ul class="botoes-menu">
-						<li><a href=""><span>Usuários</span></a></li>
-						<li><a href=""><span>Turmas</span></a></li>
-						<li><a href=""><span>Configurações</span></a></li>
-					</ul>
-				</nav>
-			</div>
+			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 				<form class="pesquisar-form">
 					<input type="text" placeholder="Buscar Usuário">

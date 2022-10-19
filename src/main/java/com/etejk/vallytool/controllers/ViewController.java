@@ -19,7 +19,7 @@ public class ViewController {
 	
 	@GetMapping("configuracoes")
 	public String configuracoes() {
-		return "site/configuracoes_professor";
+		return "site/configuracoes";
 	}
 	
 	

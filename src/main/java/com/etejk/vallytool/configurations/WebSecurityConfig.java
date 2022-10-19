@@ -20,6 +20,7 @@ public class WebSecurityConfig{
                 .antMatchers(HttpMethod.GET, "/styles/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/modules/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/redefinir").permitAll()
+                .antMatchers(HttpMethod.GET, "/common/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .logout()
