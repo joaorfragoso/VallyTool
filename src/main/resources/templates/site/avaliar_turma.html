@@ -222,16 +222,8 @@
         </div>
     </div>
 </body>
+<script src="modules/menu.js"></script>
 <script>
-    function abrirMenu() {
-        let abaMenu = document.getElementById("menu-extendido-div");
-        let abaMenuDisplay = abaMenu.style.display;
-
-        if (abaMenuDisplay ===  "") {
-            abaMenu.style.display = "grid";
-        } else {abaMenu.style.display = "";}
-    }
-
     let sliders = document.getElementsByClassName("slider");
     for (i = 0; i < sliders.length; i++) {
         sliders[i].addEventListener("input", function() {
