@@ -1,11 +1,18 @@
 package com.etejk.vallytool.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.etejk.vallytool.repositories.UsuarioRepository;
 
 
 @Controller
 public class ViewController {
+	
+	@Autowired
+	UsuarioRepository ur;
 	
 	@GetMapping("")
 	public String redirect() {
@@ -28,7 +35,8 @@ public class ViewController {
 	}
 	
 	@GetMapping("inicio")
-	public String inicio() {
+	public String inicio(Model model) {
+		model.addAttribute("usuarios", ur.findAll());
 		return "site/inicio";
 	}
 	

@@ -47,6 +47,7 @@
 					<button class="pesquisar-botao"></button>
 				</form>
 				<div class="lista-div">
+<<<<<<< HEAD
 					<div class="item-div">
 						<span class="nome">João Fragoso</span>
 						<span class="cargo">Prof</span>
@@ -75,6 +76,11 @@
 						<div class="item-div">
 						<span class="nome">Thiago Barboza</span>
 						<span class="cargo">Prof</span>
+=======
+					<div th:each="usuario: ${usuarios}" class="item-div">
+						<span th:text="${usuario.getNome()}" class="nome">João Fragoso</span>
+						<span th:text="${usuario.getAuthority()}" class="cargo">Prof</span>
+>>>>>>> f79e5d33298a0e6d1ff0bac657298c5451a79940
 						<button class="editar-botao" onclick="abrirTela('')"></button>
 					</div>
 				</div>
@@ -82,6 +88,8 @@
 			</div>
 		</div>
 	</div>
+	</div>
 </body>
 <script src="modules/menu.js"></script>
+
 </html>
