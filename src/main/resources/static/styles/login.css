@@ -46,6 +46,10 @@ strong {
 	font-style: italic;
 	color: #ed2d2d;
 }
+.aviso {
+	font-style: normal;
+	margin-right: 5px;
+}
 
 /* Input */
 input[type=text], input[type=password] {

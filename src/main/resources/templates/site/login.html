@@ -73,7 +73,7 @@
                     </div>
                     <input type="password" name="password" id="input-senha" autocomplete="current-password" maxlength="10" required>
                     <button class="senha-visibilidade" id="senha-visibilidade" type="button" onclick="revelarSenha()"></button>
-                    <span th:if="${param.error}" class="incorreto">CPF ou Senha Incorreto</span>
+                    <span th:if="${param.error}" class="incorreto"><span class="aviso">&#9888;</span>CPF ou Senha Incorreto</span>
                 </div>
             </div>
             <div class="botao-div">

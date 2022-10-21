@@ -22,6 +22,10 @@ public class ViewController {
 		return "site/configuracoes";
 	}
 	
+	@GetMapping("turmas")
+	public String turmas() {
+		return "site/turmas";
+	}
 	
 	@GetMapping("inicio")
 	public String inicio() {

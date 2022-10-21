@@ -7,38 +7,26 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="styles/reset.css">
 	<title>VallyTool</title>
+	<link rel="stylesheet" href="styles/prof_sop.css">
+	<link rel="stylesheet" href="styles/sop.css">
 	<style>
-		.botoes-menu li:nth-child(1) {
+		.botoes-menu li:nth-child(2) {
 			width: 150px;
 		}
+		
+		.item-div {
+			position: relative;
+			grid-template-columns: auto max-content max-content;
+			column-gap: 10px;
+		}
+		.item-div .historico-botao {
+			background: transparent url(../images/folder-solid.svg) no-repeat center;
+		}
 	</style>
-	<link rel="stylesheet" href="styles/prof_sop.css">
-	<link rel="stylesheet" href="styles/professor.css" sec:authorize="hasRole('PROFESSOR')">
-	<link rel="stylesheet" href="styles/sop.css" sec:authorize="hasRole('SOP')">
 </head>
-
-<!-- PROFESSOR -->
-
 <body>
-	<header sec:authorize="isAuthenticated()" th:replace="common/base::cabecalho_logado"></header>
-	<div sec:authorize="hasRole('PROFESSOR')" class="main">
-		<div class="tela">
-			<div th:replace="common/base::menu_prof"></div>
-			<div class="aba">
-				<div>
-					<h1>Bem-Vindo ao VallyTool</h1>
-					<p>Comece já a avaliar suas turmas</p>
-					<a href="/avaliar"><button class="avaliar-turma-botao">Avaliar Turmas</button></a>
-					<ul class="turmas-nao-avaliadas"></ul>
-				</div>
-				<footer>
-					<strong>3º Trimestre</strong>
-				</footer>
-			</div>
-		</div>
-	</div>
-	<!-- SOP -->
-	<div class="main" sec:authorize="hasRole('SOP')">
+	<header th:replace="common/base::cabecalho_logado"></header>
+	<div class="main">
 		<div class="tela">
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
@@ -47,34 +35,37 @@
 					<button class="pesquisar-botao"></button>
 				</form>
 				<div class="lista-div">
+					<div class="item-div novo-usuario">
+						Nova Turma
+					</div>
 					<div class="item-div">
-						<span class="nome">João Fragoso</span>
-						<span class="cargo">Prof</span>
+						<span class="turma">370</span>
+						<button class="historico-botao" onclick="abrirTela('')"></button>
 						<button class="editar-botao" onclick="abrirTela('')"></button>
 					</div>
 						<div class="item-div">
-						<span class="nome">Marcos Guimarães</span>
-						<span class="cargo">SOP</span>
+						<span class="turma">360</span>
+						<button class="historico-botao" onclick="abrirTela('')"></button>
 						<button class="editar-botao" onclick="abrirTela('')"></button>
 					</div>
 						<div class="item-div">
-						<span class="nome">Felipe Coelho</span>
-						<span class="cargo">Prof</span>
+						<span class="turma">350</span>
+						<button class="historico-botao" onclick="abrirTela('')"></button>
 						<button class="editar-botao" onclick="abrirTela('')"></button>
 					</div>
 						<div class="item-div">
-						<span class="nome">Renatha Holl</span>
-						<span class="cargo">Prof</span>
+						<span class="turma">330</span>
+						<button class="historico-botao" onclick="abrirTela('')"></button>
 						<button class="editar-botao" onclick="abrirTela('')"></button>
 					</div>
 						<div class="item-div">
-						<span class="nome">Thiago Guilherme</span>
-						<span class="cargo">SOP</span>
+						<span class="turma">320</span>
+						<button class="historico-botao" onclick="abrirTela('')"></button>
 						<button class="editar-botao" onclick="abrirTela('')"></button>
 					</div>
 						<div class="item-div">
-						<span class="nome">Thiago Barboza</span>
-						<span class="cargo">Prof</span>
+						<span class="turma">310</span>
+						<button class="historico-botao" onclick="abrirTela('')"></button>
 						<button class="editar-botao" onclick="abrirTela('')"></button>
 					</div>
 				</div>

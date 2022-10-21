@@ -32,19 +32,19 @@ header {
     box-sizing: border-box;
     overflow-y: auto;
 }
-.aba::-webkit-scrollbar {
+*::-webkit-scrollbar {
     width: 6px;
 }
-.aba::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
     background-color: transparent;
     border-radius: 10px;
     height: 98%;
 }
-.aba::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
     background-color: rgb(12, 144, 240);
     border-radius: 10px;
 }
-.aba::-webkit-scrollbar-thumb:hover {
+*::-webkit-scrollbar-thumb:hover {
     background-color: rgb(11, 134, 221);
 }
 .menu-div, .logo-div, .botoes-div {
