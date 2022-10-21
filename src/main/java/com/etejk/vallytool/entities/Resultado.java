@@ -2,6 +2,12 @@ package com.etejk.vallytool.entities;
 
 import java.time.Year;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,45 +16,39 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "resultado")
 public class Resultado {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Integer Id;
-	@ManyToOne
-	@JoinColumn(name = "idturma")
-	public Turma turma;
-	@ManyToOne
-	@JoinColumn(name = "iddisciplina")
-	public Disciplina disciplina;
-	@ManyToOne
-	@JoinColumn(name = "idusuario")
-	public Usuario usuario;
-	@ManyToOne
-	@JoinColumn(name = "idcompetencia")
-	public Competencia competencia;
+	private Integer Id;
+	@OneToOne
+	private Turma turma;
+	@OneToOne
+	private Disciplina disciplina;
+	@OneToOne
+	private Usuario usuario;
+	@ElementCollection
+	private List<String> conceitos;
 	@Enumerated(EnumType.STRING)
-	public Nota nota;
-	@Enumerated(EnumType.STRING)
-	public Trimestre trimestre;
-	public Year ano;
+	private Trimestre trimestre;
+	private Year ano;
 	
 	public Resultado() {
 		
 	}
 
-	public Resultado(Integer id, Turma turma, Disciplina disciplina, Usuario usuario, Competencia competencia,
-			Nota nota, Trimestre trimestre, Year ano) {
+	public Resultado(Turma turma, Disciplina disciplina, Usuario usuario, Trimestre trimestre, Year ano) {
 		super();
-		Id = id;
 		this.turma = turma;
 		this.disciplina = disciplina;
 		this.usuario = usuario;
-		this.competencia = competencia;
-		this.nota = nota;
 		this.trimestre = trimestre;
 		this.ano = ano;
 	}
@@ -83,22 +83,6 @@ public class Resultado {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public Competencia getCompetencia() {
-		return competencia;
-	}
-
-	public void setCompetencia(Competencia competencia) {
-		this.competencia = competencia;
-	}
-
-	public Nota getNota() {
-		return nota;
-	}
-
-	public void setNota(Nota nota) {
-		this.nota = nota;
 	}
 
 	public Trimestre getTrimestre() {
