@@ -1,10 +1,8 @@
 .aba {
-	height: 100%;
     display: grid;
     grid-template-rows: auto max-content;
     padding: 15px 0;
     text-align: center;
-    box-sizing: border-box;
 }
 
 .aba h1 {

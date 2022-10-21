@@ -28,6 +28,8 @@ header {
     box-sizing: border-box;
 }
 .aba {
+	height: 100%;
+    box-sizing: border-box;
     overflow-y: auto;
 }
 .aba::-webkit-scrollbar {
@@ -203,7 +205,7 @@ header {
         width: 95%;
         height: 90%;
         display: grid;
-        grid-template-columns: 20% auto;
+        grid-template-columns: minmax(200px, 20%) auto;
     }
     .menu-extendido-div {
         width: 100%;
