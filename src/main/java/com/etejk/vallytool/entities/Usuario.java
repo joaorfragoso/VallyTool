@@ -106,6 +106,15 @@ public class Usuario implements UserDetails, Serializable {
 		// TODO Auto-generated method stub
 		return this.roles;
 	}
+	
+	public String getAuthority() {
+		String role = roles.get(0).getRoleName().name();
+		if(role.equals("ROLE_PROFESSOR")) {
+			return "Professor";
+		}
+		return "SOP";
+	}
+
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub

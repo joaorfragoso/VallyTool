@@ -47,37 +47,9 @@
 					<button class="pesquisar-botao"></button>
 				</form>
 				<div class="lista-div">
-					<div class="item-div">
-						Novo Usuário
-					</div>
-					<div class="item-div">
-						<span class="nome">João Fragoso</span>
-						<span class="cargo">Prof</span>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
-					</div>
-						<div class="item-div">
-						<span class="nome">Marcos Guimarães</span>
-						<span class="cargo">SOP</span>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
-					</div>
-						<div class="item-div">
-						<span class="nome">Felipe Coelho</span>
-						<span class="cargo">Prof</span>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
-					</div>
-						<div class="item-div">
-						<span class="nome">Renatha Holl</span>
-						<span class="cargo">Prof</span>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
-					</div>
-						<div class="item-div">
-						<span class="nome">Thiago Guilherme</span>
-						<span class="cargo">SOP</span>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
-					</div>
-						<div class="item-div">
-						<span class="nome">Thiago Barboza</span>
-						<span class="cargo">Prof</span>
+					<div th:each="usuario: ${usuarios}" class="item-div">
+						<span th:text="${usuario.getNome()}" class="nome">João Fragoso</span>
+						<span th:text="${usuario.getAuthority()}" class="cargo">Prof</span>
 						<button class="editar-botao" onclick="abrirTela('')"></button>
 					</div>
 				</div>
@@ -85,6 +57,8 @@
 			</div>
 		</div>
 	</div>
+	</div>
 </body>
 <script src="modules/menu.js"></script>
+
 </html>
