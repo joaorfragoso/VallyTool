@@ -9,4 +9,5 @@ import com.etejk.vallytool.entities.Usuario;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 	Usuario findByCpf(String cpf);
+	
 }

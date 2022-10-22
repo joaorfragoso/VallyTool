@@ -26,6 +26,7 @@ public class AvaliarController {
 		model.addAttribute("competencias", cr.findAll());
 		model.addAttribute("turmas", pr.findById(pr.findByNome(auth.getName()).getId()).get().getTurmas());
 		model.addAttribute("disciplinas", pr.findById(pr.findByNome(auth.getName()).getId()).get().getDisciplinas());
+		model.addAttribute("usuario", auth);
 		return "site/avaliar_turma";
 	}
 }

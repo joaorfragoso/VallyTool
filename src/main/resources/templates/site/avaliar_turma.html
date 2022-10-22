@@ -169,7 +169,7 @@
                     <select name="turma" class="turma-select" id="turmas" required toggle="aberto">
                         <option>Turmas</option>
                         <div th:each="turma: ${turmas}"> 
-                        	<option th:text="${turma.codigo}" value="">350</option>
+                        	<option th:text="${turma.codigo}" th:value="${turma.codigo}">350</option>
                         </div>
                     </select>
                 </div>
@@ -177,20 +177,20 @@
                     <select name="disciplina" class="disciplina-select" id="disciplinas" required>
                         <option>Disciplinas</option>
                         <div th:each="disciplina: ${disciplinas}">
-                        	<option th:text="${disciplina.nome}" value="">Matemática</option>
+                        	<option th:text="${disciplina.nome}" th:value="${disciplina.nome}">Matemática</option>
                         </div>
                     </select>
                 </div>
                 <div class="avaliacao-div">
                     <div th:each="competencia: ${competencias}" class="competencia-div">
                         <label th:text="${competencia.nome}" >Aproveitamento</label>
-                        <input type="range" max="4" name="aproveitamento" class="slider">
+                        <input type="range" max="4" th:name="${competencia.nome}" class="slider">
                         <label class="nota">Regular</label>
                     </div>
                 </div>
                 <div style="display: none;">
                 	<input name= "trimestre" value=3>
-                	<input name= "usuario" value="Felipe Adminastror">
+                	<input name= "usuario" th:value="${usuario.getName()}">
                 </div>
                 <input type="submit" class="botao-submit" value="Enviar">
             </form>

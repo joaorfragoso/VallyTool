@@ -1,6 +1,5 @@
 
 package com.etejk.vallytool.entities;
-
 public enum Conceito {
 	PESSIMO("Péssimo"),
 	INSUFICIENTE("Insuficiente"),
