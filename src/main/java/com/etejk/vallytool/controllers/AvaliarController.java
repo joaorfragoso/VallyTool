@@ -22,7 +22,7 @@ public class AvaliarController {
 	ProfessoRepository pr;
 	
 	@GetMapping("avaliar")
-	public String avaliar(Model model) {
+	public String avaliar(Model model, Authentication auth) {
 		model.addAttribute("competencias", cr.findAll());
 		model.addAttribute("turmas", pr.findById(pr.findByNome(auth.getName()).getId()).get().getTurmas());
 		model.addAttribute("disciplinas", pr.findById(pr.findByNome(auth.getName()).getId()).get().getDisciplinas());

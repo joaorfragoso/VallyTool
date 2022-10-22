@@ -13,7 +13,7 @@
 		.botoes-menu li:nth-child(2) {
 			width: 150px;
 		}
-		
+
 		.item-div {
 			position: relative;
 			grid-template-columns: auto max-content max-content;
@@ -38,33 +38,8 @@
 					<div class="item-div novo-usuario">
 						Nova Turma
 					</div>
-					<div class="item-div">
-						<span class="turma">370</span>
-						<button class="historico-botao" onclick="abrirTela('')"></button>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
-					</div>
-						<div class="item-div">
-						<span class="turma">360</span>
-						<button class="historico-botao" onclick="abrirTela('')"></button>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
-					</div>
-						<div class="item-div">
-						<span class="turma">350</span>
-						<button class="historico-botao" onclick="abrirTela('')"></button>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
-					</div>
-						<div class="item-div">
-						<span class="turma">330</span>
-						<button class="historico-botao" onclick="abrirTela('')"></button>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
-					</div>
-						<div class="item-div">
-						<span class="turma">320</span>
-						<button class="historico-botao" onclick="abrirTela('')"></button>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
-					</div>
-						<div class="item-div">
-						<span class="turma">310</span>
+					<div th:each="turma: ${turmas}" class="item-div">
+						<span th:text="${turma.codigo}" class="turma"></span>
 						<button class="historico-botao" onclick="abrirTela('')"></button>
 						<button class="editar-botao" onclick="abrirTela('')"></button>
 					</div>
