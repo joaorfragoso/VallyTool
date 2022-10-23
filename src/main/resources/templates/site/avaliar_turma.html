@@ -167,7 +167,7 @@
             <form class="aba avaliacao-form" th:action="@{/avaliar}" method="post" th:object="resultado">
                 <div class="turma-div select-customizado">
                     <select name="turma" class="turma-select" id="turmas" required toggle="aberto">
-                        <option>Turmas</option>
+                        <option value="">Turmas</option>
                         <div th:each="turma: ${turmas}"> 
                         	<option th:text="${turma.codigo}" th:value="${turma.codigo}">350</option>
                         </div>
@@ -175,7 +175,7 @@
                 </div>
                 <div class="disciplina-div select-customizado">
                     <select name="disciplina" class="disciplina-select" id="disciplinas" required>
-                        <option>Disciplinas</option>
+                        <option value="">Disciplinas</option>
                         <div th:each="disciplina: ${disciplinas}">
                         	<option th:text="${disciplina.nome}" th:value="${disciplina.nome}">Matemática</option>
                         </div>
