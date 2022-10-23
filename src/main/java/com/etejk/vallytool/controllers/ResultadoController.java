@@ -57,10 +57,11 @@ public class ResultadoController {
 		{
 			System.out.println("Funcionouy porra!!!!@!!");
 			rr.save(resultadoOriginal);
+		} else {			
+			return "redirect:/avaliar_error";
 		}
 		
-		return "redirect:/avaliar_error";
-		
+		return "redirect:/avaliar";
 	}
 	
 	public boolean verificar(Year ano,

@@ -46,6 +46,7 @@
 	padding-right: 5px;
 	overflow-y: auto;
 	border-radius: 4px;
+	font-weight: 500;
 }
 .item-div:nth-child(1) {	
 	margin: 0;
@@ -67,7 +68,7 @@
 	grid-template-columns: 65% auto max-content;
 	align-content: center;
 	align-items: center;
-	
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 .item-div .nome {
 	height: 1.2em;
