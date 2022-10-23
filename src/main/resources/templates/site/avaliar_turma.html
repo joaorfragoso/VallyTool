@@ -199,29 +199,33 @@
 </body>
 <script src="modules/menu.js"></script>
 <script>
+	//Customização Sliders
+
     let sliders = document.getElementsByClassName("slider");
     for (i = 0; i < sliders.length; i++) {
-        sliders[i].addEventListener("input", function() {
-            let tamanho = this.getBoundingClientRect().width;
-            let valorMax = this.max;
-            let valorAtual = this.value;
-            //Preenchido é em Porcentagem
-            let preenchido = valorAtual*100/valorMax;
-            let tamanhoPreenchido = tamanho*(preenchido/100);
-            let boxShadow = `inset ${tamanhoPreenchido}px 0 `;
-            //Definir a Cor
-            if (valorAtual < valorMax/2) {
-                boxShadow += "#C61010";
-            } else if (valorAtual > valorMax/2) {
-                boxShadow += "#23CC1F";
-            } else {
-                boxShadow += "#8D8D8D";
-            }
-            this.style.boxShadow = boxShadow;
-        })
-
-        sliders[i].addEventListener("input", function(){
-            let label = this.nextSibling.nextSibling;
+        sliders[i].addEventListener("input", corSlider);
+        sliders[i].addEventListener("input", textoSlider);
+    }
+    function corSlider() {
+        let tamanho = this.getBoundingClientRect().width;
+        let valorMax = this.max;
+        let valorAtual = this.value;
+        //Preenchido é em Porcentagem
+        let preenchido = valorAtual*100/valorMax;
+        let tamanhoPreenchido = tamanho*(preenchido/100);
+        let boxShadow = `inset ${tamanhoPreenchido}px 0 `;
+        //Definir a Cor
+        if (valorAtual < valorMax/2) {
+            boxShadow += "#C61010";
+        } else if (valorAtual > valorMax/2) {
+            boxShadow += "#23CC1F";
+        } else {
+            boxShadow += "#8D8D8D";
+        }
+        this.style.boxShadow = boxShadow;
+    }
+    function textoSlider() {
+		let label = this.nextSibling.nextSibling;
             switch (this.value) {
                 case '0':
                     label.innerHTML = "Péssimo";
@@ -243,11 +247,11 @@
                     label.innerHTML = "Muito Bom";
                     label.style.color = "#23CC1F";
                     break;
-            }
-        })
-    }
-</script>
-<script>
+        }
+	}
+
+    //Customização Select
+    
     let divSelect = document.getElementsByClassName("select-customizado");
     
     for (i = 0; i < divSelect.length; i++) {
@@ -271,7 +275,9 @@
         for (j = 1; j < opcoesSelect.length; j++) {
             let opcoes = document.createElement("div");
             opcoes.innerHTML = opcoesSelect[j].innerHTML;
-
+			
+			opcoes.addEventListener("click", limparSliders);
+			
             opcoes.addEventListener("click", function() {
                 let select = this.parentNode.parentElement.getElementsByTagName("select")[0];
                 opcaoSelecionadaDiv.innerHTML = this.innerHTML;
@@ -283,6 +289,7 @@
                 for (i = 0; i < opcoesSelect.length; i++) {
                     if (this.innerHTML == opcoesSelect[i].innerHTML) {
                         select.selectedIndex = i;
+                        break;
                     }
                 }
                 this.parentNode.classList.toggle("oculto");
@@ -290,5 +297,13 @@
             opcaoDiv.appendChild(opcoes);
         }
     }
+    
+    function limparSliders() {
+		for(i = 0; i < sliders.length; i++) {
+			sliders[i].value = 2;
+			corSlider.apply(sliders[i])
+			textoSlider.apply(sliders[i]);
+		}
+	}
 </script>
 </html>

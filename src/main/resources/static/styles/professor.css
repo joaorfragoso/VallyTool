@@ -1,6 +1,6 @@
 .aba {
     display: grid;
-    grid-template-rows: auto max-content;
+    grid-template-rows: max-content max-content auto;
     padding: 15px 0;
     text-align: center;
 }
