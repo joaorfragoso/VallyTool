@@ -17,7 +17,6 @@ public class ResultadoDAO {
 	private String turma;
 	private String disciplina;
 	private String usuario;
-	private Map<String, String> competenciaNota = new HashMap<>(); 
 	private String trimestre;
 	private String ano;
 	

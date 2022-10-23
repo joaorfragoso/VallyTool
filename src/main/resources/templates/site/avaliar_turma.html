@@ -164,7 +164,7 @@
     <div class="main">
         <div class="tela">
 			<div th:replace="common/base::menu_prof"></div>
-            <form class="aba avaliacao-form">
+            <form class="aba avaliacao-form" th:action="@{/avaliar}" method="post" th:object="resultado">
                 <div class="turma-div select-customizado">
                     <select name="turma" class="turma-select" id="turmas" required toggle="aberto">
                         <option>Turmas</option>
