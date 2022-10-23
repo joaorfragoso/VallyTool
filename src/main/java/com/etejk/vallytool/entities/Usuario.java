@@ -71,6 +71,7 @@ public class Usuario implements UserDetails, Serializable {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
+	
 	public String getNome() {
 		return nome;
 	}

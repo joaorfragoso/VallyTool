@@ -18,6 +18,19 @@ public class Competencia {
 	public Competencia(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getRawName() {
+		if(nome.equals("Participação")) {
+			return "participacao";
+		}else if(nome.equals("Relação Aluno/Professor")) {
+			return "relacao";
+		}else if(nome.equals("Frequência")) {
+			return "frequencia";
+		}
+		
+		return nome;
+	}
+	
 	public String getNome() {
 		return nome;
 	}

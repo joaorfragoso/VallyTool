@@ -1,5 +1,6 @@
 package com.etejk.vallytool.entities;
 
+import java.io.Serializable;
 import java.time.Year;
 
 import java.util.HashMap;
@@ -24,7 +25,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name = "resultado")
-public class Resultado {
+public class Resultado implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
@@ -44,10 +49,11 @@ public class Resultado {
 		
 	}
 
-	public Resultado(Turma turma, Disciplina disciplina, Usuario usuario, Trimestre trimestre, Year ano) {
+	public Resultado(Turma turma, Disciplina disciplina, List<String> conceitos, Usuario usuario, Trimestre trimestre, Year ano) {
 		super();
 		this.turma = turma;
 		this.disciplina = disciplina;
+		this.conceitos = conceitos;
 		this.usuario = usuario;
 		this.trimestre = trimestre;
 		this.ano = ano;
