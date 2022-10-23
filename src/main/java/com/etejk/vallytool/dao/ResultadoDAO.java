@@ -2,24 +2,12 @@ package com.etejk.vallytool.dao;
 
 import java.time.Year;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.etejk.vallytool.entities.Conceito;
-import com.etejk.vallytool.entities.Disciplina;
-import com.etejk.vallytool.entities.Resultado;
-import com.etejk.vallytool.entities.Trimestre;
-import com.etejk.vallytool.entities.Turma;
-import com.etejk.vallytool.entities.Usuario;
-import com.etejk.vallytool.repositories.DisciplinaRepository;
-import com.etejk.vallytool.repositories.ProfessoRepository;
-import com.etejk.vallytool.repositories.TurmaRepository;
-import com.etejk.vallytool.validators.ResultadoValidator;
 
 public class ResultadoDAO {
 	private String turma;
@@ -97,22 +85,6 @@ public class ResultadoDAO {
 
 	public void setAno(String ano) {
 		this.ano = ano;
-	}
-	
-	@PostConstruct
-	public Resultado toResultado() {
-		ResultadoValidator rv = null;
-		Turma turma = rv.retornarTurma(this.turma);
-		Disciplina disciplina = rv.retornarDisciplina(this.disciplina);
-		Usuario usuario = rv.retornarUsuario(this.usuario);
-		Resultado resultado = new Resultado(turma,
-				disciplina,
-				conceitos,
-				usuario,
-				Trimestre.TERCEIRO,
-				Year.parse(ano));
-		
-		return resultado;
 	}
 
 	@Override

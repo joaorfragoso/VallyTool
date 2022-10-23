@@ -165,6 +165,7 @@
         <div class="tela">
 			<div th:replace="common/base::menu_prof"></div>
             <form class="aba avaliacao-form" th:action="@{/avaliar}" method="post" th:object="${resultado}">
+            	<p th:if="${param.error}" >erro</p>
                 <div class="turma-div select-customizado">
                     <select name="turma" class="turma-select" id="turmas" required toggle="aberto">
                         <option value="">Turmas</option>
@@ -200,15 +201,12 @@
 </body>
 <script src="modules/menu.js"></script>
 <script>
-<<<<<<< HEAD
 	let inputAno = document.getElementById("anoInput");
 	let date = new Date();
 	let ano = date.getFullYear();
 	inputAno.value = ano.toString();
-=======
 	//Customização Sliders
 
->>>>>>> 809f118d1e0c7159cfc0656ee3d40d2edf34bff5
     let sliders = document.getElementsByClassName("slider");
     for (i = 0; i < sliders.length; i++) {
         sliders[i].addEventListener("input", corSlider);
