@@ -30,9 +30,9 @@
 		<div class="tela">
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
-				<form class="pesquisar-form">
-					<input type="text" placeholder="Buscar Usuário" class="pesquisar-input">
-					<button class="pesquisar-botao"></button>
+				<form class="pesquisar-form" th:action="@{/turmas}">
+					<input name="search" type="text" placeholder="Buscar Usuário" class="pesquisar-input">
+					<button value="submit" class="pesquisar-botao"></button>
 				</form>
 				<div class="lista-div">
 					<div class="item-div novo-usuario">
