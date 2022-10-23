@@ -32,6 +32,8 @@ public class Usuario implements UserDetails, Serializable {
 	@Column(nullable = false, unique = true)
 	private String nome;
 	@Column(nullable = false, unique = true)
+	private String email;
+	@Column(nullable = false, unique = true)
 	private String senha;
 	@ManyToMany
 	@JoinTable(name = "TB_USUARIOS_ROLES",
@@ -52,13 +54,20 @@ public class Usuario implements UserDetails, Serializable {
 	private List<Disciplina> disciplinas;
 	
 	public Usuario() {}
-	public Usuario(Integer id, String cpf, String nome, String senha) {
-		super();
-		Id = id;
+	
+	
+	public Usuario(String cpf, String nome, String email, String senha, List<RoleModel> roles, List<Turma> turmas,
+			List<Disciplina> disciplinas) {
 		this.cpf = cpf;
 		this.nome = nome;
+		this.email = email;
 		this.senha = senha;
+		this.roles = roles;
+		this.turmas = turmas;
+		this.disciplinas = disciplinas;
 	}
+
+
 	public Integer getId() {
 		return Id;
 	}
@@ -125,6 +134,15 @@ public class Usuario implements UserDetails, Serializable {
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return this.cpf;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
