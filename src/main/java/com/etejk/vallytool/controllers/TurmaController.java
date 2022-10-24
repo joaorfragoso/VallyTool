@@ -21,16 +21,18 @@ public class TurmaController {
 	@PostMapping("turma")
 	public String saveTurma(Turma turma) {
 		if(tr.findByCodigo(turma.getCodigo()) != null) {
-			return "redirect:/turma_erro";
+			return "redirect:/turma_error";
 		}
+		
+		System.out.println(turma.getCodigo());
 		tr.save(turma);
-		return "redirect:/turma_error";
+		return "redirect:/turmas";
 	}
 	
 	@GetMapping("turma_error")
 	public ModelAndView turmaError(ModelMap model) {
 		model.addAttribute("error", "turma já existe");
-		return new ModelAndView("redirect:/turma", model);
+		return new ModelAndView("redirect:/turmas", model);
 	}
 	
 	@GetMapping("turmas")

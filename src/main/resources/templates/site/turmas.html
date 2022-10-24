@@ -97,11 +97,12 @@
 					<button value="submit" class="pesquisar-botao"></button>
 				</form>
 				<div class="lista-div">
+					<div style="color: red; text-align:center; margin-bottom: 5px;" th:if="${param.error}" th:text="${param.error}">erro</div>
 					<div class="novo-item">
 						<div class="criarturma-botao" onclick="criarTurma(this)">Nova Turma</div>
-						<form class="turmanova oculto">
+						<form method="post" th:action="@{turma}" th:object="${turma}" class="turmanova oculto">
 							<label>Turma: </label>
-							<input type="text" pattern="[0-9]{3}" maxlength="3" oninput="bloqueiaCaractere(this)" required>
+							<input name="codigo" type="text" pattern="[0-9]{3}" maxlength="3" oninput="bloqueiaCaractere(this)" required>
 							<button class="criar-botao">Criar</button>
 						</form>
 					</div>
