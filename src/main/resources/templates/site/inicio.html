@@ -184,20 +184,16 @@
 				</form>
 				<div class="lista-div">
 					<div th:each="usuario: ${usuarios}" class="item-div">
-						<span th:text="${usuario.getNome()}" class="nome">João Fragoso</span>
-						<span th:text="${usuario.getAuthority()}" class="cargo">Prof</span>
+						<span th:text="${usuario.getNome()}" class="nome"></span>
+						<span th:text="${usuario.getAuthority()}" class="cargo"></span>
 						<button class="editar-botao" onclick="abrirJanela('')"></button>
 					</div>
 				</div>
 				<button class="botao-verde" onclick="abrirJanela('tela-cadastro', 'grid')">Cadastrar Usuário</button>
 				<div id="tela-cadastro">
 					<h1>Cadastro</h1>
-<<<<<<< HEAD
-					<form th:action="@{/usuario}" th:object="${usuario}" method="post">
-=======
 					<div class="fechar-botao" onclick="this.parentNode.style.display='none'"></div>
-					<form>
->>>>>>> b371f28ae25482995c7cc28b930e5c060177ed9e
+					<form th:action="@{/usuario}" th:object="${usuarioDAO}" method="post">
 						<div class="dados-div">
 							<div class="text-input">
 								<label>Nome</label><br>

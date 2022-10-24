@@ -11,7 +11,7 @@ public class UsuarioDAO {
 	public String role;
 	
 	public String senha() {
-		return new BCryptPasswordEncoder().encode(cpf);
+		return new BCryptPasswordEncoder().encode(cpf.replace(".", "").replace("-", ""));
 	}
 	public String getCpf() {
 		return cpf;

@@ -14,6 +14,7 @@ import com.etejk.vallytool.dao.UsuarioDAO;
 import com.etejk.vallytool.entities.RoleModel;
 import com.etejk.vallytool.entities.RoleName;
 import com.etejk.vallytool.entities.Usuario;
+import com.etejk.vallytool.repositories.RoleRepository;
 import com.etejk.vallytool.repositories.UsuarioRepository;
 
 @Controller
@@ -22,21 +23,29 @@ public class UsuarioController {
 	@Autowired
 	UsuarioRepository ur;
 	
+	@Autowired
+	RoleRepository rr;
+	
 	@PostMapping("usuario")
-	public String saveUsuario(UsuarioDAO usuario) {
-		System.out.println(usuario);
+	public String saveUsuario(UsuarioDAO usuarioDAO) {
+		System.out.println(usuarioDAO);
 		
 		
+		List<RoleModel> findAllRoles = rr.findAll();
 		List<RoleModel> roles = new ArrayList<>();
-		RoleModel role = new RoleModel();
-		role.setRoleName(RoleName.valueOf(usuario.getRole()));
-		roles.add(role);
+		for (RoleModel role : findAllRoles) {
+			if(role.getRoleName().name().equals(usuarioDAO.getRole())) {
+				roles.add(role);
+			}
+		}
+		
+		System.out.println(roles.get(0).getRoleName().name());
 		
 		Usuario usuarioOriginal = new Usuario(
-				usuario.getCpf(),
-				usuario.getNome(),
-				usuario.getEmail(),
-				usuario.senha(),
+				usuarioDAO.getCpf().replace(".", "").replace("-", ""),
+				usuarioDAO.getNome(),
+				usuarioDAO.getEmail(),
+				usuarioDAO.senha(),
 				roles
 				);
 		
