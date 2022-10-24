@@ -11,16 +11,140 @@
 		.botoes-menu li:nth-child(1) {
 			width: 150px;
 		}
+		#tela-cadastro {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			font-weight: 300;
+			padding: 20px 20px;
+			box-sizing: border-box;
+			border-radius: 6px;
+			background-color: white;
+			display: grid;
+			grid-template-rows: max-content auto;
+			row-gap: 20px;
+		}
+		#tela-cadastro h1 {
+			text-align: center;
+			font-size: 1.3em;
+		}
+		#tela-cadastro form {
+			height: 100%;
+			display: grid;
+			grid-template-rows: auto max-content;
+			row-gap: 15px;
+			justify-content: center;
+		}
+		.dados-div {
+			display: flex;
+			flex-direction: column;
+			row-gap: 15px;
+		}
+		.radioinput-div {
+			display: flex;
+			flex-direction: column;
+			row-gap: 15px;
+		}
+		.cargo-radiolabel {
+			display: inline-block;
+			width: 120px;
+			height: 2em;
+			border-radius: 4px;
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
+			background-color: #0C90F0;
+			text-align: center;
+			line-height: 2em;
+			cursor: pointer;
+		}
+		.cargo-radiolabel:hover {
+			background-color: rgb(11, 134, 221);
+		}
+		#tela-cadastro .dados {
+			display: flex;
+			flex-direction: column;
+			row-gap: 10px;
+		}
+		.dados-input {
+			width: 260px;
+			height: 2.5em;
+			padding: 0 10px;
+			box-sizing: border-box;
+			border-radius: 6px;
+			border: 0;
+			outline: 0;
+			background-color: white;
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
+		}
+		.opcoes-radio, .dados-input {
+			margin-top: 8px;
+		}
+		.dados-input::placeholder {
+			opacity: 0.4;
+		}
+		.opcoes-radio {
+			display: flex;
+			align-items: center;
+			column-gap: 10px;
+			color: white;
+		}
+		input[type="radio"] {
+			appearance: none;
+			background-color: white;
+			width: 1.5em;
+			height: 1.5em;
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
+			border-radius: 50%;
+			cursor: pointer;
+		}
+		input[type="radio"]:checked {
+			background-color: #2FC891;
+		}
+		
+		@media (min-width: 800px) {
+			#tela-cadastro {
+				row-gap: 60px;
+			}
+			#tela-cadastro form {
+				justify-content: initial;
+			}
+			.dados-div {
+				display: grid;
+				grid-template-rows: max-content max-content max-content;
+				grid-template-columns: 1fr 1fr;
+				column-gap: 20px;
+				width: 100%;
+				font-size: 1.1em;
+			}
+			.text-input  {
+				grid-column: 1/2;
+				justify-self: center;
+			}
+			.text-input input {
+				font-size: 1em;
+			}
+			.cargo-opcao {
+				grid-column: 2/3;
+			}
+			.dados-div div:nth-child(4) {
+				grid-row: 1/2;
+			}
+			.dados-div div:nth-child(5) {
+				grid-row: 2/3;
+			}
+			.cargo-radiolabel {
+				width: 160px;
+			}
+		}
 	</style>
 	<link rel="stylesheet" href="styles/prof_sop.css">
 	<link rel="stylesheet" href="styles/professor.css" sec:authorize="hasRole('PROFESSOR')">
 	<link rel="stylesheet" href="styles/sop.css" sec:authorize="hasRole('SOP')">
 </head>
 
-<!-- PROFESSOR -->
 
 <body>
 	<header sec:authorize="isAuthenticated()" th:replace="common/base::cabecalho_logado"></header>
+	<!-- PROFESSOR -->
 	<div sec:authorize="hasRole('PROFESSOR')" class="main">
 		<div class="tela">
 			<div th:replace="common/base::menu_prof"></div>
@@ -50,19 +174,53 @@
 					<div th:each="usuario: ${usuarios}" class="item-div">
 						<span th:text="${usuario.getNome()}" class="nome">João Fragoso</span>
 						<span th:text="${usuario.getAuthority()}" class="cargo">Prof</span>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
+						<button class="editar-botao" onclick="abrirJanela('')"></button>
 					</div>
 				</div>
-				<button class="cadastrar-botao" onclick="abrirTela('')">Cadastrar Usuário</button>
+				<button class="botao-verde" onclick="abrirJanela('tela-cadastro', 'grid')">Cadastrar Usuário</button>
+				<div id="tela-cadastro">
+					<h1>Cadastro</h1>
+					<form>
+						<div class="dados-div">
+							<div class="text-input">
+								<label>Nome</label><br>
+								<input type="text" placeholder="Insira o Nome" class="dados-input" required>
+							</div>
+							<div class="text-input">
+								<label>Email</label><br>
+								<input type="email" placeholder="Insira um Email" class="dados-input" required>
+							</div>
+							<div class="text-input">
+								<label>CPF</label><br>
+								<input type="text" placeholder="Insira um CPF Válido" class="dados-input" id="input-cpf" autocomplete="off" pattern=".{14}" maxlength="14" required>
+							</div>
+							<div class="cargo-opcao">
+								<span>Cargo</span>
+								<div class="opcoes-radio">
+									<input type="radio" id="radioProfessor" name="role" value="professor" required>
+									<label class="cargo-radiolabel" for="radioProfessor">Professor</label>
+								</div>
+							</div>
+							<div class="opcoes-radio cargo-opcao">
+								<input type="radio" id="radioSop" name="role" value="sop" required>
+								<label class="cargo-radiolabel" for="radioSop">SOP</label>
+							</div>
+						</div>
+						<button class="botao-verde">Cadastrar</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-	</div>
 </body>
 <script src="modules/menu.js"></script>
+<script src="modules/cpfInput.js"></script>
+<script src="modules/abrirJanela.js"></script>
 <script>
 	const spanCargoArray = document.querySelectorAll(".item-div .cargo");
 	
+	//Quando a pagina carregar ou for redimensionada, a função cargoResponsivo será executada
+	cargoResponsivo();
 	window.addEventListener("resize", cargoResponsivo);
 	
 	function cargoResponsivo() {
