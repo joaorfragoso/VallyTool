@@ -224,10 +224,12 @@
 				</div>
 			</div>
 		</div>
+		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
 	</div>
 </body>
 <script src="modules/menu.js"></script>
 <script src="modules/cpfInput.js"></script>
+<script src="modules/aviso.js"></script>
 <script src="modules/abrirJanela.js"></script>
 <script>
 	const spanCargoArray = document.querySelectorAll(".item-div .cargo");

@@ -31,7 +31,7 @@ public class TurmaController {
 	
 	@GetMapping("turma_error")
 	public ModelAndView turmaError(ModelMap model) {
-		model.addAttribute("error", "turma já existe");
+		model.addAttribute("error", "Turma já existe!");
 		return new ModelAndView("redirect:/turmas", model);
 	}
 	
