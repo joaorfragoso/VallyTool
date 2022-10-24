@@ -1,6 +1,7 @@
 package com.etejk.vallytool.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,13 +11,7 @@ import com.etejk.vallytool.repositories.UsuarioRepository;
 
 
 @Controller
-public class ViewController {
-	
-	@Autowired
-	UsuarioRepository ur;
-	@Autowired
-	TurmaRepository tr;
-	
+public class MainController {
 	@GetMapping("")
 	public String redirect() {
 		return "redirect:/inicio";
@@ -30,18 +25,6 @@ public class ViewController {
 	@GetMapping("configuracoes")
 	public String configuracoes() {
 		return "site/configuracoes";
-	}
-	
-	@GetMapping("turmas")
-	public String turmas(Model model) {
-		model.addAttribute("turmas", tr.findAll());
-		return "site/turmas";
-	}
-	
-	@GetMapping("inicio")
-	public String inicio(Model model) {
-		model.addAttribute("usuarios", ur.findAll());
-		return "site/inicio";
 	}
 	
 	@GetMapping("login")
