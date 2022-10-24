@@ -40,14 +40,15 @@
 					</div>
 					<div th:each="turma: ${turmas}" class="item-div">
 						<span th:text="${turma.codigo}" class="turma"></span>
-						<button class="historico-botao" onclick="abrirTela('')"></button>
-						<button class="editar-botao" onclick="abrirTela('')"></button>
+						<button class="historico-botao" onclick="abrirJanela('')"></button>
+						<button class="editar-botao" onclick="abrirJanela('')"></button>
 					</div>
 				</div>
-				<button class="cadastrar-botao">Emitir Resultado</button>
+				<button class="botao-verde">Emitir Resultado</button>
 			</div>
 		</div>
 	</div>
 </body>
 <script src="modules/menu.js"></script>
+<script src="modules/abrirJanela.js"></script>
 </html>

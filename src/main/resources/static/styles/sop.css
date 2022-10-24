@@ -91,7 +91,7 @@
 	background: transparent url(../images/wrench-solid.svg) no-repeat center;
 }
 
-.cadastrar-botao {
+.botao-verde {
 	width: 200px;
 	height: 40px;
 	background-color: #2FC891;
@@ -103,7 +103,7 @@
 	justify-self: center;
 	align-self: flex-end;
 }
-.cadastrar-botao:hover, .item-div.novo-usuario:hover {
+.botao-verde:hover, .item-div.novo-usuario:hover {
 	background-color: #29b381;
 	cursor: pointer;
 }
