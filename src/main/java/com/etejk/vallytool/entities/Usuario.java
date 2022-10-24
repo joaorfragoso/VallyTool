@@ -33,7 +33,7 @@ public class Usuario implements UserDetails, Serializable {
 	private String nome;
 	@Column(nullable = false, unique = true)
 	private String email;
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String senha;
 	@ManyToMany
 	private List<RoleModel> roles;

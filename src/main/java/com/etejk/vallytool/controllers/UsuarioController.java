@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.dao.UsuarioDAO;
 import com.etejk.vallytool.entities.RoleModel;
-import com.etejk.vallytool.entities.RoleName;
 import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.RoleRepository;
 import com.etejk.vallytool.repositories.UsuarioRepository;
@@ -48,8 +49,11 @@ public class UsuarioController {
 				usuarioDAO.senha(),
 				roles
 				);
-		
+		try {
 		ur.save(usuarioOriginal);
+		} catch (Exception e){
+			return "redirect:/usuario_error";
+		}
 		return "redirect:/inicio";
 	}
 	
@@ -62,6 +66,12 @@ public class UsuarioController {
 		}
 		
 		return "site/inicio";
+	}
+	
+	@GetMapping("usuario_error")
+	public ModelAndView usuarioError(ModelMap model){
+		model.addAttribute("error", "usuario já existe");
+		return new ModelAndView("redirect:/inicio", model);
 	}
 }
 
