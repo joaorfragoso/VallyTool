@@ -179,13 +179,13 @@
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 				<form class="pesquisar-form" th:action="@{/inicio}">
-					<input name="search" type="text" placeholder="Buscar Turma" class="pesquisar-input" autocomplete="off">
+					<input name="search" type="text" placeholder="Buscar Usuário" class="pesquisar-input" autocomplete="off">
 					<button value="submit" class="pesquisar-botao"></button>
 				</form>
 				<div class="lista-div">
 					<div th:each="usuario: ${usuarios}" class="item-div">
-						<span th:text="${usuario.getNome()}" class="nome">João Fragoso</span>
-						<span th:text="${usuario.getAuthority()}" class="cargo">Prof</span>
+						<span th:text="${usuario.getNome()}" class="nome"></span>
+						<span th:text="${usuario.getAuthority()}" class="cargo"></span>
 						<button class="editar-botao" onclick="abrirJanela('')"></button>
 					</div>
 				</div>
@@ -193,29 +193,29 @@
 				<div id="tela-cadastro">
 					<h1>Cadastro</h1>
 					<div class="fechar-botao" onclick="this.parentNode.style.display='none'"></div>
-					<form>
+					<form th:action="@{/usuario}" th:object="${usuarioDAO}" method="post">
 						<div class="dados-div">
 							<div class="text-input">
 								<label>Nome</label><br>
-								<input type="text" placeholder="Insira o Nome" class="dados-input" required>
+								<input name="nome" type="text" placeholder="Insira o Nome" class="dados-input" required>
 							</div>
 							<div class="text-input">
 								<label>Email</label><br>
-								<input type="email" placeholder="Insira um Email" class="dados-input" required>
+								<input name="email" type="email" placeholder="Insira um Email" class="dados-input" required>
 							</div>
 							<div class="text-input">
 								<label>CPF</label><br>
-								<input type="text" placeholder="Insira um CPF Válido" class="dados-input" id="input-cpf" autocomplete="off" pattern=".{14}" maxlength="14" required>
+								<input name="cpf" type="text" placeholder="Insira um CPF Válido" class="dados-input" id="input-cpf" autocomplete="off" pattern=".{14}" maxlength="14" required>
 							</div>
 							<div class="cargo-opcao">
 								<span>Cargo</span>
 								<div class="opcoes-radio">
-									<input type="radio" id="radioProfessor" name="role" value="professor" required>
+									<input type="radio" id="radioProfessor" name="role" value="ROLE_PROFESSOR" required>
 									<label class="cargo-radiolabel" for="radioProfessor">Professor</label>
 								</div>
 							</div>
 							<div class="opcoes-radio cargo-opcao">
-								<input type="radio" id="radioSop" name="role" value="sop" required>
+								<input type="radio" id="radioSop" name="role" value="ROLE_SOP" required>
 								<label class="cargo-radiolabel" for="radioSop">SOP</label>
 							</div>
 						</div>

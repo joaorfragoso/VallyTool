@@ -25,7 +25,7 @@ public class Usuario implements UserDetails, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
 	@Column(nullable = false, unique = true)
 	private String cpf;
@@ -36,35 +36,21 @@ public class Usuario implements UserDetails, Serializable {
 	@Column(nullable = false, unique = true)
 	private String senha;
 	@ManyToMany
-	@JoinTable(name = "TB_USUARIOS_ROLES",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleModel> roles;
-	
 	@ManyToMany
-	@JoinTable(name = "TB_PROF_TURMAS",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "turma_id"))
 	private List<Turma> turmas;
-	
 	@ManyToMany
-	@JoinTable(name = "TB_PROF_DISCIPLINAS",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "disciplina_id"))
 	private List<Disciplina> disciplinas;
 	
 	public Usuario() {}
 	
 	
-	public Usuario(String cpf, String nome, String email, String senha, List<RoleModel> roles, List<Turma> turmas,
-			List<Disciplina> disciplinas) {
+	public Usuario(String cpf, String nome, String email, String senha, List<RoleModel> roles) {
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.roles = roles;
-		this.turmas = turmas;
-		this.disciplinas = disciplinas;
 	}
 
 
