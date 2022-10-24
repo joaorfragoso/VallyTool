@@ -56,15 +56,12 @@ public class Usuario implements UserDetails, Serializable {
 	public Usuario() {}
 	
 	
-	public Usuario(String cpf, String nome, String email, String senha, List<RoleModel> roles, List<Turma> turmas,
-			List<Disciplina> disciplinas) {
+	public Usuario(String cpf, String nome, String email, String senha, List<RoleModel> roles) {
 		this.cpf = cpf;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		this.roles = roles;
-		this.turmas = turmas;
-		this.disciplinas = disciplinas;
 	}
 
 
