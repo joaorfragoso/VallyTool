@@ -21,6 +21,7 @@ public class TurmaController {
 		}else {
 			model.addAttribute("turmas", tr.findAll());
 		}
+		
 		return "site/turmas";
 	}
 }
