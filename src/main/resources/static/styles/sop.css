@@ -51,11 +51,6 @@
 .item-div:nth-child(1) {	
 	margin: 0;
 }
-.item-div.novo-usuario {
-	background-color: #2FC891;
-	color: white;
-	font-weight: 300;
-}
 .item-div {
 	width: 100%;
 	height: 2.5em;
@@ -103,7 +98,7 @@
 	justify-self: center;
 	align-self: flex-end;
 }
-.botao-verde:hover, .item-div.novo-usuario:hover {
+.botao-verde:hover, .criarturma-botao:hover {
 	background-color: #29b381;
 	cursor: pointer;
 }
