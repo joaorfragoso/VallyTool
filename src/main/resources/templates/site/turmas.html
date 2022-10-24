@@ -22,6 +22,68 @@
 		.item-div .historico-botao {
 			background: transparent url(../images/folder-solid.svg) no-repeat center;
 		}
+		.lista-div .novo-item {
+			display: block;
+			width: 100%;
+			min-height: 2.5em;
+			border-radius: 4px;
+			background-color: #2FC891;
+			color: white;
+			font-weight: 300;
+			line-height: 2.5em;
+		}
+		.criarturma-botao {
+			width: 100%;
+			height: 100%;
+			border-radius: 4px;
+			box-sizing: border-box;
+			padding: 0 8px;
+			
+		}
+		.turmanova {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 100%;
+			padding: 0 8px;
+			box-sizing: border-box;
+			border-radius: 0 0 4px 4px;
+			box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4);
+			background-color: rgb(52, 224, 162);
+		}
+		.turmanova input {
+			width: 50px;
+			appearance: none;
+			border: 0;
+			outline: 0;
+			background-color: transparent;
+			font-size: 1em;
+		}
+		/*Tirar as Setas do input number*/
+		input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+		  -webkit-appearance: none;
+		  margin: 0;
+		}
+		input[type=number] {
+		  -moz-appearance: textfield;
+		}
+		.criar-botao {
+			position: absolute;
+			right: 8px;
+			top: 50%;
+			transform: translatey(-50%);
+			width: 70px;
+			height: 2em;
+			background-color: rgb(12, 144, 240);
+			color: white;
+			border: 0;
+			border-radius: 2px;
+			cursor: pointer;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
+		}
+		.oculto {
+			display: none;
+		}
 	</style>
 </head>
 <body>
@@ -31,12 +93,17 @@
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 				<form class="pesquisar-form" th:action="@{/turmas}">
-					<input name="search" type="text" placeholder="Buscar Turma" class="pesquisar-input">
+					<input name="search" type="text" placeholder="Buscar Turma" class="pesquisar-input" autocomplete="off">
 					<button value="submit" class="pesquisar-botao"></button>
 				</form>
 				<div class="lista-div">
-					<div class="item-div novo-usuario">
-						Nova Turma
+					<div class="novo-item">
+						<div class="criarturma-botao" onclick="criarTurma(this)">Nova Turma</div>
+						<form class="turmanova oculto">
+							<label>Turma: </label>
+							<input type="text" pattern="[0-9]{3}" maxlength="3" oninput="bloqueiaCaractere(this)" required>
+							<button class="criar-botao">Criar</button>
+						</form>
 					</div>
 					<div th:each="turma: ${turmas}" class="item-div">
 						<span th:text="${turma.codigo}" class="turma"></span>
@@ -51,4 +118,16 @@
 </body>
 <script src="modules/menu.js"></script>
 <script src="modules/abrirJanela.js"></script>
+<script>
+	function criarTurma(element) {
+		element.nextSibling.nextSibling.classList.toggle("oculto");
+	}
+	const bloqueiaCaractere = (function () {
+	    let ValueAnterior = "";
+	    return function (element) {
+        	if (isNaN(event.data)) {element.value = ValueAnterior}
+	        ValueAnterior = element.value;
+	    }
+	})()
+</script>
 </html>
