@@ -31,7 +31,7 @@ public class AvaliarController {
 	
 	@GetMapping("avaliar_error")
 	public ModelAndView avaliarErro(ModelMap model) {
-		model.addAttribute("error", true);
+		model.addAttribute("error", "Avaliação já foi realizada!");
 		return new ModelAndView("redirect:/avaliar", model);
 	}
 }

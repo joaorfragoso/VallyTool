@@ -230,22 +230,25 @@ header {
     }
 }
 
+/*Janela de Aviso*/
 .aviso {
 	position: absolute;
 	width: max-content;
 	min-width: 260px;
+	max-width: 80%;
 	height: 2.2em;
 	padding: 0 10px;
-	display: flex;
+	display: grid;
+	grid-template-columns: max-content auto max-content;
+	column-gap: 10px;
 	align-items: center;
 	justify-content: center;
 	box-sizing: border-box;
 	font-size: 20px;
 	font-weight: 300;
 	left: 50%;
-	transform: translatex(-50%);
-	bottom: 5%;
-	transform: translatey(50%);
+	bottom: 0;
+	transform: translate(-50%, -50%);
 	border-radius: 4px;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
 	outline: 1px solid #FF0000;
@@ -253,10 +256,6 @@ header {
 	color: white;
 }
 .exclamacao {
-	position: absolute;
-	left: 10px;
-	top: 50%;
-	transform: translatey(-50%);
 	width: 25px;
 	height: 25px;
 	filter: drop-shadow(0 4px 4px rgb(0, 0, 0, 0.4));
@@ -266,10 +265,6 @@ header {
 	width: 20px;
 	height: 20px;
 	border: 0;
-	position: absolute;
-	right: 10px;
-	top: 50%;
-	transform: translatey(-50%);
 	filter: invert(100%);
 	cursor: pointer;
 }

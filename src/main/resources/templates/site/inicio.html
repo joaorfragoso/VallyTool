@@ -30,15 +30,6 @@
 			text-align: center;
 			font-size: 1.3em;
 		}
-		.fechar-botao {
-			position: absolute;
-			right: 5px;
-			top: 5px;
-			width: 30px;
-			height: 30px;
-			background: transparent url(images/xmark-solid.svg) no-repeat center;
-			cursor: pointer;
-		}
 		#tela-cadastro form {
 			height: 100%;
 			display: grid;
@@ -197,11 +188,11 @@
 						<div class="dados-div">
 							<div class="text-input">
 								<label>Nome</label><br>
-								<input name="nome" type="text" placeholder="Insira o Nome" class="dados-input" required>
+								<input name="nome" type="text" placeholder="Insira o Nome" class="dados-input" autocomplete="off" required>
 							</div>
 							<div class="text-input">
 								<label>Email</label><br>
-								<input name="email" type="email" placeholder="Insira um Email" class="dados-input" required>
+								<input name="email" type="email" placeholder="Insira um Email" class="dados-input" autocomplete="off" required>
 							</div>
 							<div class="text-input">
 								<label>CPF</label><br>

@@ -70,7 +70,7 @@ public class UsuarioController {
 	
 	@GetMapping("usuario_error")
 	public ModelAndView usuarioError(ModelMap model){
-		model.addAttribute("error", "usuario já existe");
+		model.addAttribute("error", "Usuario já cadastrado!");
 		return new ModelAndView("redirect:/inicio", model);
 	}
 }

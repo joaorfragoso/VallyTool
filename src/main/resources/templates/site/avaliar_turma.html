@@ -165,7 +165,6 @@
         <div class="tela">
 			<div th:replace="common/base::menu_prof"></div>
             <form class="aba avaliacao-form" th:action="@{/avaliar}" method="post" th:object="${resultado}">
-            	<p th:if="${param.error}" >erro</p>
                 <div class="turma-div select-customizado">
                     <select name="turma" class="turma-select" id="turmas" required toggle="aberto">
                         <option value="">Turmas</option>
@@ -197,9 +196,11 @@
                 <input type="submit" class="botao-submit" value="Enviar">
             </form>
         </div>
+        <div th:if="${param.error}" th:replace="common/base::aviso"></div>
     </div>
 </body>
 <script src="modules/menu.js"></script>
+<script src="modules/aviso.js"></script>
 <script>
 	let inputAno = document.getElementById("anoInput");
 	let date = new Date();
