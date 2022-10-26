@@ -28,7 +28,7 @@ public class ResetService {
 	
 	public String validatePasswordToken(String token) {
 		final PasswordResetToken passToken = rr.findByToken(token);
-		if(passToken != null) {
+		if(passToken == null) {
 			return "Token Inválido";
 		}else if(isTokenExpired(passToken)) {
 			return "Token Expirado";
@@ -39,7 +39,13 @@ public class ResetService {
 	
 	public boolean isTokenExpired(PasswordResetToken passToken) {
 		final Calendar cal = Calendar.getInstance();
-		return passToken.getExpiryDate().before(cal.getTime());
+		System.out.println(passToken.getExpiryDate().toString());
+		System.out.println(cal.getTime().toString());
+		if(passToken.getExpiryDate().before(cal.getTime())) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public Usuario findUserByToken(String token) {

@@ -35,8 +35,7 @@ public class PasswordResetToken {
 		this.token = token;
 		this.usuario = usuario;
 		Instant instant = Instant.now();
-		instant.plusSeconds(EXPIRATION * 60);
-		expiryDate = Date.from(instant);
+		expiryDate = Date.from(instant.plusSeconds(EXPIRATION * 60));
 	}
 
 	public Integer getId() {

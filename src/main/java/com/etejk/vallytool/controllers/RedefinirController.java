@@ -65,7 +65,7 @@ public class RedefinirController {
 	
 	@GetMapping("/atualizarSenha")
 	public String atualizarSenha(Model model, @RequestParam("token") String token) {
-		if(rs.validatePasswordToken(token) == null) {
+		if(rs.validatePasswordToken(token) != null) {
 			return "redirect:/redefinir/invalido";
 		}else{
 			model.addAttribute("token", token);
@@ -76,7 +76,7 @@ public class RedefinirController {
 	
 	@PostMapping("/atualizarSenha")
 	public String atualizarSenha(PasswordDAO passwordDAO) {
-		if(rs.validatePasswordToken(passwordDAO.getToken()) == null) {
+		if(rs.validatePasswordToken(passwordDAO.getToken()) != null) {
 			return "redirect:/redefinir/invalido";
 		}
 		
@@ -92,7 +92,6 @@ public class RedefinirController {
 	@GetMapping("/invalido")
 	public ModelAndView invalido(ModelMap model) {
 		model.addAttribute("errorToken", "Token Inválido");
-		System.out.println("certo");
 		return new ModelAndView("redirect:/login" , model);
 	}
 	
@@ -107,7 +106,6 @@ public class RedefinirController {
 	@GetMapping("/sucesso")
 	public ModelAndView sucesso(ModelMap model) {
 		model.addAttribute("sucess", "Senha trocada com sucesso");
-		System.out.println("sucess");
 		return new ModelAndView("redirect:/login" , model);
 	}
 	

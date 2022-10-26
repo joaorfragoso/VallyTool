@@ -22,6 +22,8 @@ public class WebSecurityConfig{
                 .antMatchers(HttpMethod.GET, "/redefinir/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/redefinir/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/common/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/login/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/login/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .logout()
