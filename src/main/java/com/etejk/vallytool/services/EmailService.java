@@ -17,14 +17,14 @@ public class EmailService {
 	private JavaMailSender emailSender;
 	
 	@GetMapping("email")
-	public String sendEmail() {
+	public String sendEmail(String email, String url) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		
 		try { 
 			message.setFrom("vallytool@gmail.com");
-			message.setTo("joaofragoso376@gmail.com");
-			message.setSubject("Teste");
-			message.setText("Teste, cpf do primeiro usuario do banco: ");
+			message.setTo(email);
+			message.setSubject("Redefina sua senha");
+			message.setText("Redefina sua senha: " + url);
 			emailSender.send(message);
 		}catch(MailException e) {
 			System.out.println(e.getMessage());

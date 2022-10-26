@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>VallyTool</title>
+    <link rel="stylesheet" href="styles/reset.css">
+    <style>
+        .inserir-cpf, .email-enviado {
+            background-color: white;
+            box-sizing: border-box;
+            border-radius: 10px;
+            box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
+            display: grid;
+            grid-template-rows: 20% 80%;
+        }
+        .cpf-div {
+			position: relative;
+		}
+        .inserir-cpf {
+            width: 300px;
+            height: 360px;
+        }
+        .legenda {
+            text-align: center;
+            padding: 8%;
+        }
+        .inserir-cpf form {
+            display: grid;
+            grid-template-rows: 75% 25%;
+        }
+        .inserir-cpf .dados {
+            font-size: 20px;
+            display: flex;
+            flex-direction: column;
+            padding: 8% 10%;
+        }
+        
+        .email-enviado {
+            display: none;
+            width: 360px;
+            height: 200px;
+        }
+        .email-enviado .img-div{
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .email-enviado img {
+            height: 71px;
+        }
+    </style>
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body>
+    <header class="header">
+        <a href="login.html">
+            <img src="images/vallytool-logo.png" alt="VallyTool Logo" class="vallytool-logo">
+        </a>
+        <h1>VallyTool</h1>
+    </header>
+    <div class="main">
+        <div class="inserir-cpf">
+            <div class="legenda">
+                <p>Nós te enviaremos um email de redefinição de senha</p>
+                <p th:if="${param.sucess}" th:text="${param.sucess}"></p>
+            </div>
+            <form th:action="@{/redefinir/atualizarSenha}" method="post">
+                <div class="dados">
+					<div class="cpf-div">
+                    	<label for="input-cpf">Nova Senha</label>
+                    	<input type="text" name="senha" maxlength="14" required>
+                    	<input th:value="${token}" style="display: none" name="token">
+					</div>
+                </div>
+                <div class="botao-div">
+                    <input type="submit" value="Trocar Senha">
+                </div>
+            </div>
+        </div>
+        <div class="email-enviado">
+            <div class="legenda">
+                <p>Email enviado para <br> {email}</p>
+            </div>
+            <div class="img-div">
+                <img src="images/check-solid.svg" alt="✓">
+            </div>
+        </div>
+    </div>
+    <footer>
+        <strong>&copy;VallyTool</strong>
+    </footer>
+</body>
+<script src="modules/cpfInput.js"></script>
+</html>

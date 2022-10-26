@@ -60,6 +60,7 @@
         <h1>VallyTool</h1>
     </header>
     <div class="main">
+    	
         <form th:action="@{/login}" method="post" class="login">
             <div class="dados">
                 <div class="cpf-div">
@@ -74,6 +75,9 @@
                     <input type="password" name="password" id="input-senha" autocomplete="current-password" maxlength="11" required>
                     <button class="senha-visibilidade" id="senha-visibilidade" type="button" onclick="revelarSenha()"></button>
                     <span th:if="${param.error}" class="incorreto"><span class="aviso">&#9888;</span>CPF ou Senha Incorreto</span>
+                    <span th:if="${param.errorToken}" th:text="${param.errorToken}">&#9888;</span></span>
+                    <span th:if="${param.errorUsuario}" th:text="${param.errorUsuario}">&#9888;Usuario inválido</span></span>
+                    <span th:if="${param.sucess}"><span style="color: green">&radic; Senha trocada com sucesso</span></span>
                 </div>
             </div>
             <div class="botao-div">
