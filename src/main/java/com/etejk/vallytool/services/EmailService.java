@@ -24,7 +24,7 @@ public class EmailService {
 			message.setFrom("vallytool@gmail.com");
 			message.setTo(email);
 			message.setSubject("Redefina sua senha");
-			message.setText("Redefina sua senha: " + url);
+			message.setText("Redefina sua senha " + url);
 			emailSender.send(message);
 		}catch(MailException e) {
 			System.out.println(e.getMessage());

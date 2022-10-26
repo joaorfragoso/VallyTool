@@ -59,6 +59,7 @@ public class RedefinirController {
 		es.sendEmail(user.getEmail(), url);
 		
 		model.addAttribute("sucess", "Um email foi enviado para você contendo as informações sobre a redefinição de senha");
+		model.addAttribute("email", user.getEmail());
 		return new ModelAndView("redirect:/redefinir", model);
 	}
 	

@@ -46,6 +46,17 @@ strong {
 	font-style: italic;
 	color: #ed2d2d;
 }
+
+.correto {
+	display: static;
+	position: absolute;
+	left: 0;
+	bottom: -1.2em;
+	font-size: 14px;
+	font-weight: 500;
+	font-style: italic;
+	color: rgb(0, 138, 63);
+}
 .aviso {
 	font-style: normal;
 	margin-right: 5px;

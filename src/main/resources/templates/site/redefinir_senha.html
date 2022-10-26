@@ -46,7 +46,6 @@
 		}
 
 		.email-enviado {
-			display: block;
 			width: 360px;
 			height: 200px;
 		}
@@ -65,7 +64,7 @@
 	<link rel="stylesheet" href="styles/login.css">
 </head>
 
-<body>
+<body onload="display()">
 	<header class="header">
 		<a href="login.html">
 			<img src="images/vallytool-logo.png" alt="VallyTool Logo" class="vallytool-logo">
@@ -93,7 +92,7 @@
 		</div>
 		<div th:if="${param.sucess}" class="email-enviado">
 			<div class="legenda">
-				<p>Email enviado para <br> {email}</p>
+				<p>Email enviado para <br> <p style="color: rgb(0, 128, 192)"th:text="${param.email}"></p></p>
 			</div>
 			<div class="img-div">
 				<img src="images/check-solid.svg" alt="✓">
@@ -106,5 +105,14 @@
 	</footer>
 </body>
 <script src="modules/cpfInput.js"></script>
+<script>
+	let divEmail = document.querySelector(".email-enviado");
+	let divCpf = document.querySelector(".inserir-cpf")
+	function display(){
+		if(window.getComputedStyle(divEmail).display == "grid"){
+			divCpf.style.display = "none";
+		}
+	}
+</script>
 
 </html>

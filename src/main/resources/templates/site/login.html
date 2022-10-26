@@ -77,7 +77,7 @@
                     <span th:if="${param.error}" class="incorreto"><span class="aviso">&#9888;</span>CPF ou Senha Incorreto</span>
                     <span th:if="${param.errorToken}" th:text="${param.errorToken}">&#9888;</span></span>
                     <span th:if="${param.errorUsuario}" th:text="${param.errorUsuario}">&#9888;Usuario inválido</span></span>
-                    <span th:if="${param.sucess}"><span style="color: green">&radic; Senha trocada com sucesso</span></span>
+                    <span th:if="${param.sucess}" class="correto"><span style="color: green">&radic; Senha trocada com sucesso</span></span>
                 </div>
             </div>
             <div class="botao-div">

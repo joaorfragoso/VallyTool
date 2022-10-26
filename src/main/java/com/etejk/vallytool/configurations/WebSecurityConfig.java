@@ -21,8 +21,6 @@ public class WebSecurityConfig{
                 .antMatchers(HttpMethod.GET, "/modules/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/redefinir/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/redefinir/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/redefinir/atualizarSenha").permitAll()
-                .antMatchers(HttpMethod.POST, "/redefinir/atualizarSenha").permitAll()
                 .antMatchers(HttpMethod.GET, "/common/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
