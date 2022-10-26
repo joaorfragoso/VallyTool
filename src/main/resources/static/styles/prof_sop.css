@@ -185,6 +185,25 @@ header {
     align-items: center;
 }
 
+.botao-verde {
+	width: 200px;
+	height: 40px;
+	background-color: #2FC891;
+	font-size: 18px;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-weight: 300;
+	color: white;
+	border: 0;
+	outline: 0;
+	box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
+	border-radius: 4px;
+	justify-self: center;
+	align-self: flex-end;
+	cursor: pointer;
+}
+.botao-verde:hover, .novo-item:hover {
+	background-color: #29b381;
+}
 /*Media Queries*/
 @media (min-width: 800px) {
     header {
@@ -260,7 +279,7 @@ header {
 	height: 25px;
 	filter: drop-shadow(0 4px 4px rgb(0, 0, 0, 0.4));
 }
-.aviso .fechar-botao {
+.aviso .avisofechar-botao {
 	background: transparent url(../images/xmark-solid.svg) no-repeat center;
 	width: 20px;
 	height: 20px;

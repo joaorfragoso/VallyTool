@@ -63,7 +63,7 @@
 	grid-template-columns: 65% auto max-content;
 	align-content: center;
 	align-items: center;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+	box-shadow: 1px 1px rgba(0, 0, 0, 0.5);
 }
 .item-div .nome {
 	height: 1.2em;
@@ -86,19 +86,13 @@
 	background: transparent url(../images/wrench-solid.svg) no-repeat center;
 }
 
-.botao-verde {
-	width: 200px;
-	height: 40px;
-	background-color: #2FC891;
-	font-size: 18px;
-	color: white;
-	border: 0;
-	outline: 0;
-	border-radius: 4px;
-	justify-self: center;
-	align-self: flex-end;
-}
-.botao-verde:hover, .criarturma-botao:hover {
-	background-color: #29b381;
+/*Botão Utilizado Para Fechar as Janelas*/
+.fechar-botao {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 30px;
+	height: 30px;
+	background: transparent url(../images/xmark-solid.svg) no-repeat center;
 	cursor: pointer;
 }
