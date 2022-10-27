@@ -7,6 +7,9 @@ body {
 strong {
     font-weight: 600;
 }
+.oculto {
+	display: none!important;
+}
 header {
     z-index: 99;
     background-color: white;

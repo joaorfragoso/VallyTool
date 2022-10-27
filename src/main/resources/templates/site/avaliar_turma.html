@@ -61,12 +61,14 @@
             border: 6px solid transparent;
         }
         .opcao-selecionada::before {
-            top: 6px;
+            top: 50%;
+            transform: translatey(-115%);
             right: 10px;
             border-color: transparent transparent rgba(0, 0, 0, 0.4) transparent;
         }
         .opcao-selecionada::after {
-            top: 22px;
+            top: 50%;
+            transform: translatey(15%);
             right: 10px;
             border-color: rgba(0, 0, 0, 0.4) transparent transparent transparent;
         }
@@ -77,9 +79,6 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-        }
-        .oculto {
-            display: none;
         }
         .opcoes div {
             border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -166,7 +165,7 @@
 			<div th:replace="common/base::menu_prof"></div>
             <form class="aba avaliacao-form" th:action="@{/avaliar}" method="post" th:object="${resultado}">
                 <div class="turma-div select-customizado">
-                    <select name="turma" class="turma-select" id="turmas" required toggle="aberto">
+                    <select name="turma" class="turma-select" id="turmas" required>
                         <option value="">Turmas</option>
                         <div th:each="turma: ${turmas}"> 
                         	<option th:text="${turma.codigo}" th:value="${turma.codigo}">350</option>

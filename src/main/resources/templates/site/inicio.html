@@ -22,7 +22,7 @@
 			box-sizing: border-box;
 			border-radius: 6px;
 			background-color: white;
-			display: none;
+			display: grid;
 			grid-template-rows: max-content auto;
 			row-gap: 20px;
 		}
@@ -88,6 +88,7 @@
 			align-items: center;
 			column-gap: 10px;
 			color: white;
+			font-weight: 300;
 		}
 		input[type="radio"] {
 			position: absolute;
@@ -104,14 +105,79 @@
 			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
 		}
 		
+		/*Tela de Edição*/
+		#tela-editar {
+		}
+		#tela-editar, .aba-dados, .aba-vinculos {
+			background-color: white;
+			border-radius: 6px;
+			width: 100%;
+			height: 100%;
+			box-sizing: border-box;
+			position: absolute;
+		}
+		#tela-editar {
+			
+		}
+		.aba-selecionada {
+			position: relative;
+			width: 200px;
+			height: 2.5em;
+			justify-self: center;
+			background-color: #0C90F0;
+			border-radius: 0 0 6px 6px;
+			color: white;
+			font-weight: 300;
+			font-size: 18px;
+			text-align: center;
+			line-height: 2.5em;
+			cursor: pointer;
+		}
+		.aba-selecionada img {
+			position: absolute;
+			top: 50%;
+			left: 10px;
+			transform: translatey(-50%);
+			height: 60%;
+			filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(310deg) brightness(104%) contrast(101%);
+		}
+        .aba-selecionada::after {
+            content: '';
+            position: absolute;
+            background: transparent url(images/rotate-solid.svg) no-repeat center;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+            opacity: 0.5;
+            height: 20px;
+            width: 20px;
+        }
+		.aba-dados {
+			display: grid;
+			grid-template-rows: max-content auto max-content;
+			flex-direction: column;
+			row-gap: 20px;
+			justify-content: center;
+			padding-bottom: 20px;
+		}
+		.aba-dados form {
+			display: flex;
+			flex-direction: column;
+			row-gap: 15px;
+		}
+		.aba-vinculos {
+			display: grid;
+			justify-content: center;
+		}
+		
 		@media (min-width: 800px) {
-			#tela-cadastro {
+			#tela-cadastro, .aba-dados {
 				row-gap: 60px;
 			}
-			#tela-cadastro form {
+			#tela-cadastro form, .aba-dados {
 				justify-content: initial;
 			}
-			.dados-div {
+			.dados-div, .aba-dados form {
 				display: grid;
 				grid-template-rows: max-content max-content max-content;
 				grid-template-columns: 1fr 1fr;
@@ -129,10 +195,10 @@
 			.cargo-opcao {
 				grid-column: 2/3;
 			}
-			.dados-div div:nth-child(4) {
+			.dados-div div:nth-child(4), .aba-dados form div:nth-child(4) {
 				grid-row: 1/2;
 			}
-			.dados-div div:nth-child(5) {
+			.dados-div div:nth-child(5), .aba-dados form div:nth-child(5) {
 				grid-row: 2/3;
 			}
 			.cargo-radiolabel {
@@ -177,13 +243,16 @@
 					<div th:each="usuario: ${usuarios}" class="item-div">
 						<span th:text="${usuario.getNome()}" class="nome"></span>
 						<span th:text="${usuario.getAuthority()}" class="cargo"></span>
-						<button class="editar-botao" onclick="abrirJanela('')"></button>
+						<button class="editar-botao" onclick="abrirJanela('tela-editar')"></button>
 					</div>
 				</div>
-				<button class="botao-verde" onclick="abrirJanela('tela-cadastro', 'grid')">Cadastrar Usuário</button>
-				<div id="tela-cadastro">
+				<button class="botao-verde" onclick="abrirJanela('tela-cadastro')">Cadastrar Usuário</button>
+				
+				<!--Tela Cadastro-->
+				
+				<div id="tela-cadastro" class="oculto">
 					<h1>Cadastro</h1>
-					<div class="fechar-botao" onclick="this.parentNode.style.display='none'"></div>
+					<div class="fechar-botao"></div>
 					<form th:action="@{/usuario}" th:object="${usuarioDAO}" method="post">
 						<div class="dados-div">
 							<div class="text-input">
@@ -213,6 +282,43 @@
 						<button class="botao-verde">Cadastrar</button>
 					</form>
 				</div>
+				
+				<!--Janela de Edição-->
+				
+				<div id="tela-editar" class="oculto">
+					<div class="fechar-botao"></div>
+					<div class="aba-dados">
+						<div class="aba-selecionada"><img src="images/database-solid.svg">Dados</div>
+						<form>
+							<div class="text-input">
+								<label>Nome</label><br>
+								<input name="nome" type="text" placeholder="Insira o Nome" class="dados-input" autocomplete="off" required>
+							</div>
+							<div class="text-input">
+								<label>Email</label><br>
+								<input name="email" type="email" placeholder="Insira um Email" class="dados-input" autocomplete="off" required>
+							</div>
+							<div class="text-input">
+								<label>CPF</label><br>
+								<input name="cpf" type="text" placeholder="Insira um CPF Válido" class="dados-input" id="input-cpf" autocomplete="off" pattern=".{14}" maxlength="14" required>
+							</div>
+							<div class="cargo-opcao">
+								<span>Cargo</span>
+								<div class="opcoes-radio">
+									<input type="radio" id="radioProfessor1" name="role" value="ROLE_PROFESSOR" onclick="form.submit()" required>
+									<label class="cargo-radiolabel" for="radioProfessor1">Professor</label>
+								</div>
+							</div>
+							<div class="opcoes-radio cargo-opcao">
+								<input type="radio" id="radioSop1" name="role" value="ROLE_SOP" onclick="form.submit()" required>
+								<label class="cargo-radiolabel" for="radioSop1">SOP</label>
+							</div>
+						</form>
+					</div>
+					<div class="aba-vinculos oculto">
+						<div class="aba-selecionada"><img src="images/link-solid.svg">Vínculos</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
@@ -221,7 +327,7 @@
 <script src="modules/menu.js"></script>
 <script src="modules/cpfInput.js"></script>
 <script src="modules/aviso.js"></script>
-<script src="modules/abrirJanela.js"></script>
+<script src="modules/janelaFunctions.js"></script>
 <script>
 	const spanCargoArray = document.querySelectorAll(".item-div .cargo");
 	
@@ -241,5 +347,25 @@
 			});
 		}
 	}
+	
+	const abaSelecionadaArray = document.getElementsByClassName("aba-selecionada");
+	
+	for (i = 0; i < abaSelecionadaArray.length; i++) {
+		abaSelecionadaArray[i].addEventListener("click", function(){
+			this.parentNode.classList.toggle("oculto");
+			let proximaAba = this.parentNode.nextSibling.nextSibling;
+			if (proximaAba === null) {
+				proximaAba = abaSelecionadaArray[0].parentNode;
+			}
+			proximaAba.classList.remove("oculto");
+		})
+	}
+	
+	document.querySelector("#tela-editar .fechar-botao").addEventListener("click", function() {
+		for (i = 1; i < abaSelecionadaArray.length; i++) {
+			abaSelecionadaArray[i].parentNode.classList.add("oculto");
+		}
+		abaSelecionadaArray[0].parentNode.classList.remove("oculto");
+	})
 </script>
 </html>
