@@ -4,12 +4,7 @@ body {
     display: grid;
     grid-template-rows: 110px auto;
 }
-strong {
-    font-weight: 600;
-}
-.oculto {
-	display: none!important;
-}
+
 header {
     z-index: 99;
     background-color: white;
@@ -22,7 +17,9 @@ header {
     padding: 0 5px;
     box-sizing: border-box;
 }
+
 .tela {
+	background-color: white;
     width: 330px;
     max-width: 90%;
     height: 500px;
@@ -30,6 +27,7 @@ header {
     border-radius: 6px;
     box-sizing: border-box;
 }
+
 .aba {
 	position: relative;
 	height: 100%;
@@ -37,29 +35,17 @@ header {
     overflow-y: auto;
     overflow-x: hidden;
 }
-*::-webkit-scrollbar {
-    width: 6px;
-}
-*::-webkit-scrollbar-track {
-    background-color: transparent;
-    border-radius: 10px;
-    height: 98%;
-}
-*::-webkit-scrollbar-thumb {
-    background-color: rgb(12, 144, 240);
-    border-radius: 10px;
-}
-*::-webkit-scrollbar-thumb:hover {
-    background-color: rgb(11, 134, 221);
-}
+
 .menu-div, .logo-div, .botoes-div {
     height: 110px;
 }
+
 .menu-div, .logo-div{
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .botoes-div {
     display: flex;
     flex-direction: column;
@@ -68,27 +54,33 @@ header {
     padding: 5px 0;
     box-sizing: border-box;
 }
+
 .vallytool-logo {
     height: 100px;
 }
+
 .titulo-logo {
     display: none;
 }
+
 .menu-botao, .tema-botao, .sair-botao {
     cursor: pointer;
     border: 0;
 }
+
 .menu-botao {
     background: transparent url(../images/bars-solid.svg) no-repeat center;
     width: 48px;
     height: 55px;
 }
+
 .tema-botao {
     background: transparent url(../images/circle-half-stroke-solid.svg) no-repeat center;
     width: 30px;
     height: 30px;
     margin-right: 3px;
 }
+
 .sair-botao {
     background: transparent url(../images/logout.png) no-repeat center;
     background-size: cover;
@@ -109,6 +101,7 @@ header {
     grid-template-rows: 90px auto;
     row-gap: 30px;
 }
+
 .usuario-div {
     box-sizing: border-box;
     padding: 6px;
@@ -118,11 +111,13 @@ header {
     column-gap: 6px;
     width: inherit;
 }
+
 .usuario-div hr {
     width: 100%;
     height: 0;
     grid-column: 1/3;
 }
+
 .usuario-imagem-div {
     background-color: white;
     width: 50px;
@@ -135,13 +130,16 @@ header {
     justify-content: center;
     align-items: center;
 }
+
 .usuario-imagem {
     width: 27px;
 }
+
 .usuario-legenda {
     grid-column: 2/3;
     width: calc(100% - 12px);
 }
+
 .usuario-div .nome {
     display: inline-block;
     font-weight: 500;
@@ -155,6 +153,7 @@ header {
     color: rgb(108, 108, 108);
     font-weight: 400;
 }
+
 .botoes-menu li {
     background-color: rgb(12, 144, 240);
     width: 140px;
@@ -168,6 +167,7 @@ header {
 .botoes-menu li:hover {
     background-color: rgb(11, 134, 221);
 }
+
 .botoes-menu a {
     color: white;
     text-decoration: none;
@@ -179,8 +179,8 @@ header {
 }
 
 .main {
+	background-color: #eeeeee;
     height: calc(100vh - 110px);
-    background-color: white;
     position: relative;
     grid-row: 2/3;
     display: flex;
@@ -188,25 +188,6 @@ header {
     align-items: center;
 }
 
-.botao-verde {
-	width: 200px;
-	height: 40px;
-	background-color: #2FC891;
-	font-size: 18px;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	font-weight: 300;
-	color: white;
-	border: 0;
-	outline: 0;
-	box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
-	border-radius: 4px;
-	justify-self: center;
-	align-self: flex-end;
-	cursor: pointer;
-}
-.botao-verde:hover, .novo-item:hover {
-	background-color: #29b381;
-}
 /*Media Queries*/
 @media (min-width: 800px) {
     header {
@@ -223,7 +204,7 @@ header {
         display: inline;
         margin-left: 10px;
         font-size: 36px;
-        color: #2FC891;
+        color: #29b381;
     }
     .tela {
         width: 95%;
@@ -238,55 +219,4 @@ header {
         display: grid;
         background-color: transparent;
     }
-    .avaliacao-div {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: flex-start;
-        align-content: flex-start;
-        row-gap: 40px;
-    }
-    .competencia-div {
-        width: 50%;
-        row-gap: 20px;
-    }
-}
-
-/*Janela de Aviso*/
-.aviso {
-	position: absolute;
-	width: max-content;
-	min-width: 260px;
-	max-width: 80%;
-	height: 2.2em;
-	padding: 0 10px;
-	display: grid;
-	grid-template-columns: max-content auto max-content;
-	column-gap: 10px;
-	align-items: center;
-	justify-content: center;
-	box-sizing: border-box;
-	font-size: 20px;
-	font-weight: 300;
-	left: 50%;
-	bottom: 0;
-	transform: translate(-50%, -50%);
-	border-radius: 4px;
-	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-	outline: 1px solid #FF0000;
-	background-color: rgba(198, 16, 16, 0.9);
-	color: white;
-}
-.exclamacao {
-	width: 25px;
-	height: 25px;
-	filter: drop-shadow(0 4px 4px rgb(0, 0, 0, 0.4));
-}
-.aviso .avisofechar-botao {
-	background: transparent url(../images/xmark-solid.svg) no-repeat center;
-	width: 20px;
-	height: 20px;
-	border: 0;
-	filter: invert(100%);
-	cursor: pointer;
 }

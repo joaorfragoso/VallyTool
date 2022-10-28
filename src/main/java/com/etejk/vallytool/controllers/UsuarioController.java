@@ -2,7 +2,7 @@ package com.etejk.vallytool.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.etejk.vallytool.dao.UsuarioDAO;
 import com.etejk.vallytool.entities.RoleModel;
 import com.etejk.vallytool.entities.Usuario;
@@ -73,5 +73,29 @@ public class UsuarioController {
 		model.addAttribute("error", "Usuario já cadastrado!");
 		return new ModelAndView("redirect:/inicio", model);
 	}
+	
+	@GetMapping("vinculos")
+    public String vinculos(Model model, @RequestParam(name = "id") String id) {
+
+        Optional<Usuario> user = ur.findById(Integer.parseInt(id));
+        if(!user.isPresent()) {
+            return "redirect:/inicio";
+        };
+
+        model.addAttribute("usuario", user.get());
+        return "site/vinculos";
+    }
+	
+	@GetMapping("dados")
+    public String dados(Model model, @RequestParam(name = "id") String id) {
+
+        Optional<Usuario> user = ur.findById(Integer.parseInt(id));
+        if(!user.isPresent()) {
+            return "redirect:/inicio";
+        };
+
+        model.addAttribute("usuario", user.get());
+        return "site/dados";
+    }
 }
 

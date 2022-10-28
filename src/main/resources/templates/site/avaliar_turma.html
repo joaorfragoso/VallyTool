@@ -61,14 +61,14 @@
             border: 6px solid transparent;
         }
         .opcao-selecionada::before {
-            top: 50%;
-            transform: translatey(-115%);
+            top: calc(--altura-opcoes * 0.5);
+            transform: translatey(-60%);
             right: 10px;
             border-color: transparent transparent rgba(0, 0, 0, 0.4) transparent;
         }
         .opcao-selecionada::after {
-            top: 50%;
-            transform: translatey(15%);
+            top: calc(--altura-opcoes * 0.5);
+            transform: translatey(60%);
             right: 10px;
             border-color: rgba(0, 0, 0, 0.4) transparent transparent transparent;
         }
@@ -154,8 +154,24 @@
         .botao-submit:hover {
             background-color: #14bb4c;
         }
+        
+        @media (min-width: 800px) {
+		    .avaliacao-div {
+		        flex-direction: row;
+		        flex-wrap: wrap;
+		        justify-content: center;
+		        align-items: flex-start;
+		        align-content: flex-start;
+		        row-gap: 40px;
+		    }
+		    .competencia-div {
+		        width: 50%;
+		        row-gap: 20px;
+		    }
+		}
     </style>
-	<link rel="stylesheet" href="styles/prof_sop.css">
+    <link rel="stylesheet" href="styles/common.css">
+	<link rel="stylesheet" href="styles/estrutura.css">
     <link rel="stylesheet" href="styles/professor.css">
 </head>
 <body>

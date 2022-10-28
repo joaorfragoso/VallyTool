@@ -75,14 +75,12 @@
 .item-div .cargo {
 	height: 1.2em;
 }
-.item-div button {
+.item-div .editar-botao {
 	height: 80%;
 	aspect-ratio: 1/1;
 	border: 0;
 	justify-self: flex-end;
 	cursor: pointer;	
-}
-.item-div .editar-botao {
 	background: transparent url(../images/wrench-solid.svg) no-repeat center;
 }
 

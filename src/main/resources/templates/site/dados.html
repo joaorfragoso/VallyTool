@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles/reset.css">
+	<title>VallyTool</title>
+	<link rel="stylesheet" href="styles/common.css">
+	<style>
+		.botoes-menu li:nth-child(1) {
+			width: 150px;
+		}
+		
+		.aba {
+			display: grid;
+			grid-template-rows: max-content auto max-content;
+			flex-direction: column;
+			row-gap: 20px;
+			justify-content: center;
+			padding-bottom: 20px;
+		}
+		
+		.aba form {
+			display: flex;
+			flex-direction: column;
+			row-gap: 15px;
+			font-weight: 300;
+		}
+		
+		.aba-selecionada {
+			position: relative;
+			width: 200px;
+			height: 2.5em;
+			justify-self: center;
+			background-color: #0C90F0;
+			border-radius: 0 0 6px 6px;
+			color: white;
+			font-weight: 300;
+			font-size: 18px;
+			text-align: center;
+			line-height: 2.5em;
+			cursor: pointer;
+		}
+		.aba-selecionada img {
+			position: absolute;
+			top: 50%;
+			left: 10px;
+			transform: translatey(-50%);
+			height: 60%;
+			filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(310deg) brightness(104%) contrast(101%);
+		}
+        .aba-selecionada::after {
+            content: '';
+            position: absolute;
+            background: transparent url(images/rotate-solid.svg) no-repeat center;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+            opacity: 0.5;
+            height: 20px;
+            width: 20px;
+        }
+        .input1 {
+			cursor: not-allowed;
+		}
+		
+		@media (min-width: 800px) {
+			#tela-cadastro, .aba-dados {
+				row-gap: 60px;
+			}
+			.aba {
+				justify-content: initial;
+			}
+			.aba form {
+				display: grid;
+				grid-template-rows: max-content max-content max-content;
+				grid-template-columns: 1fr 1fr;
+				column-gap: 20px;
+				width: 100%;
+				font-size: 1.1em;
+			}
+			.text-input  {
+				grid-column: 1/2;
+				justify-self: center;
+			}
+			.text-input input {
+				font-size: 1em;
+			}
+			.cargo-opcao {
+				grid-column: 2/3;
+			}
+			form div:nth-child(4) {
+				grid-row: 1/2;
+			}
+			form div:nth-child(5) {
+				grid-row: 2/3;
+			}
+		}
+	</style>
+	<link rel="stylesheet" href="styles/estrutura.css">
+</head>
+<body>
+	<header th:replace="common/base::cabecalho_logado"></header>
+	<div class="main">
+		<div class="tela">
+			<div th:replace="common/base::menu_sop"></div>
+			<div class="aba">
+				<a th:href="@{vinculos(id=${usuario.getId()})}" class="aba-selecionada"><img src="images/database-solid.svg">Dados</a>
+				<form>
+					<div class="text-input">
+						<label>Nome</label><br>
+						<input name="nome" type="text" th:value="${usuario.getNome()}" readonly class="input1" autocomplete="off" required>
+					</div>
+					<div class="text-input">
+						<label>Email</label><br>
+						<input name="email" type="email" th:value="${usuario.getEmail()}" readonly class="input1" autocomplete="off" required>
+					</div>
+					<div class="text-input">
+						<label>CPF</label><br>
+						<input name="cpf" type="text" th:value="${usuario.getCpf()}" readonly class="input1" id="input-cpf" autocomplete="off" pattern=".{14}" maxlength="14" required>
+					</div>
+					<div class="cargo-opcao">
+						<span>Cargo</span>
+						<div class="opcaolabel-div">
+							<input type="radio" id="radioProfessor1" name="role" value="ROLE_PROFESSOR" onclick="form.submit()" required>
+							<label class="label1" for="radioProfessor1">Professor</label>
+						</div>
+					</div>
+					<div class="opcaolabel-div cargo-opcao">
+						<input type="radio" id="radioSop1" name="role" value="ROLE_SOP" onclick="form.submit()" required>
+						<label class="label1" for="radioSop1">SOP</label>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
+	</div>
+</body>
+</html>
