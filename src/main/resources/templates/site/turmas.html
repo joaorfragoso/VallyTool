@@ -26,9 +26,12 @@
 			justify-self: flex-end;
 		}
 		.lista-div .novo-item {
+			position: relative;
 			display: block;
 			width: 100%;
 			min-height: 2.5em;
+			padding: 0 8px;
+			box-sizing: border-box;
 			border-radius: 4px;
 			background-color: #2FC891;
 			color: white;
@@ -76,14 +79,37 @@
 			right: 8px;
 			top: 50%;
 			transform: translatey(-50%);
-			width: 70px;
+			width: 90px;
 			height: 2em;
-			background-color: rgb(12, 144, 240);
+			background-color: #2FC891;
+			font-family: inherit;
+			font-weight: 300;
+			font-size: 14px;
 			color: white;
 			border: 0;
-			border-radius: 2px;
+			border-radius: 4px;
 			cursor: pointer;
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
+			box-shadow: 0 0px 4px 2px rgba(0, 0, 0, 0.25);
+		}
+		.criar-botao:hover {
+			background-color: #35E2A4;
+		}
+		.novaturma-input {
+			font-family: inherit;
+			font-weight: 300;
+			color: white;
+			border: 0;
+			outline: 0;
+			background-color: transparent;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		.novaturma-input::placeholder {
+			color: white;
+			opacity: 1;
+		}
+		.novaturma-input:focus::placeholder {
+			opacity: 0;
 		}
 	</style>
 	<link rel="stylesheet" href="styles/estrutura.css">
@@ -96,18 +122,25 @@
 		<div class="tela">
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
+				<div class="fechar-botao"></div>
 				<form class="pesquisar-form" th:action="@{/turmas}">
 					<input name="search" type="text" placeholder="Buscar Turma" class="pesquisar-input" autocomplete="off">
 					<button value="submit" class="pesquisar-botao"></button>
 				</form>
 				<div class="lista-div">
-					<div class="novo-item">
+					<div class="novo-item" onclick="this.firstElementChild.focus()">
+						<form method="post" th:action="@{turma}" th:object="${turma}">
+							<input type="text" class="novaturma-input" placeholder="Nova Turma" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
+							<button class="criar-botao">Criar</button>
+						</form>
+						<!--
 						<div class="criarturma-botao" onclick="criarTurma(this)">Nova Turma</div>
 						<form method="post" th:action="@{turma}" th:object="${turma}" class="turmanova oculto">
 							<label>Turma: </label>
 							<input name="codigo" type="text" pattern="[0-9]{3}" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
 							<button class="criar-botao">Criar</button>
 						</form>
+						-->
 					</div>
 					<div th:each="turma: ${turmas}" class="item-div">
 						<span th:text="${turma.codigo}" class="turma"></span>

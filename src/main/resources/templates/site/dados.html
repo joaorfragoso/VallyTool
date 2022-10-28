@@ -109,7 +109,8 @@
 			<div class="aba">
 				<a th:href="@{vinculos(id=${usuario.getId()})}" class="aba-selecionada"><img src="images/database-solid.svg">Dados</a>
 				<form th:action="@{/update}" method="post">
-					<input style="display: none" name ="id" th:value="${usuario.getId()}"></input>
+				<input style="display: none" name ="id" th:value="${usuario.getId()}"></input>
+				<a href="inicio" class="fechar-botao"></a>
 					<div class="text-input">
 						<label>Nome</label><br>
 						<input name="nome" type="text" th:value="${usuario.getNome()}" readonly class="input1" autocomplete="off" required>
@@ -151,4 +152,6 @@
 		radioSop.setAttribute("checked", true);
 	}
 </script>
+<script src="modules/menu.js"></script>
+<script src="modules/aviso.js"></script>
 </html>

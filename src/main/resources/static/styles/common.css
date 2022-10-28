@@ -49,6 +49,19 @@ strong {
 }
 /*-----*/
 
+/*Botão Utilizado Para Fechar as Janelas*/
+.fechar-botao {
+	z-index: 98;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	width: 30px;
+	height: 30px;
+	background: transparent url(../images/xmark-solid.svg) no-repeat center;
+	cursor: pointer;
+}
+/*-----*/
+
 /*Janela de Aviso*/
 .aviso {
 	position: absolute;
@@ -61,7 +74,7 @@ strong {
 	grid-template-columns: max-content auto max-content;
 	column-gap: 10px;
 	align-items: center;
-	justify-content: center;
+	justify-items: center;
 	box-sizing: border-box;
 	font-size: 20px;
 	font-weight: 300;
