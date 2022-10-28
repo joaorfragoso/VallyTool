@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.CompetenciaRepository;
 import com.etejk.vallytool.repositories.ProfessoRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
@@ -27,10 +28,11 @@ public class AvaliarController {
 
 	@GetMapping("avaliar")
 	public String avaliar(Model model, Authentication auth) {
+		Usuario usuario = pr.findByNome(auth.getName());
 		model.addAttribute("competencias", cr.findAll());
-		model.addAttribute("turmas", pr.findById(pr.findByNome(auth.getName()).getId()).get().getTurmas());
-		model.addAttribute("disciplinas", pr.findById(pr.findByNome(auth.getName()).getId()).get().getDisciplinas());
-		model.addAttribute("usuario", auth);
+		model.addAttribute("turmas", usuario.getTurmas());
+		model.addAttribute("disciplinas", usuario.getDisciplinas());
+		model.addAttribute("usuario", usuario);
 		return "site/avaliar_turma";
 	}
 	
