@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -50,7 +53,7 @@ public class UsuarioController {
 		
 	}
 	@PostMapping("usuario")
-	public String saveUsuario(UsuarioDAO usuarioDAO) {
+	public String saveUsuario(@Valid UsuarioDAO usuarioDAO) {
 		System.out.println(usuarioDAO);
 		
 		
