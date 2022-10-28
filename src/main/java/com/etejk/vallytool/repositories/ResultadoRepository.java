@@ -14,7 +14,8 @@ import com.etejk.vallytool.entities.Trimestre;
 public interface ResultadoRepository extends JpaRepository<Resultado, Integer>{
 	List<Resultado> findByData(LocalDate data);
 	
-	@Query("SELECT r FROM Resultado r WHERE YEAR(r.data) = ?1 ")
-	List<Resultado> findAno(Integer ano);
+	@Query("SELECT r FROM Resultado r WHERE YEAR(r.data) = ?1 AND r.trimestre = ?2")
+	List<Resultado> findAnoTrimestre(Integer ano, Trimestre trimestre);
 	List<Resultado> findByTrimestre(Trimestre trimestre);
+	
 }

@@ -54,10 +54,12 @@ public class ResultadoController {
 				disciplina,
 				resultado.addConceitos(),
 				usuario,
-				Trimestre.TERCEIRO);
+				Trimestre.valueOf(resultado.getTrimestre()));
 		
 		
-		if(rs.verificar(resultadoOriginal.getData(), Trimestre.TERCEIRO, resultadoOriginal)) 
+		if(rs.verificar(resultadoOriginal.getData(),
+				resultadoOriginal.getTrimestre(),
+				resultadoOriginal)) 
 		{
 			rr.save(resultadoOriginal);
 		} else {			
