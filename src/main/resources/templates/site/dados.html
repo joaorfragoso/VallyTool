@@ -108,7 +108,8 @@
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 				<a th:href="@{vinculos(id=${usuario.getId()})}" class="aba-selecionada"><img src="images/database-solid.svg">Dados</a>
-				<form>
+				<form th:action="@{/update}" method="post">
+					<input style="display: none" name ="id" th:value="${usuario.getId()}"></input>
 					<div class="text-input">
 						<label>Nome</label><br>
 						<input name="nome" type="text" th:value="${usuario.getNome()}" readonly class="input1" autocomplete="off" required>
@@ -140,6 +141,7 @@
 	</div>
 </body>
 <script>
+
 	let roleUsuario = document.querySelector("#roleUsuario");
 	let radioProf = document.querySelector("#radioProfessor1");
 	let radioSop = document.querySelector("#radioSop1");

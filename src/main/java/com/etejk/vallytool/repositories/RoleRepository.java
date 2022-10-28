@@ -10,6 +10,6 @@ import com.etejk.vallytool.entities.RoleName;
 @Repository
 public interface RoleRepository extends JpaRepository<RoleModel, Integer>{
 	@Query("Select r FROM RoleModel r WHERE r.roleName = ?1")
-	RoleModel findByRoleName(String role);
+	RoleModel findByRoleName(RoleName role);
 	
 }

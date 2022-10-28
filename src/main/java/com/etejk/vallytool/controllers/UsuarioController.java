@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.etejk.vallytool.dao.UsuarioDAO;
 import com.etejk.vallytool.entities.RoleModel;
+import com.etejk.vallytool.entities.RoleName;
 import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.RoleRepository;
 import com.etejk.vallytool.repositories.UsuarioRepository;
@@ -28,6 +29,26 @@ public class UsuarioController {
 	@Autowired
 	RoleRepository rr;
 	
+	@PostMapping("update")
+	public String updateUsuario(Model model,@RequestParam(name = "id") String id,
+								@RequestParam(name = "role") String role) {
+		
+		Optional<Usuario> usuario = ur.findById(Integer.parseInt(id));
+		if(!usuario.isPresent()) {
+			return "redirect:/dados";
+		}
+		List<RoleModel> roles = new ArrayList<>();
+		RoleModel roleModel = rr.findByRoleName(RoleName.valueOf(role));
+		if(roleModel == null) {
+			return "redirect:/dados";
+		}
+		roles.add(roleModel);
+		usuario.get().setRoles(roles);
+		
+		ur.save(usuario.get());
+		return "redirect:/dados?id=" + id;
+		
+	}
 	@PostMapping("usuario")
 	public String saveUsuario(UsuarioDAO usuarioDAO) {
 		System.out.println(usuarioDAO);
