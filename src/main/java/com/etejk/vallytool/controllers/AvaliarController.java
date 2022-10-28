@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.repositories.CompetenciaRepository;
 import com.etejk.vallytool.repositories.ProfessoRepository;
+import com.etejk.vallytool.repositories.TurmaRepository;
+import com.etejk.vallytool.services.TurmaService;
 
 @Controller
 public class AvaliarController {
@@ -20,6 +22,9 @@ public class AvaliarController {
 	@Autowired
 	ProfessoRepository pr;
 	
+	@Autowired
+	TurmaRepository tr;
+
 	@GetMapping("avaliar")
 	public String avaliar(Model model, Authentication auth) {
 		model.addAttribute("competencias", cr.findAll());

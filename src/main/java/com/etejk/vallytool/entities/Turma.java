@@ -1,10 +1,15 @@
 package com.etejk.vallytool.entities;
 
+import java.util.List;
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "turmas")
 public class Turma {
@@ -12,11 +17,16 @@ public class Turma {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
 	private String codigo;
+	
+	@ManyToMany
+	private List<Disciplina> disciplinas;
 
 	public Turma() { }
-	public Turma(Integer id, String codigo) {
+	public Turma(Integer id, String codigo, List<Disciplina> disciplinas) {
+		
 		this.codigo = codigo;
 		this.Id = id;
+		this.disciplinas = disciplinas;
 	}
 	public String getCodigo() {
 		return codigo;
@@ -29,6 +39,12 @@ public class Turma {
 	}
 	public void setId(Integer id) {
 		Id = id;
+	}
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
 	}
 	
 	
