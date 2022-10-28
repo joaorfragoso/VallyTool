@@ -83,15 +83,3 @@
 	cursor: pointer;	
 	background: transparent url(../images/wrench-solid.svg) no-repeat center;
 }
-
-/*Botão Utilizado Para Fechar as Janelas*/
-.fechar-botao {
-	z-index: 98;
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	width: 30px;
-	height: 30px;
-	background: transparent url(../images/xmark-solid.svg) no-repeat center;
-	cursor: pointer;
-}

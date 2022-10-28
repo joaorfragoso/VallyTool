@@ -65,7 +65,21 @@
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 				<a th:href="@{dados(id=${usuario.getId()})}" class="aba-selecionada"><img src="images/link-solid.svg">Vínculos</a>
+				<a href="inicio" class="fechar-botao"></a>
+				<div>
+					<div>Turmas</div>
+					<div>Disciplinas</div>
+				</div>
+				<div class="lista-div">
+					<div class="novo-item">Vincular</div>
+					<div class="item-div">350</div>
+					<div class="item-div">330</div>
+					<div class="item-div">150</div>
+				</div>
 			</div>
+		</div>
+		<div class="modal-vincular">
+			<div class="vincular-div"></div>
 		</div>
 		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
 	</div>

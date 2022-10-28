@@ -108,6 +108,7 @@
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 				<a th:href="@{vinculos(id=${usuario.getId()})}" class="aba-selecionada"><img src="images/database-solid.svg">Dados</a>
+				<a href="inicio" class="fechar-botao"></a>
 				<form>
 					<div class="text-input">
 						<label>Nome</label><br>
@@ -138,4 +139,6 @@
 		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
 	</div>
 </body>
+<script src="modules/menu.js"></script>
+<script src="modules/aviso.js"></script>
 </html>
