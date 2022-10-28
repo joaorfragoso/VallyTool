@@ -1,6 +1,7 @@
 package com.etejk.vallytool.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.Year;
 
 import java.util.HashMap;
@@ -43,20 +44,20 @@ public class Resultado implements Serializable{
 	private List<String> conceitos;
 	@Enumerated(EnumType.STRING)
 	private Trimestre trimestre;
-	private Year ano;
+	private LocalDate data;
 	
 	public Resultado() {
 		
 	}
 
-	public Resultado(Turma turma, Disciplina disciplina, List<String> conceitos, Usuario usuario, Trimestre trimestre, Year ano) {
+	public Resultado(Turma turma, Disciplina disciplina, List<String> conceitos, Usuario usuario, Trimestre trimestre) {
 		super();
 		this.turma = turma;
 		this.disciplina = disciplina;
 		this.conceitos = conceitos;
 		this.usuario = usuario;
 		this.trimestre = trimestre;
-		this.ano = ano;
+		this.data = LocalDate.now();
 	}
 
 	public Integer getId() {
@@ -99,13 +100,23 @@ public class Resultado implements Serializable{
 		this.trimestre = trimestre;
 	}
 
-	public Year getAno() {
-		return ano;
+	public List<String> getConceitos() {
+		return conceitos;
 	}
 
-	public void setAno(Year ano) {
-		this.ano = ano;
+	public void setConceitos(List<String> conceitos) {
+		this.conceitos = conceitos;
 	}
+
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
+
 	
 	
 }

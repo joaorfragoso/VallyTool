@@ -1,14 +1,15 @@
 package com.etejk.vallytool.controllers;
 
-import java.time.Year;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.etejk.vallytool.dao.ResultadoDAO;
 import com.etejk.vallytool.entities.Disciplina;
@@ -20,6 +21,7 @@ import com.etejk.vallytool.repositories.DisciplinaRepository;
 import com.etejk.vallytool.repositories.ProfessoRepository;
 import com.etejk.vallytool.repositories.ResultadoRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
+import com.etejk.vallytool.services.ResultadoService;
 
 @Controller
 public class ResultadoController {
@@ -36,8 +38,11 @@ public class ResultadoController {
 	@Autowired
 	private DisciplinaRepository dr;
 	
+	@Autowired
+	private ResultadoService rs;
+	
 	@PostMapping("/avaliar")
-	public String avaliar(ResultadoDAO resultado, Model model) {
+	public String avaliar(@Valid ResultadoDAO resultado, Model model) {
 		System.out.println(resultado);
 		
 		
@@ -49,13 +54,11 @@ public class ResultadoController {
 				disciplina,
 				resultado.addConceitos(),
 				usuario,
-				Trimestre.TERCEIRO,
-				Year.parse(resultado.getAno()));
+				Trimestre.TERCEIRO);
 		
 		
-		if(verificar(resultadoOriginal.getAno(), Trimestre.TERCEIRO, resultadoOriginal)) 
+		if(rs.verificar(resultadoOriginal.getData(), Trimestre.TERCEIRO, resultadoOriginal)) 
 		{
-			System.out.println("Funcionouy porra!!!!@!!");
 			rr.save(resultadoOriginal);
 		} else {			
 			return "redirect:/avaliar_error";
@@ -64,36 +67,4 @@ public class ResultadoController {
 		return "redirect:/avaliar";
 	}
 	
-	public boolean verificar(Year ano,
-			Trimestre trimestre,
-			Resultado resultado) {
-		List<Resultado> resultadoAno = rr.findByAno(ano);
-		List<Resultado> resultadoTrimestre = rr.findByTrimestre(trimestre);
-		
-		Integer maior = 0;
-		if(resultadoAno.size() > resultadoTrimestre.size()) {
-			maior = resultadoAno.size();
-		}else {
-			maior = resultadoTrimestre.size();
-		}
-		
-		if(maior == 0) {
-			return true;
-		}
-		
-		List<Resultado> resultados = new ArrayList<>();
-		for(int i = 0; i < maior; i++) {
-			if(resultadoAno.equals(resultadoTrimestre)) {
-				resultados.add(resultadoAno.get(i));
-				
-				if(resultados.get(i).getTurma() == resultado.getTurma()&&
-					resultados.get(i).getDisciplina() == resultado.getDisciplina()){
-					return false;
-				}
-			}
-			
-		}
-		
-		return true;
-	}
 }
