@@ -1,12 +1,9 @@
-package com.etejk.vallytool.controllers;
+ package com.etejk.vallytool.controllers;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
-<<<<<<< HEAD
-
-=======
->>>>>>> 55eaf64b54babfbd4e795ab4cdb1c1c3c1f5d314
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -78,8 +75,6 @@ public class UsuarioController {
 		return new ModelAndView("redirect:/inicio", model);
 	}
 	
-<<<<<<< HEAD
-=======
 	@GetMapping("vinculos")
     public String vinculos(Model model, @RequestParam(name = "id") String id) {
 
@@ -103,6 +98,5 @@ public class UsuarioController {
         model.addAttribute("usuario", user.get());
         return "site/dados";
     }
->>>>>>> 55eaf64b54babfbd4e795ab4cdb1c1c3c1f5d314
 }
 

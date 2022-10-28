@@ -123,6 +123,7 @@
 					</div>
 					<div class="cargo-opcao">
 						<span>Cargo</span>
+						<p id="roleUsuario" style="display: none" th:text=${usuario.getAuthority()}> </p>
 						<div class="opcaolabel-div">
 							<input type="radio" id="radioProfessor1" name="role" value="ROLE_PROFESSOR" onclick="form.submit()" required>
 							<label class="label1" for="radioProfessor1">Professor</label>
@@ -138,4 +139,14 @@
 		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
 	</div>
 </body>
+<script>
+	let roleUsuario = document.querySelector("#roleUsuario");
+	let radioProf = document.querySelector("#radioProfessor1");
+	let radioSop = document.querySelector("#radioSop1");
+	if(roleUsuario.getInnerHTML() == "Professor"){
+		radioProf.setAttribute("checked", true);
+	}else{
+		radioSop.setAttribute("checked", true);
+	}
+</script>
 </html>
