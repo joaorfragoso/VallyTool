@@ -91,10 +91,10 @@
 			.cargo-opcao {
 				grid-column: 2/3;
 			}
-			form div:nth-child(4) {
+			.cargo-opcao:nth-child(4) {
 				grid-row: 1/2;
 			}
-			form div:nth-child(5) {
+			.cargo-opcao:nth-child(5) {
 				grid-row: 2/3;
 			}
 		}
@@ -108,9 +108,8 @@
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 				<a th:href="@{vinculos(id=${usuario.getId()})}" class="aba-selecionada"><img src="images/database-solid.svg">Dados</a>
-				<form th:action="@{/update}" method="post">
-				<input style="display: none" name ="id" th:value="${usuario.getId()}"></input>
 				<a href="inicio" class="fechar-botao"></a>
+				<form th:action="@{/update}" method="post">
 					<div class="text-input">
 						<label>Nome</label><br>
 						<input name="nome" type="text" th:value="${usuario.getNome()}" readonly class="input1" autocomplete="off" required>
@@ -135,6 +134,7 @@
 						<input type="radio" id="radioSop1" name="role" value="ROLE_SOP" onclick="form.submit()" required>
 						<label class="label1" for="radioSop1">SOP</label>
 					</div>
+					<input style="display: none" name ="id" th:value="${usuario.getId()}"></input>
 				</form>
 			</div>
 		</div>
