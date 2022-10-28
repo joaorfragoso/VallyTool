@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="styles/reset.css">
 	<title>VallyTool</title>
+	<link rel="stylesheet" href="styles/common.css">
 	<style>
 		.botoes-menu li:nth-child(1) {
 			width: 150px;
@@ -22,7 +23,7 @@
 			box-sizing: border-box;
 			border-radius: 6px;
 			background-color: white;
-			display: none;
+			display: grid;
 			grid-template-rows: max-content auto;
 			row-gap: 20px;
 		}
@@ -47,61 +48,13 @@
 			flex-direction: column;
 			row-gap: 15px;
 		}
-		.cargo-radiolabel {
-			display: inline-block;
-			width: 140px;
-			height: 2em;
-			border-radius: 4px;
-			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
-			background-color: #0C90F0;
-			text-align: center;
-			line-height: 2em;
-			cursor: pointer;
-		}
-		.cargo-radiolabel:hover {
-			background-color: rgb(11, 134, 221);
-		}
 		#tela-cadastro .dados {
 			display: flex;
 			flex-direction: column;
 			row-gap: 10px;
 		}
-		.dados-input {
-			width: 260px;
-			height: 2.5em;
-			padding: 0 10px;
-			box-sizing: border-box;
-			border-radius: 6px;
-			border: 0;
-			outline: 0;
-			background-color: white;
-			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
-		}
-		.opcoes-radio, .dados-input {
-			margin-top: 8px;
-		}
-		.dados-input::placeholder {
-			opacity: 0.4;
-		}
-		.opcoes-radio {
-			display: flex;
-			align-items: center;
-			column-gap: 10px;
-			color: white;
-		}
-		input[type="radio"] {
-			position: absolute;
-			appearance: none;
-			background-color: white;
-			width: 1.5em;
-			height: 1.5em;
-			box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25), inset 1px 0 4px rgba(0, 0, 0, 0.25);
-			border-radius: 50%;
-			cursor: pointer;
-		}
-		input[type="radio"]:checked {
-			background-color: #2FC891;
-			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
+		.input1:focus {
+			outline: 1px solid #0069D9;
 		}
 		
 		@media (min-width: 800px) {
@@ -135,12 +88,9 @@
 			.dados-div div:nth-child(5) {
 				grid-row: 2/3;
 			}
-			.cargo-radiolabel {
-				width: 200px;
-			}
 		}
 	</style>
-	<link rel="stylesheet" href="styles/prof_sop.css">
+	<link rel="stylesheet" href="styles/estrutura.css">
 	<link rel="stylesheet" href="styles/professor.css" sec:authorize="hasRole('PROFESSOR')">
 	<link rel="stylesheet" href="styles/sop.css" sec:authorize="hasRole('SOP')">
 </head>
@@ -177,37 +127,40 @@
 					<div th:each="usuario: ${usuarios}" class="item-div">
 						<span th:text="${usuario.getNome()}" class="nome"></span>
 						<span th:text="${usuario.getAuthority()}" class="cargo"></span>
-						<button class="editar-botao" onclick="abrirJanela('')"></button>
+						<a class="editar-botao" th:href="@{dados(id=${usuario.getId()})}"></a>
 					</div>
 				</div>
-				<button class="botao-verde" onclick="abrirJanela('tela-cadastro', 'grid')">Cadastrar Usuário</button>
-				<div id="tela-cadastro">
+				<button class="botao-verde" onclick="abrirJanela('tela-cadastro')">Cadastrar Usuário</button>
+				
+				<!--Tela Cadastro-->
+				
+				<div id="tela-cadastro" class="oculto">
 					<h1>Cadastro</h1>
-					<div class="fechar-botao" onclick="this.parentNode.style.display='none'"></div>
+					<div class="fechar-botao"></div>
 					<form th:action="@{/usuario}" th:object="${usuarioDAO}" method="post">
 						<div class="dados-div">
 							<div class="text-input">
 								<label>Nome</label><br>
-								<input name="nome" type="text" placeholder="Insira o Nome" class="dados-input" autocomplete="off" required>
+								<input name="nome" type="text" placeholder="Insira o Nome" class="input1" autocomplete="off" required>
 							</div>
 							<div class="text-input">
 								<label>Email</label><br>
-								<input name="email" type="email" placeholder="Insira um Email" class="dados-input" autocomplete="off" required>
+								<input name="email" type="email" placeholder="Insira um Email" class="input1" autocomplete="off" required>
 							</div>
 							<div class="text-input">
 								<label>CPF</label><br>
-								<input name="cpf" type="text" placeholder="Insira um CPF Válido" class="dados-input" id="input-cpf" autocomplete="off" pattern=".{14}" maxlength="14" required>
+								<input name="cpf" type="text" placeholder="Insira um CPF Válido" class="input1" id="input-cpf" autocomplete="off" pattern=".{14}" maxlength="14" required>
 							</div>
 							<div class="cargo-opcao">
 								<span>Cargo</span>
-								<div class="opcoes-radio">
+								<div class="opcaolabel-div">
 									<input type="radio" id="radioProfessor" name="role" value="ROLE_PROFESSOR" required>
-									<label class="cargo-radiolabel" for="radioProfessor">Professor</label>
+									<label class="label1" for="radioProfessor">Professor</label>
 								</div>
 							</div>
-							<div class="opcoes-radio cargo-opcao">
+							<div class="opcaolabel-div cargo-opcao">
 								<input type="radio" id="radioSop" name="role" value="ROLE_SOP" required>
-								<label class="cargo-radiolabel" for="radioSop">SOP</label>
+								<label class="label1" for="radioSop">SOP</label>
 							</div>
 						</div>
 						<button class="botao-verde">Cadastrar</button>
@@ -221,7 +174,7 @@
 <script src="modules/menu.js"></script>
 <script src="modules/cpfInput.js"></script>
 <script src="modules/aviso.js"></script>
-<script src="modules/abrirJanela.js"></script>
+<script src="modules/janelaFunctions.js"></script>
 <script>
 	const spanCargoArray = document.querySelectorAll(".item-div .cargo");
 	
@@ -240,6 +193,19 @@
 				if(element.innerHTML == "Prof") {element.innerHTML = "Professor"}
 			});
 		}
+	}
+	
+	const abaSelecionadaArray = document.getElementsByClassName("aba-selecionada");
+	
+	for (i = 0; i < abaSelecionadaArray.length; i++) {
+		abaSelecionadaArray[i].addEventListener("click", function(){
+			this.parentNode.classList.toggle("oculto");
+			let proximaAba = this.parentNode.nextSibling.nextSibling;
+			if (proximaAba === null) {
+				proximaAba = abaSelecionadaArray[0].parentNode;
+			}
+			proximaAba.classList.remove("oculto");
+		})
 	}
 </script>
 </html>

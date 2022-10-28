@@ -61,7 +61,20 @@ public class Usuario implements UserDetails, Serializable {
 		Id = id;
 	}
 	public String getCpf() {
-		return cpf;
+		String cpf[] = this.cpf.split("");
+		String novoCpf = "";
+		for (int i = 0; i < cpf.length; i++) {
+			novoCpf += cpf[i];
+			if (i == 2 || i == 5) {
+				novoCpf += ".";
+				continue;
+			}
+			if (i == 8) {
+				novoCpf += "-";
+				continue;
+			}
+		}
+		return novoCpf;
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
