@@ -19,8 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.etejk.vallytool.dao.UsuarioDAO;
 import com.etejk.vallytool.entities.RoleModel;
 import com.etejk.vallytool.entities.RoleName;
+import com.etejk.vallytool.entities.Turma;
 import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.RoleRepository;
+import com.etejk.vallytool.repositories.TurmaRepository;
 import com.etejk.vallytool.repositories.UsuarioRepository;
 
 @Controller
@@ -28,6 +30,9 @@ public class UsuarioController {
 	
 	@Autowired
 	UsuarioRepository ur;
+	
+	@Autowired
+	TurmaRepository tr;
 	
 	@Autowired
 	RoleRepository rr;
@@ -103,13 +108,42 @@ public class UsuarioController {
     public String vinculos(Model model, @RequestParam(name = "id") String id) {
 
         Optional<Usuario> user = ur.findById(Integer.parseInt(id));
+        if(!user.isPresent() || user.get().getAuthority().equals("SOP")) {
+            return "redirect:/inicio";
+        };
+        
+        Usuario usuario = user.get();
+        List<Turma> turmas = tr.findAll();
+        
+        turmas.removeAll(usuario.getTurmas());
+        
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("turmas", turmas);
+        model.addAttribute("turmasUsuario", usuario.getTurmas());
+        
+        return "site/vinculos";
+    }
+	
+	@PostMapping("usuarios/vinculos")
+	public String salvarVinculo(@RequestParam(name = "id") String id, @RequestParam(name ="turmas") List<String> turmas) {
+
+        Optional<Usuario> user = ur.findById(Integer.parseInt(id));
         if(!user.isPresent()) {
             return "redirect:/inicio";
         };
-
-        model.addAttribute("usuario", user.get());
-        return "site/vinculos";
-    }
+        
+        List<Turma> turmasUsuario = new ArrayList<>();
+        for(String turma: turmas) {
+        	turmasUsuario.add(tr.findByCodigo(turma));
+        }
+        
+        Usuario usuario = user.get();
+        usuario.setTurmas(turmasUsuario);
+        
+        ur.save(usuario);
+        return "redirect:/usuarios/vinculos?id=" + id;
+        
+	}
 	
 	@GetMapping("usuarios/dados")
     public String dados(Model model, @RequestParam(name = "id") String id) {
