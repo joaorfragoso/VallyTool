@@ -127,7 +127,7 @@
 					<div th:each="usuario: ${usuarios}" class="item-div">
 						<span th:text="${usuario.getNome()}" class="nome"></span>
 						<span th:text="${usuario.getAuthority()}" class="cargo"></span>
-						<a class="editar-botao" th:href="@{dados(id=${usuario.getId()})}"></a>
+						<a class="editar-botao" th:href="@{usuarios/dados(id=${usuario.getId()})}"></a>
 					</div>
 				</div>
 				<button class="botao-verde" onclick="abrirJanela('tela-cadastro')">Cadastrar Usuário</button>
@@ -137,7 +137,7 @@
 				<div id="tela-cadastro" class="oculto">
 					<h1>Cadastro</h1>
 					<div class="fechar-botao"></div>
-					<form th:action="@{/usuario}" th:object="${usuarioDAO}" method="post">
+					<form th:action="@{/usuarios}" th:object="${usuarioDAO}" method="post">
 						<div class="dados-div">
 							<div class="text-input">
 								<label>Nome</label><br>

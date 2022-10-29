@@ -14,7 +14,6 @@ public class UsuarioService {
 	
 	
 	public void changeUserPassword(Usuario user, String password) {
-		System.out.println(user.getSenha());
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		user.setSenha(encoder.encode(password));
 		System.out.println(user.getSenha());
