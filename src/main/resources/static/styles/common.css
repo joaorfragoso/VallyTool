@@ -4,6 +4,11 @@ a {
 .oculto {
 	display: none!important;
 }
+	
+.remover-after:after{
+	content: none;
+}
+
 strong {
     font-weight: 600;
 }

@@ -108,7 +108,8 @@
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 			
-				<a th:href="@{vinculos(id=${usuario.getId()})}" class="aba-selecionada"><img th:src="@{/images/database-solid.svg}">Dados</a>
+				<a th:if="${usuario.getAuthority() == 'Professor'}" th:href="@{vinculos(id=${usuario.getId()})}" class="aba-selecionada"><img th:src="@{/images/database-solid.svg}">Dados</a>
+				<a th:if="${usuario.getAuthority() == 'SOP'}" class="remover-after aba-selecionada">Dados</a>
 				<a href="inicio" class="fechar-botao"></a>
 				<form th:action="@{/usuarios/update}" method="post">
 					<div class="text-input">

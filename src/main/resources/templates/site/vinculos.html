@@ -170,17 +170,22 @@
 		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
 	</div>
 	<div class="modal-vincular oculto" id="modal-vincular" onclick="this.classList.add('oculto')">
-		<form onclick="event.stopPropagation()">
+		<form th:action="@{/usuarios/vinculos}" method="post" onclick="event.stopPropagation()">
 			<span class="titulo-form">Vincular Turmas</span>
 			<div class="lista-div">
-				<label class="label1 item-div" for="turma350">
-					<input type="checkbox" class="checkbox1" name="turma" id="turma350" value="350" required>
-					350
+				<label th:each="turmaUsuario: ${turmasUsuario}"class="label1 item-div" th:for="'turma' + ${turmaUsuario.getCodigo()}">
+					<input type="checkbox" checked class="checkbox1" name="turmas" th:id="'turma' + ${turmaUsuario.getCodigo()}" th:value="${turmaUsuario.getCodigo()}">
+					<th:block th:utext="${turmaUsuario.getCodigo()}">
 				</label>
+				<label th:each="turma: ${turmas}"class="label1 item-div" th:for="'turma' + ${turma.getCodigo()}">
+					<input type="checkbox" class="checkbox1" name="turmas" th:id="'turma' + ${turma.getCodigo()}" th:value="${turma.getCodigo()}">
+					<th:block th:utext="${turma.getCodigo()}">
+				</label>
+				<input style="display:none" name="id" th:value="${usuario.getId()}">
 			</div>
 			<button class="botao-verde">Vincular</button>
 		</form>
 	</div>
 </body>
-<script src="modules/janelaFunctions.js"></script>
+<script src="/modules/janelaFunctions.js"></script>
 </html>
