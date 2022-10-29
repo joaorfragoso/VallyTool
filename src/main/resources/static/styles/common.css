@@ -6,7 +6,7 @@ a {
 }
 	
 .remover-after:after{
-	content: none;
+	content: none!important;
 }
 
 strong {

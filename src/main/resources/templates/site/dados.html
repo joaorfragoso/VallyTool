@@ -109,11 +109,10 @@
 			<div class="aba">
 			
 				<a th:if="${usuario.getAuthority() == 'Professor'}" th:href="@{vinculos(id=${usuario.getId()})}" class="aba-selecionada"><img th:src="@{/images/database-solid.svg}">Dados</a>
-				<a th:if="${usuario.getAuthority() == 'SOP'}" class="remover-after aba-selecionada">Dados</a>
+				<a th:if="${usuario.getAuthority() == 'SOP'}" class="aba-selecionada remover-after"><img th:src="@{/images/database-solid.svg}">Dados</a>
 				<a href="inicio" class="fechar-botao"></a>
 				<form th:action="@{/usuarios/update}" method="post">
 					<div class="text-input">
-						<input style="display: none" name ="id" th:value="${usuario.getId()}"></input>
 						<label>Nome</label><br>
 						<input name="nome" type="text" th:value="${usuario.getNome()}" readonly class="input1" autocomplete="off" required>
 					</div>
