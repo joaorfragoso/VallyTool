@@ -104,6 +104,9 @@ public class Usuario implements UserDetails, Serializable {
 	public void setTurmas(List<Turma> turmas) {
 		this.turmas = turmas;
 	}
+	public void addTurma(Turma turma) {
+		this.turmas.add(turma);
+	}
 	public List<Disciplina> getDisciplinas() {
 		return disciplinas;
 	}

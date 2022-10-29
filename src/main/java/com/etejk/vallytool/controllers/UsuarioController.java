@@ -132,13 +132,11 @@ public class UsuarioController {
             return "redirect:/inicio";
         };
         
-        List<Turma> turmasUsuario = new ArrayList<>();
-        for(String turma: turmas) {
-        	turmasUsuario.add(tr.findByCodigo(turma));
-        }
-        
         Usuario usuario = user.get();
-        usuario.setTurmas(turmasUsuario);
+        
+        for(String turma: turmas) {
+        	usuario.addTurma(tr.findByCodigo(turma));
+        }
         
         ur.save(usuario);
         return "redirect:/usuarios/vinculos?id=" + id;

@@ -185,12 +185,7 @@
 				</div>
 				<div class="lista-div">
 					<div class="novo-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
-					<div class="item-div hover-azul">350</div>
-					<div class="item-div hover-azul">330</div>
-					<div class="item-div hover-azul">150</div>
-					<div class="item-div hover-azul">120</div>
-					<div class="item-div hover-azul">330</div>
-					<div class="item-div hover-azul">150</div>
+					<div th:each="turma : ${turmasUsuario}" th:text="${turma.getCodigo()}" class="item-div hover-azul">350</div>
 				</div>
 			</div>
 		</div>
@@ -200,10 +195,6 @@
 		<form th:action="@{/usuarios/vinculos}" method="post" onclick="event.stopPropagation()">
 			<span class="titulo-form">Vincular Turmas</span>
 			<div class="lista-div">
-				<label th:each="turmaUsuario: ${turmasUsuario}"class="label1 item-div" th:for="'turma' + ${turmaUsuario.getCodigo()}">
-					<input type="checkbox" checked class="checkbox1" name="turmas" th:id="'turma' + ${turmaUsuario.getCodigo()}" th:value="${turmaUsuario.getCodigo()}">
-					<th:block th:utext="${turmaUsuario.getCodigo()}">
-				</label>
 				<label th:each="turma: ${turmas}"class="label1 item-div" th:for="'turma' + ${turma.getCodigo()}">
 					<input type="checkbox" class="checkbox1" name="turmas" th:id="'turma' + ${turma.getCodigo()}" th:value="${turma.getCodigo()}">
 					<th:block th:utext="${turma.getCodigo()}">
