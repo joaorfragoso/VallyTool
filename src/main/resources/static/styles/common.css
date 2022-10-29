@@ -143,6 +143,45 @@ strong {
 .label1:hover {
 	background-color: rgb(11, 134, 221);
 }
+.checkbox1 {
+	position: absolute;
+	left: 5px;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: white;
+	appearance: none;
+	width: 1.6em;
+	height: 1.6em;
+	margin: 0;
+	border-radius: 50%;
+	box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25), inset 1px 0 4px rgba(0, 0, 0, 0.25);
+	cursor: pointer;
+}
+.checkbox1:checked {
+	background-color: #2FC891;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
+}
+/*
+.checkbox1:after {
+	content: '';
+	display: hidden;
+	position: absolute;
+	background-color: white;
+	width: 0.6em;
+	height: 0.6em;
+	border-radius: 50%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.checkbox1:checked ~ .checkbox1:after {
+	display: block;
+}
+.checkbox1:checked {
+	background-color: #2FC891;
+	border: 1px solid #2FC891;
+}
+*/
 
 input[type="radio"] {
 	position: absolute;
@@ -150,6 +189,7 @@ input[type="radio"] {
 	background-color: white;
 	width: 1.5em;
 	height: 1.5em;
+	margin: 0 0 0 5px;
 	box-shadow: inset 0 4px 4px rgba(0, 0, 0, 0.25), inset 1px 0 4px rgba(0, 0, 0, 0.25);
 	border-radius: 50%;
 	cursor: pointer;

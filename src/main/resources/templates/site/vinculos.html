@@ -12,10 +12,9 @@
 		.botoes-menu li:nth-child(1) {
 			width: 150px;
 		}
-		
 		.aba {
 			display: grid;
-			grid-template-rows: max-content auto max-content;
+			grid-template-rows: max-content max-content auto;
 			flex-direction: column;
 			row-gap: 20px;
 			justify-content: initial;
@@ -55,6 +54,96 @@
             height: 20px;
             width: 20px;
         }
+        
+        .etapas {
+			width: 180px;
+			height: 2.5em;
+			display: flex;
+			justify-content: space-between;
+			justify-self: center;
+		}
+		.etapa-botao {
+			width: 48%;
+			height: 100%;
+			border-radius: 2px;
+			line-height: 2.5em;
+			text-align: center;
+			font-weight: 300;
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25), inset 1px 1px 4px rgba(0, 0, 0, 0.25);
+		}
+		.etapa-botao.selecionado {
+			background-color: rgba(12, 144, 240, 0.8);
+			color: white;
+		}
+		.lista-div {
+			margin-top: 40px;
+			display: flex;
+			flex-direction: column;
+			row-gap: 8px;
+		}
+        .item-div {
+			position: relative;
+			width: 140px;
+			height: 2.1em;
+			background-color: #0C90F0;
+			border-radius: 0 4px 4px 0;
+			color: white;
+			font-size: 18px;
+			font-weight: 300;
+			line-height: 2em;
+			text-align: center;
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+		}
+		.novo-item {
+			background-color: #2FC891;
+			cursor: pointer;
+		}
+		
+		.modal-vincular {
+			z-index: 100;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.4);
+			display: flex;
+			justify-content: center;
+			align-items: center; 
+		}
+		.modal-vincular form {
+			position: relative;
+			width: 300px;
+			height: 460px;
+			padding: 15px 0;
+			box-sizing: border-box;
+			box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
+			background-color: white;
+			border-radius: 6px;
+			display: grid;
+			justify-items: center;
+			grid-template-rows: max-content auto max-content;
+			row-gap: 60px;
+			font-weight: 300;
+		}
+		.modal-vincular form .lista-div {
+			height: 100%;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			box-sizing: border-box;
+			padding-right: 10px;
+			overflow: auto;
+			margin: 0;
+		}
+		.modal-vincular form .item-div {
+			border-radius: 4px;
+		}
+		.titulo-form {
+			font-size: 20px;
+		}
+		.label1 {
+			border-radius: 0 4px 4px 0;
+		}
 	</style>
 	<link rel="stylesheet" href="styles/estrutura.css">
 </head>
@@ -66,22 +155,32 @@
 			<div class="aba">
 				<a th:href="@{dados(id=${usuario.getId()})}" class="aba-selecionada"><img src="images/link-solid.svg">Vínculos</a>
 				<a href="inicio" class="fechar-botao"></a>
-				<div>
-					<div>Turmas</div>
-					<div>Disciplinas</div>
+				<div class="etapas">
+					<div class="etapa-botao selecionado">Turmas</div>
+					<div class="etapa-botao">Disciplinas</div>
 				</div>
 				<div class="lista-div">
-					<div class="novo-item">Vincular</div>
+					<div class="novo-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
 					<div class="item-div">350</div>
 					<div class="item-div">330</div>
 					<div class="item-div">150</div>
 				</div>
 			</div>
 		</div>
-		<div class="modal-vincular">
-			<div class="vincular-div"></div>
-		</div>
 		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
 	</div>
+	<div class="modal-vincular oculto" id="modal-vincular" onclick="this.classList.add('oculto')">
+		<form onclick="event.stopPropagation()">
+			<span class="titulo-form">Vincular Turmas</span>
+			<div class="lista-div">
+				<label class="label1 item-div" for="turma350">
+					<input type="checkbox" class="checkbox1" name="turma" id="turma350" value="350" required>
+					350
+				</label>
+			</div>
+			<button class="botao-verde">Vincular</button>
+		</form>
+	</div>
 </body>
+<script src="modules/janelaFunctions.js"></script>
 </html>
