@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>VallyTool</title>
+    <link rel="stylesheet" th:href="@{/styles/reset.css}">
+    <link rel="stylesheet" th:href="@{/styles/login.css}">
+        <link rel="stylesheet" th:href="@{/styles/common.css}">
+    <style>
+    	
+    	p{
+		font-size: 30px
+}
+    	.main{
+	display: flex;
+	align-items:center;
+	justify-content: center;	
+}
+
+	.botao-verde{
+		margin-top: 2vh;
+		align-self: center;
+	}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="login.html">
+            <img th:src="@{/images/vallytool-logo.png}" alt="VallyTool Logo" class="vallytool-logo">
+        </a>
+        <h1>VallyTool</h1>
+    </header>
+    <div class="main">
+    	<p>Oops, página não encontrada.</p> 
+    	<form th:action="@{/inicio}" method="get">
+        <button class="botao-verde">Voltar</button>
+    	</form>
+    </div>
+    <footer>
+        <strong>&copy;VallyTool</strong>
+    </footer>
+</body>
+</html>
