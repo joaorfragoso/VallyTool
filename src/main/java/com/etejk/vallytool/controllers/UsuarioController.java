@@ -32,27 +32,27 @@ public class UsuarioController {
 	@Autowired
 	RoleRepository rr;
 	
-	@PostMapping("update")
+	@PostMapping("usuarios/update")
 	public String updateUsuario(Model model,@RequestParam(name = "id") String id,
 								@RequestParam(name = "role") String role) {
 		
 		Optional<Usuario> usuario = ur.findById(Integer.parseInt(id));
 		if(!usuario.isPresent()) {
-			return "redirect:/dados";
+			return "redirect:/usuarios/dados";
 		}
 		List<RoleModel> roles = new ArrayList<>();
 		RoleModel roleModel = rr.findByRoleName(RoleName.valueOf(role));
 		if(roleModel == null) {
-			return "redirect:/dados";
+			return "redirect:/usuarios/dados";
 		}
 		roles.add(roleModel);
 		usuario.get().setRoles(roles);
 		
 		ur.save(usuario.get());
-		return "redirect:/dados?id=" + id;
+		return "redirect:/usuarios/dados?id=" + id;
 		
 	}
-	@PostMapping("usuario")
+	@PostMapping("usuarios")
 	public String saveUsuario(@Valid UsuarioDAO usuarioDAO) {
 		System.out.println(usuarioDAO);
 		
@@ -77,7 +77,7 @@ public class UsuarioController {
 		try {
 		ur.save(usuarioOriginal);
 		} catch (Exception e){
-			return "redirect:/usuario_error";
+			return "redirect:/usuarios/error";
 		}
 		return "redirect:/inicio";
 	}
@@ -93,13 +93,13 @@ public class UsuarioController {
 		return "site/inicio";
 	}
 	
-	@GetMapping("usuario_error")
+	@GetMapping("usuarios/error")
 	public ModelAndView usuarioError(ModelMap model){
 		model.addAttribute("error", "Usuario já cadastrado!");
 		return new ModelAndView("redirect:/inicio", model);
 	}
 	
-	@GetMapping("vinculos")
+	@GetMapping("usuarios/vinculos")
     public String vinculos(Model model, @RequestParam(name = "id") String id) {
 
         Optional<Usuario> user = ur.findById(Integer.parseInt(id));
@@ -111,7 +111,7 @@ public class UsuarioController {
         return "site/vinculos";
     }
 	
-	@GetMapping("dados")
+	@GetMapping("usuarios/dados")
     public String dados(Model model, @RequestParam(name = "id") String id) {
 
         Optional<Usuario> user = ur.findById(Integer.parseInt(id));

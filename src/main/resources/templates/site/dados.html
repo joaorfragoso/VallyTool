@@ -5,9 +5,9 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="styles/reset.css">
+	<link rel="stylesheet" th:href="@{/styles/reset.css}">
 	<title>VallyTool</title>
-	<link rel="stylesheet" href="styles/common.css">
+	<link rel="stylesheet" th:href="@{/styles/common.css}">
 	<style>
 		.botoes-menu li:nth-child(1) {
 			width: 150px;
@@ -54,7 +54,7 @@
         .aba-selecionada::after {
             content: '';
             position: absolute;
-            background: transparent url(images/rotate-solid.svg) no-repeat center;
+            background: transparent url(/images/rotate-solid.svg) no-repeat center;
             top: 50%;
             transform: translateY(-50%);
             right: 10px;
@@ -99,7 +99,7 @@
 			}
 		}
 	</style>
-	<link rel="stylesheet" href="styles/estrutura.css">
+	<link rel="stylesheet" th:href="@{/styles/estrutura.css}">
 </head>
 <body>
 	<header th:replace="common/base::cabecalho_logado"></header>
@@ -107,9 +107,9 @@
 		<div class="tela">
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
-				<a th:href="@{vinculos(id=${usuario.getId()})}" class="aba-selecionada"><img src="images/database-solid.svg">Dados</a>
+				<a th:href="@{vinculos(id=${usuario.getId()})}" class="aba-selecionada"><img th:src="@{/images/database-solid.svg}">Dados</a>
 				<a href="inicio" class="fechar-botao"></a>
-				<form th:action="@{/update}" method="post">
+				<form th:action="@{/usuarios/update}" method="post">
 					<div class="text-input">
 						<input style="display: none" name ="id" th:value="${usuario.getId()}"></input>
 						<label>Nome</label><br>
@@ -151,6 +151,6 @@
 		radioSop.setAttribute("checked", true);
 	}
 </script>
-<script src="modules/menu.js"></script>
-<script src="modules/aviso.js"></script>
+<script th:src="@{/modules/menu.js}"></script>
+<script th:src="@{/modules/aviso.js}"></script>
 </html>

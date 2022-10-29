@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="styles/reset.css">
+	<link rel="stylesheet" href="/styles/reset.css">
 	<title>VallyTool</title>
 	<style>
 		.botoes-menu li:nth-child(2) {
@@ -18,7 +18,7 @@
 			column-gap: 10px;
 		}
 		.item-div .historico-botao {
-			background: transparent url(../images/folder-solid.svg) no-repeat center;
+			background: transparent url(/images/folder-solid.svg) no-repeat center;
 			height: 80%;
 			aspect-ratio: 1/1;
 			cursor: pointer;
@@ -112,9 +112,9 @@
 			opacity: 0;
 		}
 	</style>
-	<link rel="stylesheet" href="styles/estrutura.css">
-	<link rel="stylesheet" href="styles/common.css">
-	<link rel="stylesheet" href="styles/sop.css">
+	<link rel="stylesheet" href="/styles/estrutura.css">
+	<link rel="stylesheet" href="/styles/common.css">
+	<link rel="stylesheet" href="/styles/sop.css">
 </head>
 <body>
 	<header th:replace="common/base::cabecalho_logado"></header>
@@ -129,8 +129,8 @@
 				</form>
 				<div class="lista-div">
 					<div class="novo-item" onclick="this.firstElementChild.focus()">
-						<form method="post" th:action="@{turma}" th:object="${turma}">
-							<input type="text" class="novaturma-input" placeholder="Nova Turma" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
+						<form method="post" th:action="@{turmas}" th:object="${turma}">
+							<input name="codigo" type="text" class="novaturma-input" placeholder="Nova Turma" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
 							<button class="criar-botao">Criar</button>
 						</form>
 						<!--
@@ -154,9 +154,9 @@
 		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
 	</div>
 </body>
-<script src="modules/menu.js"></script>
-<script src="modules/aviso.js"></script>
-<script src="modules/janelaFunctions.js"></script>
+<script src="/modules/menu.js"></script>
+<script src="/modules/aviso.js"></script>
+<script src="/modules/janelaFunctions.js"></script>
 <script>
 	function criarTurma(element) {
 		element.nextSibling.nextSibling.classList.toggle("oculto");

@@ -3,7 +3,7 @@
 		<button class="menu-botao" onclick="abrirMenu()"></button>
 	</div>
 	<div class="logo-div">
-		<img src="images/vallytool-logo.png" alt="vallytool-logo" class="vallytool-logo">
+		<img th:src="@{/images/vallytool-logo.png}" alt="vallytool-logo" class="vallytool-logo">
 		<h1 class="titulo-logo">VallyTool</h1>
 	</div>
 	<div class="botoes-div">
@@ -17,7 +17,7 @@
 <div class="menu-extendido-div" id="menu-extendido-div" th:fragment="menu_prof">
 	<div class="usuario-div">
 		<div class="usuario-imagem-div">
-			<img class="usuario-imagem" src="images/user-solid.svg" alt="usuario">
+			<img class="usuario-imagem" src="/images/user-solid.svg" alt="usuario">
 		</div>
 		<div class="nome"><span sec:authentication="name">Sunda</span><br><span
 				class="cargo">Professor</span></div>
@@ -35,7 +35,7 @@
 <div class="menu-extendido-div" id="menu-extendido-div" th:fragment="menu_sop">
 	<div class="usuario-div">
 		<div class="usuario-imagem-div">
-			<img class="usuario-imagem" src="images/user-solid.svg" alt="usuario">
+			<img class="usuario-imagem" src="/images/user-solid.svg" alt="usuario">
 		</div>
 		<div class="nome"><span sec:authentication="name">Sunda</span><br><span class="cargo">SOP</span></div>
 		<hr>
@@ -50,7 +50,7 @@
 </div>
 
 <div style="display: none;" class="aviso" th:fragment="aviso">
-	<img src="images/triangle-exclamation-solid.svg" alt="aviso" class="exclamacao">
+	<img src="/images/triangle-exclamation-solid.svg" alt="aviso" class="exclamacao">
 	<span th:text="${param.error}"></span>
 	<button class="avisofechar-botao" onclick="this.parentNode.style.display='none'"></button>
 </div>
