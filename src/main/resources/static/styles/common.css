@@ -161,27 +161,6 @@ strong {
 	background-color: #2FC891;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
 }
-/*
-.checkbox1:after {
-	content: '';
-	display: hidden;
-	position: absolute;
-	background-color: white;
-	width: 0.6em;
-	height: 0.6em;
-	border-radius: 50%;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-.checkbox1:checked ~ .checkbox1:after {
-	display: block;
-}
-.checkbox1:checked {
-	background-color: #2FC891;
-	border: 1px solid #2FC891;
-}
-*/
 
 input[type="radio"] {
 	position: absolute;
