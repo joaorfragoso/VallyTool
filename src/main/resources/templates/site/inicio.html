@@ -194,18 +194,5 @@
 			});
 		}
 	}
-	
-	const abaSelecionadaArray = document.getElementsByClassName("aba-selecionada");
-	
-	for (i = 0; i < abaSelecionadaArray.length; i++) {
-		abaSelecionadaArray[i].addEventListener("click", function(){
-			this.parentNode.classList.toggle("oculto");
-			let proximaAba = this.parentNode.nextSibling.nextSibling;
-			if (proximaAba === null) {
-				proximaAba = abaSelecionadaArray[0].parentNode;
-			}
-			proximaAba.classList.remove("oculto");
-		})
-	}
 </script>
 </html>

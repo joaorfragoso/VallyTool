@@ -132,15 +132,6 @@
 						<form method="post" th:action="@{turmas}" th:object="${turma}">
 							<input name="codigo" type="text" class="novaturma-input" placeholder="Nova Turma" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
 							<button class="criar-botao">Criar</button>
-						</form>
-						<!--
-						<div class="criarturma-botao" onclick="criarTurma(this)">Nova Turma</div>
-						<form method="post" th:action="@{turma}" th:object="${turma}" class="turmanova oculto">
-							<label>Turma: </label>
-							<input name="codigo" type="text" pattern="[0-9]{3}" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
-							<button class="criar-botao">Criar</button>
-						</form>
-						-->
 					</div>
 					<div th:each="turma: ${turmas}" class="item-div">
 						<span th:text="${turma.codigo}" class="turma"></span>
@@ -168,5 +159,17 @@
 	        ValueAnterior = element.value;
 	    }
 	})()
+	
+	//Fazer aparecer o botão de submit;
+	const novaTurmaInput = document.getElementById("novaturma-input");
+	novaTurmaInput.addEventListener("focusin", function(){
+		this.nextElementSibling.classList.remove("oculto");
+	})
+	//Fazer desaparecer o botão de submit caso não tenha nenhum valor no input;
+	novaTurmaInput.addEventListener("focusout", function(){
+		if (novaTurmaInput.value.length === 0) {
+			this.nextElementSibling.classList.add("oculto");
+		} 
+	})
 </script>
 </html>
