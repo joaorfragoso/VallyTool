@@ -82,6 +82,30 @@ strong {
 }
 /*-----*/
 
+/*Aba Selecionada*/
+.aba-selecionada {
+	position: relative;
+	width: 200px;
+	height: 2.5em;
+	justify-self: center;
+	background-color: #0C90F0;
+	border-radius: 0 0 6px 6px;
+	color: white;
+	font-weight: 300;
+	font-size: 18px;
+	text-align: center;
+	line-height: 2.5em;
+}
+.aba-selecionada img {
+	position: absolute;
+	top: 50%;
+	left: 10px;
+	transform: translatey(-50%);
+	height: 60%;
+	filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(310deg) brightness(104%) contrast(101%);
+}
+/*-----*/
+
 /*Janela de Aviso*/
 .aviso {
 	position: absolute;

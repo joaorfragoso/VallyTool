@@ -49,4 +49,9 @@ public class TurmaController {
 		
 		return "site/turmas";
 	}
+	
+	@GetMapping("resultado")
+	public String resultado() {
+		return "site/resultados";
+	}
 }

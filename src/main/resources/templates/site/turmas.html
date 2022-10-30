@@ -66,14 +66,6 @@
 			background-color: transparent;
 			font-size: 1em;
 		}
-		/*Tirar as Setas do input number*/
-		input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-		  -webkit-appearance: none;
-		  margin: 0;
-		}
-		input[type=number] {
-		  -moz-appearance: textfield;
-		}
 		.criar-botao {
 			position: absolute;
 			right: 8px;
@@ -130,13 +122,13 @@
 				<div class="lista-div">
 					<div class="novo-item" onclick="this.getElementsByClassName('novaturma-input')[0].focus()">
 						<form method="post" th:action="@{turmas}" th:object="${turma}">
-							<input name="codigo" type="text" pattern="[0-9]{3}" class="novaturma-input" id="novaturma-input" placeholder="Nova Turma" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
+							<input name="codigo" type="text" pattern="[0-9]{3}" class="novaturma-input" id="novoItemInput" placeholder="Nova Turma" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
 							<button class="criar-botao oculto">Criar</button>
 						</form>
 					</div>
 					<div th:each="turma: ${turmas}" class="item-div">
 						<span th:text="${turma.codigo}" class="turma"></span>
-						<button class="historico-botao" onclick="abrirJanela('')"></button>
+						<a class="historico-botao" th:href="@{turmas/resultado(turma=${turma.getCodigo()})}" onclick="abrirJanela('')"></a>
 						<button class="editar-botao" onclick="abrirJanela('')"></button>
 					</div>
 				</div>
@@ -149,6 +141,7 @@
 <script src="/modules/menu.js"></script>
 <script src="/modules/aviso.js"></script>
 <script src="/modules/janelaFunctions.js"></script>
+<script src="/modules/novoItemInput.js"></script>
 <script>
 	function criarTurma(element) {
 		element.nextSibling.nextSibling.classList.toggle("oculto");
@@ -156,21 +149,15 @@
 	const bloqueiaCaractere = (function () {
 	    let ValueAnterior = "";
 	    return function (element) {
-        	if (isNaN(event.data)) {element.value = ValueAnterior}
+			if (event.inputType == "insertText") {
+        		if (isNaN(event.data)) {element.value = ValueAnterior}
+        	}
+	        //Caso o usuário cole um valor, ou caso ele use um valor gravado no navegador;
+	        if (event.inputType == "insertFromPaste" || event.inputType == undefined) {
+				element.value = ValueAnterior;
+			}
 	        ValueAnterior = element.value;
 	    }
 	})()
-	
-	//Fazer aparecer o botão de submit;
-	const novaTurmaInput = document.getElementById("novaturma-input");
-	novaTurmaInput.addEventListener("focusin", function(){
-		this.nextElementSibling.classList.remove("oculto");
-	})
-	//Fazer desaparecer o botão de submit caso não tenha nenhum valor no input;
-	novaTurmaInput.addEventListener("focusout", function(){
-		if (novaTurmaInput.value.length === 0) {
-			this.nextElementSibling.classList.add("oculto");
-		} 
-	})
 </script>
 </html>
