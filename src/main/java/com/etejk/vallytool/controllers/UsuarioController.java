@@ -111,7 +111,7 @@ public class UsuarioController {
         if(!user.isPresent() || user.get().getAuthority().equals("SOP")) {
             return "redirect:/inicio";
         };
-        
+
         Usuario usuario = user.get();
         List<Turma> turmas = tr.findAll();
         
