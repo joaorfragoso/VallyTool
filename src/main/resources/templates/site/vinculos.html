@@ -250,7 +250,7 @@
 				</div>
 				<div class="lista-div">
 					<div class="novo-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
-					<div th:each="relacao : ${relacoes}" class="item-div hover-azul turma-botao">
+					<div th:if="${relacoes != null}" th:each="relacao : ${relacoes}" class="item-div hover-azul turma-botao">
 						<th:block th:text="${relacao.getDisciplina().getNome()}" />
 						<div class="apagar-botao"></div>
 					</div>

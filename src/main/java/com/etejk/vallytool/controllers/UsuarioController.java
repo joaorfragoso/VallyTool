@@ -125,22 +125,19 @@ public class UsuarioController {
 
         Usuario usuario = user.get();
         List<Turma> turmas = tr.findAll();
-        List<Relacao> relacoes = rer.findByUsuario(usuario);
-        List<Disciplina> disciplinasRelacao = new ArrayList<>();
-        for(Relacao relacao: relacoes) {
-        	disciplinasRelacao.add(relacao.getDisciplina());
+        Turma turmaEnt = tr.findByCodigo(turma);
+        List<Relacao> relacoes = rer.findByTurmaAndUsuario(turmaEnt, usuario);
+        for (Relacao relacao : relacoes) {
+			turmaEnt.getDisciplinas().remove(relacao.getDisciplina());
+		}
+        List<Relacao> turmaRelacao = rer.findByTurma(turmaEnt);
+        for(Relacao relacao : turmaRelacao) {
+        	turmaEnt.getDisciplinas().remove(relacao.getDisciplina());
         }
-        
-        turmas.removeAll(usuario.getTurmas());
-        
-        if(turma != null) {
-        	Turma turmaFoda = tr.findByCodigo(turma);
-        	turmaFoda.getDisciplinas().removeAll(disciplinasRelacao);
-        	model.addAttribute("turmaSolicitada", turmaFoda);
-        }
+        model.addAttribute("turmaSolicitada", turmaEnt);
+        model.addAttribute("relacoes", relacoes);    
         model.addAttribute("usuario", usuario);
         model.addAttribute("turmas", turmas);
-        model.addAttribute("relacoes", relacoes);
         model.addAttribute("turmasUsuario", usuario.getTurmas());
         
         return "site/vinculos";
@@ -173,16 +170,25 @@ public class UsuarioController {
 		
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();		
 		Turma turmaEnt = tr.findByCodigo(turma);
-		List<Disciplina> disciplinaEnt = new ArrayList<>();
+		List<Disciplina> disciplinaList = new ArrayList<>();
 		for (String disciplina: disciplinas) {
-			disciplinaEnt.add(dr.findByNome(disciplina));	
+			Disciplina disciplinaEnt = dr.findByNome(disciplina);
+			disciplinaList.add(disciplinaEnt);
+			
+			if(!usuario.getDisciplinas().contains(disciplinaEnt)) {
+				usuario.addDisciplina(disciplinaEnt);
+			}
+			
 		}
-		for(Disciplina disciplina: disciplinaEnt) {
+		
+		ur.save(usuario);
+			
+		for(Disciplina disciplina: disciplinaList) {
 		Relacao relacao = new Relacao(turmaEnt, disciplina, usuario);
 			rer.save(relacao);
 		}
 		
-		return "redirect:/usuarios/vinculos?id" + id;
+		return "redirect:/usuarios/vinculos?id=" + id + "&etapa=0";
 		
 	}
 	
