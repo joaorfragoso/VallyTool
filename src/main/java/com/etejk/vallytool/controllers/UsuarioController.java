@@ -185,6 +185,19 @@ public class UsuarioController {
 		return "redirect:/usuarios/vinculos?id" + id;
 		
 	}
+	
+	@GetMapping("usuarios/remover-turma")
+	public String removerTurma(@RequestParam(name = "turma") String turma,
+			@RequestParam(name = "id") String id) {
+		
+		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
+		Turma turmaEnt = tr.findByCodigo(turma);
+		
+		usuario.getTurmas().remove(turmaEnt);
+		ur.save(usuario);
+		System.out.println("cuceta");
+		return "redirect:/usuarios/vinculos?id="+ id +"&etapa=0";
+	}
 	@GetMapping("usuarios/dados")
     public String dados(Model model, @RequestParam(name = "id") String id) {
 
