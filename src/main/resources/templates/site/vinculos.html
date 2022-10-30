@@ -113,8 +113,15 @@
 			padding: 0 2em;
 		}
 		.apagar-botao {
+			border: 0;
+			outline: 0;
 			display: none;
 			position: absolute;
+			cursor: pointer;
+			appearance: none;
+			margin: 0;
+			padding: 0;
+			
 			right: 10px;
 			top: 50%;
 			transform: translatey(-50%);
@@ -246,7 +253,11 @@
 						<a th:href="@{vinculos(id=${usuario.getId()}, turma=${turma.getCodigo()}, etapa=1)}" 
 						th:text="${turma.getCodigo()}" class="hover-azul">
 						</a>
-						<div class="apagar-botao"></div>
+						<form action="	remover-turma" method="post">
+						<input style="display: none;" name="turma" th:value="${turma.getCodigo()}">
+						<input style="display: none" name="id" th:value="${usuario.getId()}">
+						<button class="apagar-botao"></button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -265,9 +276,14 @@
 				</div>
 				<div class="lista-div">
 					<div class="novo-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
-					<div th:each="relacao : ${relacoes}" class="item-div hover-azul fit-content container">
+					<div th:if="${relacoes != null}"th:each="relacao : ${relacoes}" class="item-div hover-azul fit-content container">
 						<th:block th:text="${relacao.getDisciplina().getNome()}"/>
-						<div class="apagar-botao"></div>
+						<form action="remover-disciplina" method="post">
+						<input style="display: none;" name="id" th:value="${usuario.getId()}">
+						<input style="display: none;" name="disciplina" th:value="${relacao.getDisciplina().getNome()}">
+						<input style="display: none;" name="turma" th:value=${param.turma}>;
+						<button class="apagar-botao"></button>
+						</form>
 					</div>
 				</div>
 			</div>
