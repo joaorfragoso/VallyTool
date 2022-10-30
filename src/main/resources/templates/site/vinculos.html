@@ -12,6 +12,7 @@
 		.botoes-menu li:nth-child(1) {
 			width: 150px;
 		}
+
 		.aba {
 			display: grid;
 			grid-template-rows: max-content max-content auto;
@@ -20,7 +21,7 @@
 			justify-content: initial;
 			padding-bottom: 20px;
 		}
-		
+
 		.aba-selecionada {
 			position: relative;
 			width: 200px;
@@ -35,6 +36,7 @@
 			line-height: 2.5em;
 			cursor: pointer;
 		}
+
 		.aba-selecionada img {
 			position: absolute;
 			top: 50%;
@@ -43,25 +45,27 @@
 			height: 60%;
 			filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(310deg) brightness(104%) contrast(101%);
 		}
-        .aba-selecionada::after {
-            content: '';
-            position: absolute;
-            background: transparent url(/images/rotate-solid.svg) no-repeat center;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 10px;
-            opacity: 0.5;
-            height: 20px;
-            width: 20px;
-        }
-        
-        .etapas {
+
+		.aba-selecionada::after {
+			content: '';
+			position: absolute;
+			background: transparent url(/images/rotate-solid.svg) no-repeat center;
+			top: 50%;
+			transform: translateY(-50%);
+			right: 10px;
+			opacity: 0.5;
+			height: 20px;
+			width: 20px;
+		}
+
+		.etapas {
 			width: 180px;
 			height: 2.5em;
 			display: flex;
 			justify-content: space-between;
 			justify-self: center;
 		}
+
 		.etapa-botao {
 			width: 48%;
 			height: 100%;
@@ -71,17 +75,20 @@
 			font-weight: 300;
 			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25), inset 1px 1px 4px rgba(0, 0, 0, 0.25);
 		}
+
 		.etapa-botao.selecionado {
 			background-color: rgba(12, 144, 240, 0.8);
 			color: white;
 		}
+
 		.lista-div {
 			margin-top: 40px;
 			display: flex;
 			flex-direction: column;
 			row-gap: 8px;
 		}
-        .item-div {
+
+		.item-div {
 			position: relative;
 			width: 120px;
 			height: 2.1em;
@@ -96,6 +103,7 @@
 			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 			cursor: pointer;
 		}
+
 		.apagar-botao {
 			display: none;
 			position: absolute;
@@ -108,23 +116,28 @@
 			filter: invert(100%) sepia(3%) saturate(7487%) hue-rotate(299deg) brightness(101%) contrast(113%);
 			transition: rotate 0.4s ease-out;
 		}
+
 		.aba .item-div:hover .apagar-botao {
 			display: block;
 		}
+
 		.apagar-botao:hover {
 			rotate: -10deg;
 		}
+
 		.apagar-botao:hover .aba .item-div {
 			background-color: red;
 		}
+
 		.hover-azul:hover {
 			background-color: rgb(11, 134, 221);
 		}
+
 		.novo-item {
 			background-color: #2FC891;
 			cursor: pointer;
 		}
-		
+
 		.modal-vincular {
 			z-index: 100;
 			position: absolute;
@@ -133,8 +146,9 @@
 			background-color: rgba(0, 0, 0, 0.4);
 			display: flex;
 			justify-content: center;
-			align-items: center; 
+			align-items: center;
 		}
+
 		.modal-vincular form {
 			position: relative;
 			width: 300px;
@@ -150,6 +164,7 @@
 			row-gap: 60px;
 			font-weight: 300;
 		}
+
 		.modal-vincular form .lista-div {
 			height: 100%;
 			width: 100%;
@@ -160,16 +175,19 @@
 			overflow: auto;
 			margin: 0;
 		}
+
 		.modal-vincular form .item-div {
 			border-radius: 4px;
 		}
+
 		.titulo-form {
 			font-size: 20px;
 		}
+
 		.label1 {
 			border-radius: 0 4px 4px 0;
 		}
-		
+
 		@media (min-width: 800px) {
 			.aba .lista-div {
 				flex-direction: row;
@@ -180,6 +198,7 @@
 				gap: 10px;
 				width: 380px;
 			}
+
 			.aba .item-div {
 				border-radius: 4px;
 			}
@@ -187,15 +206,17 @@
 	</style>
 	<link rel="stylesheet" href="/styles/estrutura.css">
 </head>
+
 <body>
 	<header th:replace="common/base::cabecalho_logado"></header>
 	<div class="main">
 		<div class="tela">
 			<div th:replace="common/base::menu_sop"></div>
-			
+
 			<!--Turmas-->
 			<div class="aba oculto">
-				<a th:href="@{dados(id=${usuario.getId()})}" class="aba-selecionada"><img src="/images/link-solid.svg">Vínculos</a>
+				<a th:href="@{dados(id=${usuario.getId()})}" class="aba-selecionada"><img
+						src="/images/link-solid.svg">Vínculos</a>
 				<a href="/inicio" class="fechar-botao"></a>
 				<div class="etapas">
 					<div class="etapa-botao selecionado">Turmas</div>
@@ -203,27 +224,34 @@
 				</div>
 				<div class="lista-div">
 					<div class="novo-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
-					<a th:href="@{vinculos(id=${usuario.getId()}, turma=${turma.getCodigo()}, etapa=1)}" 
-					th:each="turma : ${turmasUsuario}" class="item-div hover-azul turma-botao">
-						<th:block th:text="${turma.getCodigo()}"/>
-						<div class="apagar-botao"></div>
+					<a th:href="@{vinculos(id=${usuario.getId()}, turma=${turma.getCodigo()}, etapa=1)}"
+						th:each="turma : ${turmasUsuario}" class="item-div hover-azul turma-botao">
+						<th:block th:text="${turma.getCodigo()}" />
+					<form  onclick="event.stopPropagation()" th:action="@{remover-turma}" method "post">
+							<input style="display: none;" name="id" th:value="${usuario.getId()}">
+							<input style="display: none;" name="turma" th:value="${turma.getCodigo()}">
+							<div style="pointer-events: none;" class="apagar-botao"></div>
+					</form>
 					</a>
 				</div>
 			</div>
-			
+
 			<!--Disciplinas-->
 			<div class="aba oculto">
 				<a th:href="@{vinculos(id=${usuario.getId()}, etapa=0)}" class="voltar-botao"></a>
-				<a th:href="@{dados(id=${usuario.getId()})}" class="aba-selecionada"><img src="/images/link-solid.svg">Vínculos</a>
+				<a th:href="@{dados(id=${usuario.getId()})}" class="aba-selecionada"><img
+						src="/images/link-solid.svg">Vínculos</a>
 				<a href="/inicio" class="fechar-botao"></a>
 				<div class="etapas">
-					<div class="etapa-botao">Turma <th:block th:text="${param.turma}"/></div>
+					<div class="etapa-botao">Turma
+						<th:block th:text="${param.turma}" />
+					</div>
 					<div class="etapa-botao selecionado">Disciplinas</div>
 				</div>
 				<div class="lista-div">
 					<div class="novo-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
 					<div th:each="relacao : ${relacoes}" class="item-div hover-azul turma-botao">
-						<th:block th:text="${relacao.getDisciplina().getNome()}"/>
+						<th:block th:text="${relacao.getDisciplina().getNome()}" />
 						<div class="apagar-botao"></div>
 					</div>
 				</div>
@@ -236,7 +264,8 @@
 			<span class="titulo-form">Vincular Turmas</span>
 			<div class="lista-div">
 				<label th:each="turma: ${turmas}" class="label1 item-div" th:for="'turma' + ${turma.getCodigo()}">
-					<input type="checkbox" class="checkbox1" name="turmas" th:id="'turma' + ${turma.getCodigo()}" th:value="${turma.getCodigo()}">
+					<input type="checkbox" class="checkbox1" name="turmas" th:id="'turma' + ${turma.getCodigo()}"
+						th:value="${turma.getCodigo()}">
 					<th:block th:text="${turma.getCodigo()}">
 				</label>
 			</div>
@@ -244,10 +273,12 @@
 			<button class="botao-verde">Vincular</button>
 		</form>
 		<form class="oculto" th:action="@{relacao}" method="post" onclick="event.stopPropagation()">
-			<span class="titulo-form" >Vincular Disciplinas</span>
-			<div th:if="${param.turma != null}"class="lista-div">
-				<label th:each="disciplina: ${turmaSolicitada.getDisciplinas()}" class="label1 item-div" th:for="'disciplina' + ${disciplina.getNome()}">
-					<input type="checkbox" class="checkbox1" name="disciplinas" th:id="'disciplina' + ${disciplina.getNome()}" th:value="${disciplina.getNome()}">
+			<span class="titulo-form">Vincular Disciplinas</span>
+			<div th:if="${param.turma != null}" class="lista-div">
+				<label th:each="disciplina: ${turmaSolicitada.getDisciplinas()}" class="label1 item-div"
+					th:for="'disciplina' + ${disciplina.getNome()}">
+					<input type="checkbox" class="checkbox1" name="disciplinas"
+						th:id="'disciplina' + ${disciplina.getNome()}" th:value="${disciplina.getNome()}">
 					<th:block th:text="${disciplina.getNome()}">
 				</label>
 				<input style="display:none" name="turma" th:value="${turmaSolicitada.getCodigo()}">
@@ -262,17 +293,18 @@
 <script>
 	document.getElementsByClassName("aba")[urlParametros.etapa].classList.remove("oculto");
 	document.querySelectorAll(".modal-vincular form")[urlParametros.etapa].classList.remove("oculto");
-	
+
 	const apagarBotaoArray = document.getElementsByClassName("apagar-botao")
 	for (i = 0; i < apagarBotaoArray.length; i++) {
-		apagarBotaoArray[i].addEventListener("mouseenter", function(){
+		apagarBotaoArray[i].addEventListener("mouseenter", function () {
 			this.parentNode.style.backgroundColor = "rgba(210, 4, 45, 0.8)";
 			this.parentNode.style.outline = "1px solid #FF0000";
 		})
-		apagarBotaoArray[i].addEventListener("mouseleave", function(){
+		apagarBotaoArray[i].addEventListener("mouseleave", function () {
 			this.parentNode.style.backgroundColor = "#0C90F0";
 			this.parentNode.style.outline = "initial";
 		})
 	}
 </script>
+
 </html>
