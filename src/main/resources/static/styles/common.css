@@ -66,6 +66,18 @@ strong {
 	cursor: pointer;
 }
 /*-----*/
+/*Botão Utilizado Para Voltar para Janela Anterior*/
+.voltar-botao {
+	z-index: 98;
+	position: absolute;
+	left: 10px;
+	top: 5px;
+	width: 30px;
+	height: 30px;
+	background: transparent url(../images/rotate-left-solid.svg) no-repeat center;
+	cursor: pointer;
+}
+/*-----*/
 
 /*Janela de Aviso*/
 .aviso {
