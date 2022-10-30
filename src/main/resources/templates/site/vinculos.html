@@ -180,7 +180,7 @@
 			<!--Turmas-->
 			<div class="aba oculto">
 				<a th:href="@{dados(id=${usuario.getId()})}" class="aba-selecionada"><img src="/images/link-solid.svg">Vínculos</a>
-				<a href="inicio" class="fechar-botao"></a>
+				<a href="/inicio" class="fechar-botao"></a>
 				<div class="etapas">
 					<div class="etapa-botao selecionado">Turmas</div>
 					<div class="etapa-botao">Disciplinas</div>
@@ -202,22 +202,34 @@
 				</div>
 				<div class="lista-div">
 					<div class="novo-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
-					<div class="item-div hover-azul turma-botao">Matemática</div>
+					<div th:each="relacao : ${relacoes}" th:text="${relacao.getDisciplina().getNome()}" class="item-div hover-azul turma-botao">Matemática</div>
 				</div>
 			</div>
 		</div>
 		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
 	</div>
 	<div class="modal-vincular oculto" id="modal-vincular" onclick="this.classList.add('oculto')">
-		<form th:action="@{/usuarios/vinculos}" method="post" onclick="event.stopPropagation()">
-			<span class="titulo-form" id="titulo-modal-vincular">Vincular Turmas</span>
+		<form class="oculto" th:action="@{vinculos}" method="post" onclick="event.stopPropagation()">
+			<span class="titulo-form">Vincular Turmas</span>
 			<div class="lista-div">
-				<label th:each="turma: ${turmas}" class="label1 item-div oculto" th:for="'turma' + ${turma.getCodigo()}">
+				<label th:each="turma: ${turmas}" class="label1 item-div" th:for="'turma' + ${turma.getCodigo()}">
 					<input type="checkbox" class="checkbox1" name="turmas" th:id="'turma' + ${turma.getCodigo()}" th:value="${turma.getCodigo()}">
-					<th:block th:utext="${turma.getCodigo()}">
+					<th:block th:text="${turma.getCodigo()}">
 				</label>
-				<input style="display:none" name="id" th:value="${usuario.getId()}">
 			</div>
+			<input style="display:none" name="id" th:value="${usuario.getId()}">
+			<button class="botao-verde">Vincular</button>
+		</form>
+		<form class="oculto" th:action="@{relacao}" method="post" onclick="event.stopPropagation()">
+			<span class="titulo-form" >Vincular Disciplinas</span>
+			<div th:if="${param.turma != null}"class="lista-div">
+				<label th:each="disciplina: ${turmaSolicitada.getDisciplinas()}" class="label1 item-div" th:for="'disciplina' + ${disciplina.getNome()}">
+					<input type="checkbox" class="checkbox1" name="disciplinas" th:id="'disciplina' + ${disciplina.getNome()}" th:value="${disciplina.getNome()}">
+					<th:block th:text="${disciplina.getNome()}">
+				</label>
+				<input style="display:none" name="turma" th:value="${turmaSolicitada.getCodigo()}">
+			</div>
+			<input style="display:none" name="id" th:value="${usuario.getId()}">
 			<button class="botao-verde">Vincular</button>
 		</form>
 	</div>
@@ -226,14 +238,7 @@
 <script src="/modules/urlParametros.js"></script>
 <script>
 	document.getElementsByClassName("aba")[urlParametros.etapa].classList.remove("oculto");
-	document.querySelectorAll(".modal-vincular .item-div")[urlParametros.etapa].classList.remove("oculto");
-	
-	let tituloModal = document.getElementById("titulo-modal-vincular");
-	if (urlParametros.etapa == 0) {
-		tituloModal.innerHTML = "Vincular Turmas";
-	} else {
-		tituloModal.innerHTML = "Vincular Disciplinas";
-	}
+	document.querySelectorAll(".modal-vincular form")[urlParametros.etapa].classList.remove("oculto");
 	
 	const listaDiv = document.getElementsByClassName("lista-div")[0];
 	const itensDiv = listaDiv.getElementsByClassName("item-div");

@@ -18,7 +18,6 @@ import com.etejk.vallytool.repositories.RelacaoRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
 import com.etejk.vallytool.repositories.UsuarioRepository;
 
-@RequestMapping("relacao")
 public class RelacaoController {
 
 	@Autowired
@@ -32,26 +31,5 @@ public class RelacaoController {
 	
 	@Autowired
 	DisciplinaRepository dr;
-	
-	
-	
-	@PostMapping
-	public String relacionar(@RequestParam(name = "id") String id,
-							@RequestParam(name = "turma") String turma,
-							@RequestParam(name = "disciplina") List<String> disciplinas) {
-		
-		Usuario usuario = ur.findById(Integer.parseInt(id)).get();		
-		Turma turmaEnt = tr.findByCodigo(turma);
-		List<Disciplina> disciplinaEnt = new ArrayList<>();
-		for (String disciplina: disciplinas) {
-			disciplinaEnt.add(dr.findByNome(disciplina));	
-		}
-		for(Disciplina disciplina: disciplinaEnt) {
-		Relacao relacao = new Relacao(turmaEnt, disciplina, usuario);
-			rr.save(relacao);
-		}
-		
-		return "redirect:/usuarios/vinculos?id=" + id;
-		
-	}
+
 }

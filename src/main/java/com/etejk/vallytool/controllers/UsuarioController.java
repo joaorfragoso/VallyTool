@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.etejk.vallytool.dao.UsuarioDAO;
+import com.etejk.vallytool.entities.Disciplina;
+import com.etejk.vallytool.entities.Relacao;
 import com.etejk.vallytool.entities.RoleModel;
 import com.etejk.vallytool.entities.RoleName;
 import com.etejk.vallytool.entities.Turma;
 import com.etejk.vallytool.entities.Usuario;
+import com.etejk.vallytool.repositories.DisciplinaRepository;
+import com.etejk.vallytool.repositories.RelacaoRepository;
 import com.etejk.vallytool.repositories.RoleRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
 import com.etejk.vallytool.repositories.UsuarioRepository;
@@ -37,6 +41,12 @@ public class UsuarioController {
 	@Autowired
 	RoleRepository rr;
 	
+	@Autowired
+	RelacaoRepository rer;
+
+	@Autowired
+	DisciplinaRepository dr;
+
 	@PostMapping("usuarios/update")
 	public String updateUsuario(Model model,@RequestParam(name = "id") String id,
 								@RequestParam(name = "role") String role) {
@@ -105,7 +115,8 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("usuarios/vinculos")
-    public String vinculos(Model model, @RequestParam(name = "id") String id) {
+    public String vinculos(Model model, @RequestParam(name = "id") String id,
+    		@Param(value = "turma") String turma) {
 
         Optional<Usuario> user = ur.findById(Integer.parseInt(id));
         if(!user.isPresent() || user.get().getAuthority().equals("SOP")) {
@@ -114,15 +125,27 @@ public class UsuarioController {
 
         Usuario usuario = user.get();
         List<Turma> turmas = tr.findAll();
+        List<Relacao> relacoes = rer.findByUsuario(usuario);
+        List<Disciplina> disciplinasRelacao = new ArrayList<>();
+        for(Relacao relacao: relacoes) {
+        	disciplinasRelacao.add(relacao.getDisciplina());
+        }
         
         turmas.removeAll(usuario.getTurmas());
         
+        if(turma != null) {
+        	Turma turmaFoda = tr.findByCodigo(turma);
+        	turmaFoda.getDisciplinas().removeAll(disciplinasRelacao);
+        	model.addAttribute("turmaSolicitada", turmaFoda);
+        }
         model.addAttribute("usuario", usuario);
         model.addAttribute("turmas", turmas);
+        model.addAttribute("relacoes", relacoes);
         model.addAttribute("turmasUsuario", usuario.getTurmas());
         
         return "site/vinculos";
     }
+	
 	
 	@PostMapping("usuarios/vinculos")
 	public String salvarVinculo(@RequestParam(name = "id") String id, @RequestParam(name ="turmas") List<String> turmas) {
@@ -139,10 +162,29 @@ public class UsuarioController {
         }
         
         ur.save(usuario);
-        return "redirect:/usuarios/vinculos?id=" + id;
+        return "redirect:/usuarios/vinculos?id=" + id + "&etapa=0";
         
 	}
 	
+	@PostMapping("usuarios/relacao")
+	public String relacionar(@RequestParam(name = "id") String id,
+							@RequestParam(name = "turma") String turma,
+							@RequestParam(name = "disciplinas") List<String> disciplinas) {
+		
+		Usuario usuario = ur.findById(Integer.parseInt(id)).get();		
+		Turma turmaEnt = tr.findByCodigo(turma);
+		List<Disciplina> disciplinaEnt = new ArrayList<>();
+		for (String disciplina: disciplinas) {
+			disciplinaEnt.add(dr.findByNome(disciplina));	
+		}
+		for(Disciplina disciplina: disciplinaEnt) {
+		Relacao relacao = new Relacao(turmaEnt, disciplina, usuario);
+			rer.save(relacao);
+		}
+		
+		return "redirect:/usuarios/vinculos?id" + id;
+		
+	}
 	@GetMapping("usuarios/dados")
     public String dados(Model model, @RequestParam(name = "id") String id) {
 
