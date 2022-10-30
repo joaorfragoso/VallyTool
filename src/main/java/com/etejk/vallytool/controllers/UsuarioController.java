@@ -200,7 +200,7 @@ public class UsuarioController {
 			rer.save(relacao);
 		}
 		
-		return "redirect:/usuarios/vinculos?id=" + id + "&etapa=0";
+		return "redirect:/usuarios/vinculos?id=" + id +"&turma="+ turma +"&etapa=1";
 		
 	}
 	
@@ -232,7 +232,7 @@ public class UsuarioController {
 		
 		Relacao relacao = rer.findByEverything(turmaEnt, disciplinaEnt, usuario);
 		rer.delete(relacao);
-		return "redirect:/usuarios/vinculos?id="+ id +"&etapa=0";
+		return "redirect:/usuarios/vinculos?id="+ id +"&turma="+ turma +"&etapa=1";
 	}
 	
 	@GetMapping("usuarios/dados")
