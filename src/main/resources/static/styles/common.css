@@ -4,6 +4,9 @@ a {
 .oculto {
 	display: none!important;
 }
+.relative {
+	position: relative;
+}
 	
 .remover-after:after{
 	content: none!important;

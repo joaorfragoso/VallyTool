@@ -87,10 +87,10 @@
 			flex-direction: column;
 			row-gap: 8px;
 		}
-
 		.item-div {
 			position: relative;
-			width: 120px;
+			min-width: 120px;
+			display: block;
 			height: 2.1em;
 			background-color: #0C90F0;
 			border-radius: 0 4px 4px 0;
@@ -103,7 +103,15 @@
 			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 			cursor: pointer;
 		}
-
+		.item-div a{
+			display: block;
+			color: white;
+			border-radius: 4px;
+		}
+		.fit-content {
+			width: fit-content;
+			padding: 0 2em;
+		}
 		.apagar-botao {
 			display: none;
 			position: absolute;
@@ -124,16 +132,12 @@
 		.apagar-botao:hover {
 			rotate: -10deg;
 		}
-
-		.apagar-botao:hover .aba .item-div {
-			background-color: red;
-		}
-
 		.hover-azul:hover {
 			background-color: rgb(11, 134, 221);
 		}
 
 		.novo-item {
+			width: 120px;
 			background-color: #2FC891;
 			cursor: pointer;
 		}
@@ -166,18 +170,32 @@
 		}
 
 		.modal-vincular form .lista-div {
-			height: 100%;
+			height: fit-content;
+			max-height: 100%;
 			width: 100%;
 			display: flex;
-			flex-direction: column;
 			align-items: center;
 			box-sizing: border-box;
 			overflow: auto;
 			margin: 0;
 		}
-
+		.modal-vincular .flex-div {
+			width: fit-content;
+			max-width: 60%;
+			display: flex;
+			flex-direction: column;
+			align-content: stretch;
+			row-gap: 8px;
+		}
 		.modal-vincular form .item-div {
 			border-radius: 4px;
+			min-width: 140px;
+			max-width: 100%;
+			width: auto;
+			padding: 0 1.6em;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
 		}
 
 		.titulo-form {
@@ -193,7 +211,7 @@
 				flex-direction: row;
 				flex-wrap: wrap;
 				align-content: flex-start;
-				justify-content: center;
+				justify-content: flex-start;
 				justify-self: center;
 				gap: 10px;
 				width: 380px;
@@ -224,15 +242,12 @@
 				</div>
 				<div class="lista-div">
 					<div class="novo-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
-					<a th:href="@{vinculos(id=${usuario.getId()}, turma=${turma.getCodigo()}, etapa=1)}"
-						th:each="turma : ${turmasUsuario}" class="item-div hover-azul turma-botao">
-						<th:block th:text="${turma.getCodigo()}" />
-					<form  onclick="event.stopPropagation()" th:action="@{remover-turma}" method "post">
-							<input style="display: none;" name="id" th:value="${usuario.getId()}">
-							<input style="display: none;" name="turma" th:value="${turma.getCodigo()}">
-							<div style="pointer-events: none;" class="apagar-botao"></div>
-					</form>
-					</a>
+					<div th:each="turma : ${turmasUsuario}" class="item-div relative container">
+						<a th:href="@{vinculos(id=${usuario.getId()}, turma=${turma.getCodigo()}, etapa=1)}" 
+						th:text="${turma.getCodigo()}" class="hover-azul">
+						</a>
+						<div class="apagar-botao"></div>
+					</div>
 				</div>
 			</div>
 
@@ -250,8 +265,8 @@
 				</div>
 				<div class="lista-div">
 					<div class="novo-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
-					<div th:if="${relacoes != null}" th:each="relacao : ${relacoes}" class="item-div hover-azul turma-botao">
-						<th:block th:text="${relacao.getDisciplina().getNome()}" />
+					<div th:if="${relacoes != null}"th:each="relacao : ${relacoes}" class="item-div hover-azul fit-content container">
+						<th:block th:text="${relacao.getDisciplina().getNome()}"/>
 						<div class="apagar-botao"></div>
 					</div>
 				</div>
@@ -260,6 +275,7 @@
 		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
 	</div>
 	<div class="modal-vincular oculto" id="modal-vincular" onclick="this.classList.add('oculto')">
+		<!--Turmas Form-->
 		<form class="oculto" th:action="@{vinculos}" method="post" onclick="event.stopPropagation()">
 			<span class="titulo-form">Vincular Turmas</span>
 			<div class="lista-div">
@@ -272,16 +288,17 @@
 			<input style="display:none" name="id" th:value="${usuario.getId()}">
 			<button class="botao-verde">Vincular</button>
 		</form>
+		<!--Disciplinas Form-->
 		<form class="oculto" th:action="@{relacao}" method="post" onclick="event.stopPropagation()">
-			<span class="titulo-form">Vincular Disciplinas</span>
+			<span class="titulo-form" >Vincular Disciplinas</span>
 			<div th:if="${param.turma != null}" class="lista-div">
-				<label th:each="disciplina: ${turmaSolicitada.getDisciplinas()}" class="label1 item-div"
-					th:for="'disciplina' + ${disciplina.getNome()}">
-					<input type="checkbox" class="checkbox1" name="disciplinas"
-						th:id="'disciplina' + ${disciplina.getNome()}" th:value="${disciplina.getNome()}">
-					<th:block th:text="${disciplina.getNome()}">
-				</label>
-				<input style="display:none" name="turma" th:value="${turmaSolicitada.getCodigo()}">
+				<div class="flex-div">
+					<label th:each="disciplina: ${turmaSolicitada.getDisciplinas()}" class="label1 item-div" th:for="'disciplina' + ${disciplina.getNome()}">
+						<input type="checkbox" class="checkbox1" name="disciplinas" th:id="'disciplina' + ${disciplina.getNome()}" th:value="${disciplina.getNome()}">
+						<th:block th:text="${disciplina.getNome()}">
+					</label>
+					<input style="display:none" name="turma" th:value="${turmaSolicitada.getCodigo()}">
+				</div>
 			</div>
 			<input style="display:none" name="id" th:value="${usuario.getId()}">
 			<button class="botao-verde">Vincular</button>
@@ -296,13 +313,14 @@
 
 	const apagarBotaoArray = document.getElementsByClassName("apagar-botao")
 	for (i = 0; i < apagarBotaoArray.length; i++) {
-		apagarBotaoArray[i].addEventListener("mouseenter", function () {
-			this.parentNode.style.backgroundColor = "rgba(210, 4, 45, 0.8)";
-			this.parentNode.style.outline = "1px solid #FF0000";
+		const container = document.getElementsByClassName("container")[i];
+		apagarBotaoArray[i].addEventListener("mouseenter", function(){
+			container.style.backgroundColor = "rgba(210, 4, 45, 0.8)";
+			container.style.outline = "1px solid #FF0000";
 		})
-		apagarBotaoArray[i].addEventListener("mouseleave", function () {
-			this.parentNode.style.backgroundColor = "#0C90F0";
-			this.parentNode.style.outline = "initial";
+		apagarBotaoArray[i].addEventListener("mouseleave", function(){
+			container.style.backgroundColor = "#0C90F0";
+			container.style.outline = "initial";
 		})
 	}
 </script>
