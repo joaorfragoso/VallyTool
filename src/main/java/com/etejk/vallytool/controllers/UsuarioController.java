@@ -60,6 +60,17 @@ public class UsuarioController {
 		if(roleModel == null) {
 			return "redirect:/usuarios/dados";
 		}
+		
+		if(roleModel.getRoleName().equals(RoleName.ROLE_SOP)) {
+			List<Relacao> relacoes = rer.findByUsuario(usuario.get());
+			for(Relacao relacao: relacoes) {
+				rer.delete(relacao);
+			}
+			
+			usuario.get().getDisciplinas().clear();
+			usuario.get().getTurmas().clear();
+		}
+		
 		roles.add(roleModel);
 		usuario.get().setRoles(roles);
 		
