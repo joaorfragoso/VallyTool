@@ -279,11 +279,13 @@
 		<form class="oculto" th:action="@{vinculos}" method="post" onclick="event.stopPropagation()">
 			<span class="titulo-form">Vincular Turmas</span>
 			<div class="lista-div">
-				<label th:each="turma: ${turmas}" class="label1 item-div" th:for="'turma' + ${turma.getCodigo()}">
-					<input type="checkbox" class="checkbox1" name="turmas" th:id="'turma' + ${turma.getCodigo()}"
-						th:value="${turma.getCodigo()}">
-					<th:block th:text="${turma.getCodigo()}">
-				</label>
+				<div class="flex-div">
+					<label th:each="turma: ${turmas}" class="label1 item-div" th:for="'turma' + ${turma.getCodigo()}">
+						<input type="checkbox" class="checkbox1" name="turmas" th:id="'turma' + ${turma.getCodigo()}"
+							th:value="${turma.getCodigo()}">
+						<th:block th:text="${turma.getCodigo()}">
+					</label>
+				</div>
 			</div>
 			<input style="display:none" name="id" th:value="${usuario.getId()}">
 			<button class="botao-verde">Vincular</button>
