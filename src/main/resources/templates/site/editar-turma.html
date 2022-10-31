@@ -177,7 +177,10 @@
 						<fieldset class="estado-fieldset relative">
 							<legend>Estado</legend>
 							<label class="switch-label relative" onclick="checarEstado()">
-								<input type="checkbox" class="estado-checkbox" onclick="this.parentNode.classList.toggle('ativo')">
+								<form action="alterar-turma" method="post">
+								<input th:checked="${turma.isAtivada()}" name="ativada" type="checkbox" class="estado-checkbox" onclick="this.parentNode.classList.toggle('ativo');this.value=this.checked; form.submit();">
+								<input style="display: none;"name="turma" th:value="${param.turma}">
+								</form>
 							</label>
 							<span class="estado-legenda">undefined</span>
 						</fieldset>
@@ -203,12 +206,14 @@
 	checarEstado();
 
 	function checarEstado() {
-		if (estadoCheckbox.checked) {
-			estadoLegenda.innerHTML = "Ativada";
-		} else {
-			estadoLegenda.innerHTML = "Desativada";
-		}
-	}
+        if (estadoCheckbox.checked) {
+            estadoCheckbox.parentNode.parentNode.classList.add("ativo");
+            estadoLegenda.innerHTML = "Ativada";
+        } else {
+            estadoCheckbox.parentNode.parentNode.classList.remove("ativo");
+            estadoLegenda.innerHTML = "Desativada";
+        }
+    }
 	const bloqueiaCaractere = (function () {
 	    let ValueAnterior = "";
 	    return function (element) {

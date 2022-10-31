@@ -84,8 +84,32 @@ public class TurmaController {
 	public String editarTurma(Model model, @RequestParam(name ="turma") String turma) {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		model.addAttribute("disciplinas", turmaEnt.getDisciplinas());
-		model.addAttribute("turmas", turmaEnt);
+		model.addAttribute("turma", turmaEnt);
 		return "site/editar-turma";
+	}
+	
+	@PostMapping("alterar-turma")
+	public String alterarTurma(@RequestParam(name="turma") String turma,
+								@RequestParam(name="ativada") String ativada){
+		Turma turmaEnt = tr.findByCodigo(turma);
+		if(turmaEnt.isAtivada()) {
+			System.out.println("fodas");
+		}
+		System.out.println("ativada");
+		
+		return "redirect:/turmas/editar-turma?turma=" + turma;
+	}
+	
+	@PostMapping("clonar-turma")
+	public String clonarTurma(@RequestParam(name="turma") String turma) {
+		Turma turmaEnt = tr.findByCodigo(turma);
+		String novoCodigo = String.valueOf(Integer.parseInt(turmaEnt.getCodigo()) + 1);
+		Turma turmaClonada = new Turma(novoCodigo, turmaEnt.getDisciplinas());
+		
+		tr.save(turmaClonada);
+		
+		turmaClonada = tr.findByCodigo(novoCodigo);
+		return "redirect:/turmas/editar-turma?turma=" + turmaClonada;
 	}
 	
 	@PostMapping("editar-turma")
