@@ -95,12 +95,12 @@
 				<div class="aba-selecionada"><img src="/images/folder-solid.svg">Resultados</div>
 				<div th:text=${param.turma} class="turma-div">350</div>
 				<div class="lista-div">
-					<div class="item-div">
-						<div>2022</div>
+					<div th:each="ano: ${anos}" class="item-div">
+						<div th:text="${ano}">2022</div>
 						<div class="trimestres-div">
-							<a class="trimestre">1º</a>
-							<a class="trimestre">2º</a>
-							<a class="trimestre">3º</a>
+							<a th:href="@{resultado(ano = ${ano}, trimestre=PRIMEIRO, turma = ${param.turma})}"class="trimestre">1º</a>
+							<a th:href="@{resultado(ano = ${ano}, trimestre=SEGUNDO, turma = ${param.turma})}"class="trimestre">2º</a>
+							<a th:href="@{resultado(ano = ${ano}, trimestre=TERCEIRO, turma = ${param.turma})}"class="trimestre">3º</a>
 						</div>
 					</div>
 				</div>

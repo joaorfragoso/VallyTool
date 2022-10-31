@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.etejk.vallytool.entities.Resultado;
 import com.etejk.vallytool.entities.Trimestre;
+import com.etejk.vallytool.entities.Turma;
 
 @Repository
 public interface ResultadoRepository extends JpaRepository<Resultado, Integer>{
@@ -17,5 +18,7 @@ public interface ResultadoRepository extends JpaRepository<Resultado, Integer>{
 	@Query("SELECT r FROM Resultado r WHERE YEAR(r.data) = ?1 AND r.trimestre = ?2")
 	List<Resultado> findAnoTrimestre(Integer ano, Trimestre trimestre);
 	List<Resultado> findByTrimestre(Trimestre trimestre);
+	
+	List<Resultado> findByTurma(Turma turma);
 	
 }
