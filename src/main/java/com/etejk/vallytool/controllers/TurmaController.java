@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.entities.Disciplina;
+import com.etejk.vallytool.entities.Relacao;
 import com.etejk.vallytool.entities.Resultado;
+import com.etejk.vallytool.entities.Trimestre;
 import com.etejk.vallytool.entities.Turma;
 import com.etejk.vallytool.repositories.DisciplinaRepository;
 import com.etejk.vallytool.repositories.RelacaoRepository;
@@ -36,6 +38,9 @@ public class TurmaController {
 	
 	@Autowired
 	DisciplinaRepository dr;
+	
+	@Autowired
+	RelacaoRepository rer;
 	
 	@PostMapping("")
 	public String saveTurma(@Valid Turma turma) {
@@ -65,26 +70,14 @@ public class TurmaController {
 		return "site/turmas";
 	}
 	
-	@GetMapping("resultado")
-	public String resultado(Model model,@RequestParam(name="turma") String turma) {
-		Turma turmaEnt = tr.findByCodigo(turma);
-		List<Resultado> resultados = rr.findByTurma(turmaEnt);
-		List<Integer> anos = new ArrayList<>();
-		for(Resultado resultado: resultados) {
-			if(!anos.contains(resultado.getData().getYear())) {
-				anos.add(resultado.getData().getYear());
-			}
-		}
-		model.addAttribute("anos", anos);
-		model.addAttribute("resultados", resultados);
-		return "site/resultados";
-	}
 	
 	@GetMapping("editar-turma")
 	public String editarTurma(Model model, @RequestParam(name ="turma") String turma) {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		model.addAttribute("disciplinas", turmaEnt.getDisciplinas());
 		model.addAttribute("turma", turmaEnt);
+		List<Resultado> resultados = rr.findByTurma(turmaEnt);
+		model.addAttribute("resultados", resultados.isEmpty() ? null : resultados);
 		return "site/editar-turma";
 	}
 	
@@ -104,12 +97,24 @@ public class TurmaController {
 	public String clonarTurma(@RequestParam(name="turma") String turma) {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		String novoCodigo = String.valueOf(Integer.parseInt(turmaEnt.getCodigo()) + 1);
-		Turma turmaClonada = new Turma(novoCodigo, turmaEnt.getDisciplinas());
 		
+		List<Disciplina> disciplinas = new ArrayList<>();
+		
+		for(Disciplina disciplina: turmaEnt.getDisciplinas()) {
+			disciplinas.add(disciplina);
+		}
+		Turma turmaClonada = new Turma(novoCodigo, disciplinas);
 		tr.save(turmaClonada);
 		
 		turmaClonada = tr.findByCodigo(novoCodigo);
-		return "redirect:/turmas/editar-turma?turma=" + turmaClonada;
+		return "redirect:/turmas/editar-turma?turma=" + novoCodigo;
+	}
+	
+	@PostMapping("remover-turma")
+	public String removerTurma(@RequestParam(name = "turma") String turma) {
+		Turma turmaEnt = tr.findByCodigo(turma);
+		tr.delete(turmaEnt);
+		return "redirect:/turmas";
 	}
 	
 	@PostMapping("editar-turma")
@@ -134,5 +139,36 @@ public class TurmaController {
 		}
 		
 		return "redirect:/turmas/editar-turma?turma=" + turma;
+	}
+	
+	@GetMapping("resultado-turma")
+	public String resultado(@RequestParam(name = "ano") String ano,
+							@RequestParam(name = "trimestre") String trimestre,
+							@RequestParam(name = "turma") String turma,
+							Model model) {
+		
+		Turma turmaEnt = tr.findByCodigo(turma);
+		List<Resultado> resultados = rr.findByEverything(Integer.parseInt(ano),
+				Trimestre.valueOf(trimestre), turmaEnt);
+		System.out.println(resultados.isEmpty() ? "true" : "false");
+		model.addAttribute("turma", turmaEnt);
+		model.addAttribute("resultados", resultados);
+		return "site/resultado-turma";
+		
+	}
+	
+	@GetMapping("resultado")
+	public String resultado(Model model,@RequestParam(name="turma") String turma) {
+		Turma turmaEnt = tr.findByCodigo(turma);
+		List<Resultado> resultados = rr.findByTurma(turmaEnt);
+		List<Integer> anos = new ArrayList<>();
+		for(Resultado resultado: resultados) {
+			if(!anos.contains(resultado.getData().getYear())) {
+				anos.add(resultado.getData().getYear());
+			}
+		}
+		model.addAttribute("anos", anos);
+		model.addAttribute("resultados", resultados);
+		return "site/resultados";
 	}
 }

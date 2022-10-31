@@ -99,9 +99,9 @@
 					<div th:each="ano: ${anos}" class="item-div">
 						<div th:text="${ano}">2022</div>
 						<div class="trimestres-div">
-							<a th:href="@{resultado(ano = ${ano}, trimestre=PRIMEIRO, turma = ${param.turma})}"class="trimestre">1º</a>
-							<a th:href="@{resultado(ano = ${ano}, trimestre=SEGUNDO, turma = ${param.turma})}"class="trimestre">2º</a>
-							<a th:href="@{resultado(ano = ${ano}, trimestre=TERCEIRO, turma = ${param.turma})}"class="trimestre">3º</a>
+							<a th:href="@{resultado-turma(ano = ${ano}, trimestre=PRIMEIRO, turma = ${param.turma})}"class="trimestre">1º</a>
+							<a th:href="@{resultado-turma(ano = ${ano}, trimestre=SEGUNDO, turma = ${param.turma})}"class="trimestre">2º</a>
+							<a th:href="@{resultado-turma(ano = ${ano}, trimestre=TERCEIRO, turma = ${param.turma})}"class="trimestre">3º</a>
 						</div>
 					</div>
 				</div>
