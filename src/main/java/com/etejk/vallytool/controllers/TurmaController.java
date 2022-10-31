@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.etejk.vallytool.entities.Disciplina;
 import com.etejk.vallytool.entities.Resultado;
 import com.etejk.vallytool.entities.Turma;
+import com.etejk.vallytool.repositories.DisciplinaRepository;
 import com.etejk.vallytool.repositories.RelacaoRepository;
 import com.etejk.vallytool.repositories.ResultadoRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
@@ -32,13 +34,16 @@ public class TurmaController {
 	@Autowired
 	ResultadoRepository rr;
 	
+	@Autowired
+	DisciplinaRepository dr;
+	
 	@PostMapping("")
 	public String saveTurma(@Valid Turma turma) {
 		if(tr.findByCodigo(turma.getCodigo()) != null) {
 			return "redirect:/turmas/error";
 		}
 		
-		System.out.println(turma.getCodigo());
+		turma.setAtivada(true);
 		tr.save(turma);
 		return "redirect:/turmas";
 	}
@@ -76,7 +81,34 @@ public class TurmaController {
 	}
 	
 	@GetMapping("editar-turma")
-	public String editarTurma() {
+	public String editarTurma(Model model, @RequestParam(name ="turma") String turma) {
+		Turma turmaEnt = tr.findByCodigo(turma);
+		model.addAttribute("disciplinas", turmaEnt.getDisciplinas());
+		model.addAttribute("turmas", turmaEnt);
 		return "site/editar-turma";
+	}
+	
+	@PostMapping("editar-turma")
+	public String editarTurma(Model model,
+								@RequestParam(name = "turma") String turma,
+								@RequestParam(name = "disciplina") String disciplina) {
+		
+		Turma turmaEnt = tr.findByCodigo(turma);
+		Disciplina disciplinaEnt = dr.findByNome(disciplina);
+		if(disciplinaEnt == null) {
+			Disciplina disciplinaNova = new Disciplina(disciplina);
+			dr.save(disciplinaNova);
+			turmaEnt.addDisciplina(disciplinaNova);
+			tr.save(turmaEnt);
+			
+			return "redirect:/turmas/editar-turma?turma=" + turma;
+		}
+		
+		if(!turmaEnt.getDisciplinas().contains(disciplinaEnt)) {
+			turmaEnt.addDisciplina(disciplinaEnt);
+			tr.save(turmaEnt);
+		}
+		
+		return "redirect:/turmas/editar-turma?turma=" + turma;
 	}
 }

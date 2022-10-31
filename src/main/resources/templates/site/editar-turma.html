@@ -165,12 +165,13 @@
 				<div class="configuracoes-div">
 					<div class="lista-div">
 						<div class="novo-item" onclick="this.getElementsByClassName('novoitem-input')[0].focus()">
-	                        <form>
-	                            <input name="codigo" type="text" pattern="[0-9]{3}" class="novoitem-input" id="novoItemInput" placeholder="Nova Disciplina" maxlength="30" autocomplete="off" required>
+	                        <form action="editar-turma" method="post">
+	                            <input style="display:none" name="turma" th:value="${param.turma}">
+	                            <input name="disciplina" type="text" class="novoitem-input" id="novoItemInput" placeholder="Nova Disciplina" maxlength="30" autocomplete="off" required>
 	                            <button class="criar-botao oculto">Criar</button>
 	                        </form>
 	                    </div>
-						<div class="item-div">Matemática</div>
+						<div th:each="disciplina : ${disciplinas}" th:text="${disciplina.getNome()}" class="item-div">Matemática</div>
 					</div>
 					<div class="configuracoes-botoes-div">
 						<fieldset class="estado-fieldset relative">
@@ -194,6 +195,7 @@
 		</div>
 	</div>
 </body>
+<script src="/modules/menu.js"></script>
 <script src="/modules/novoItemInput.js"></script>
 <script>
 	const estadoCheckbox = document.getElementsByClassName("estado-checkbox")[0];
