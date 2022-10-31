@@ -83,13 +83,12 @@ public class TurmaController {
 	
 	@PostMapping("alterar-turma")
 	public String alterarTurma(@RequestParam(name="turma") String turma,
-								@RequestParam(name="ativada") String ativada){
+								@RequestParam(name="ativada") boolean ativada){
 		Turma turmaEnt = tr.findByCodigo(turma);
-		if(turmaEnt.isAtivada()) {
-			System.out.println("fodas");
-		}
 		System.out.println(ativada);
+		turmaEnt.setAtivada(ativada);
 		
+		tr.save(turmaEnt);
 		return "redirect:/turmas/editar-turma?turma=" + turma;
 	}
 	
@@ -117,6 +116,17 @@ public class TurmaController {
 		return "redirect:/turmas";
 	}
 	
+	@PostMapping("remover-disciplina")
+	public String removerDisciplina(@RequestParam(name = "turma") String turma,
+									@RequestParam(name = "disciplina") String disciplina) {
+		Turma turmaEnt = tr.findByCodigo(turma);
+		Disciplina disciplinaEnt = dr.findByNome(disciplina);
+		
+		turmaEnt.getDisciplinas().remove(disciplinaEnt);
+		tr.save(turmaEnt);
+		
+		return "redirect:/turmas/editar-turma?turma=" + turma ;
+		}
 	@PostMapping("editar-turma")
 	public String editarTurma(Model model,
 								@RequestParam(name = "turma") String turma,

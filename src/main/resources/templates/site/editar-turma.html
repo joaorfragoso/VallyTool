@@ -213,7 +213,11 @@
 	                    </div>
 						<div th:each="disciplina : ${disciplinas}" class="item-div relative container">
 							<th:block th:text="${disciplina.getNome()}"/>
+							<form action="remover-disciplina" method="post">
+							<input style="display: none" name="turma" th:value="${param.turma}"> 
+							<input style="display: none" name="disciplina" th:value="${disciplina.getNome()}"> 
 							<button class="apagar-botao"></button>
+							</form>
 						</div>
 					</div>
 					<div class="configuracoes-botoes-div">
