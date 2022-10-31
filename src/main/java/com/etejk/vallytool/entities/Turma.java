@@ -19,15 +19,14 @@ public class Turma {
 	private Integer Id;
 	@NotBlank
 	private String codigo;
+	private boolean ativada;
 	
 	@ManyToMany
 	private List<Disciplina> disciplinas;
 
 	public Turma() { }
-	public Turma(Integer id, String codigo, List<Disciplina> disciplinas) {
-		
+	public Turma(String codigo, List<Disciplina> disciplinas) {
 		this.codigo = codigo;
-		this.Id = id;
 		this.disciplinas = disciplinas;
 	}
 	public String getCodigo() {
@@ -41,6 +40,12 @@ public class Turma {
 	}
 	public void setId(Integer id) {
 		Id = id;
+	}
+	public boolean isAtivada() {
+		return ativada;
+	}
+	public void setAtivada(boolean ativada) {
+		this.ativada = ativada;
 	}
 	public List<Disciplina> getDisciplinas() {
 		return disciplinas;

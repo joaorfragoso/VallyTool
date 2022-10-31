@@ -43,7 +43,7 @@ public class TurmaController {
 			return "redirect:/turmas/error";
 		}
 		
-		System.out.println(turma.getCodigo());
+		turma.setAtivada(true);
 		tr.save(turma);
 		return "redirect:/turmas";
 	}
@@ -84,6 +84,7 @@ public class TurmaController {
 	public String editarTurma(Model model, @RequestParam(name ="turma") String turma) {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		model.addAttribute("disciplinas", turmaEnt.getDisciplinas());
+		model.addAttribute("turmas", turmaEnt);
 		return "site/editar-turma";
 	}
 	
