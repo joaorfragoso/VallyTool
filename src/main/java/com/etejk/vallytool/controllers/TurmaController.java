@@ -54,4 +54,9 @@ public class TurmaController {
 	public String resultado() {
 		return "site/resultados";
 	}
+	
+	@GetMapping("editar-turma")
+	public String editarTurma() {
+		return "site/editar-turma";
+	}
 }

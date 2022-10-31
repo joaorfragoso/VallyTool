@@ -56,33 +56,7 @@
 			align-items: center;
 			box-shadow: 1px 1px rgba(0, 0, 0, 0.5);
 		}
-		.item-div:hover .trimestres-div {
-			opacity: 1;
-		}
-		.item-div .trimestres-div {
-			height: 100%;
-			width: fit-content;
-			display: flex;
-			opacity: 0;
-			transition: opacity 0.4s ease-out;
-			align-items: center;
-		}
-		.item-div .trimestre {
-			background-color: #0C90F0;
-			height: 80%;
-			aspect-ratio: 1/1;
-			margin-left: 10px;
-			border-radius: 8px;
-			color: white;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			cursor: pointer;
-			transition: transform 0.3s linear;
-		}
-		.trimestre:hover {
-			transform: scale(1.1);
-		}
+
 	</style>
 	<link rel="stylesheet" href="/styles/estrutura.css">
 </head>
@@ -92,16 +66,33 @@
 		<div class="tela">
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
-				<div class="aba-selecionada"><img src="/images/folder-solid.svg">Resultados</div>
+				<div class="aba-selecionada"><img src="/images/wrench-solid.svg">Editar Turma</div>
 				<a th:href="@{/turmas}" class="fechar-botao"></a>
 				<div th:text=${param.turma} class="turma-div">350</div>
-				<div class="lista-div">
-					<div class="item-div">
-						<div>2022</div>
-						<div class="trimestres-div">
-							<a class="trimestre">1º</a>
-							<a class="trimestre">2º</a>
-							<a class="trimestre">3º</a>
+				<div class="configuracoes-div">
+					<div class="lista-div">
+						<div class="novo-item" onclick="this.getElementsByClassName('novoitem-input')[0].focus()">
+	                        <form>
+	                            <input name="codigo" type="text" pattern="[0-9]{3}" class="novoitem-input" id="novoItemInput" placeholder="Nova Disciplina" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
+	                            <button class="criar-botao oculto">Criar</button>
+	                        </form>
+	                    </div>
+						<div class="item-div">Matemática</div>
+					</div>
+					<div class="botoes-div">
+						<fieldset>
+							<legend>Estado</legend>
+							<input type="checkbox" class="estado-checkbox">
+							<span class="switch-checkbox"></span>
+							<span class="estado-legenda">Ativado</span>
+						</fieldset>
+						<div>
+							<img src="/images/clone-solid.svg">
+							Clonar Turma
+						</div>
+						<div>
+							<img src="/images/trash-solid.svg">
+							Deletar Turma
 						</div>
 					</div>
 				</div>
@@ -109,4 +100,20 @@
 		</div>
 	</div>
 </body>
+<script src="/modules/novoItemInput.js"></script>
+<script>
+	const bloqueiaCaractere = (function () {
+	    let ValueAnterior = "";
+	    return function (element) {
+	        if (event.inputType == "insertText") {
+	            if (isNaN(event.data)) {element.value = ValueAnterior}
+	        }
+	        //Caso o usuário cole um valor, ou caso ele use um valor gravado no navegador;
+	        if (event.inputType == "insertFromPaste" || event.inputType == undefined) {
+	            element.value = ValueAnterior;
+	        }
+	        ValueAnterior = element.value;
+	    }
+	})()
+</script>
 </html>

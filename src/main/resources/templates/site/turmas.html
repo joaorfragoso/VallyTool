@@ -39,33 +39,6 @@
 			line-height: 2.5em;
 			cursor: pointer;
 		}
-		.criarturma-botao {
-			width: 100%;
-			height: 100%;
-			border-radius: 4px;
-			box-sizing: border-box;
-			padding: 0 8px;
-			
-		}
-		.turmanova {
-			position: relative;
-			display: block;
-			width: 100%;
-			height: 100%;
-			padding: 0 8px;
-			box-sizing: border-box;
-			border-radius: 0 0 4px 4px;
-			box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4);
-			background-color: rgb(52, 224, 162);
-		}
-		.turmanova input {
-			width: 60%;
-			appearance: none;
-			border: 0;
-			outline: 0;
-			background-color: transparent;
-			font-size: 1em;
-		}
 		.criar-botao {
 			position: absolute;
 			right: 8px;
@@ -114,22 +87,21 @@
 		<div class="tela">
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
-				<div class="fechar-botao"></div>
 				<form class="pesquisar-form" th:action="@{/turmas}">
 					<input name="search" type="text" placeholder="Buscar Turma" class="pesquisar-input" autocomplete="off">
 					<button value="submit" class="pesquisar-botao"></button>
 				</form>
 				<div class="lista-div">
-					<div class="novo-item" onclick="this.getElementsByClassName('novaturma-input')[0].focus()">
+					<div class="novo-item" onclick="this.getElementsByClassName('novoitem-input')[0].focus()">
 						<form method="post" th:action="@{turmas}" th:object="${turma}">
-							<input name="codigo" type="text" pattern="[0-9]{3}" class="novaturma-input" id="novoItemInput" placeholder="Nova Turma" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
+							<input name="codigo" type="text" pattern="[0-9]{3}" class="novoitem-input" id="novoItemInput" placeholder="Nova Turma" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
 							<button class="criar-botao oculto">Criar</button>
 						</form>
 					</div>
 					<div th:each="turma: ${turmas}" class="item-div">
 						<span th:text="${turma.codigo}" class="turma"></span>
 						<a class="historico-botao" th:href="@{turmas/resultado(turma=${turma.getCodigo()})}" onclick="abrirJanela('')"></a>
-						<button class="editar-botao" onclick="abrirJanela('')"></button>
+						<a class="editar-botao" th:href="@{turmas/editar-turma(turma=${turma.getCodigo()})}"></a>
 					</div>
 				</div>
 				<button class="botao-verde">Emitir Resultado</button>
@@ -143,9 +115,6 @@
 <script src="/modules/janelaFunctions.js"></script>
 <script src="/modules/novoItemInput.js"></script>
 <script>
-	function criarTurma(element) {
-		element.nextSibling.nextSibling.classList.toggle("oculto");
-	}
 	const bloqueiaCaractere = (function () {
 	    let ValueAnterior = "";
 	    return function (element) {
