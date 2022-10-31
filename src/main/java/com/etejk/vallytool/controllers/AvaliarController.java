@@ -1,5 +1,7 @@
 package com.etejk.vallytool.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +58,8 @@ public class AvaliarController {
 			@Param(value = "turma") String turma) {
 		Usuario usuario = pr.findByNome(auth.getName());
 		model.addAttribute("competencias", cr.findAll());
-		model.addAttribute("turmas", usuario.getTurmas());
+		List<Turma> turmas = usuario.getTurmas();
+		model.addAttribute("turmas", turmas);
 		model.addAttribute("disciplinas", usuario.getDisciplinas());
 		System.out.println(turma);
 		model.addAttribute("relacoes", rer.findByUsuario(usuario));
