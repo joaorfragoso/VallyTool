@@ -199,14 +199,20 @@
 							</label>
 							<span class="estado-legenda">undefined</span>
 						</div>
-						<div class="clonar-botao relative">
-							<img src="/images/clone-solid.svg">
-							<span>Clonar Turma</span>
-						</div>
-						<div class="apagar-botao relative">
-							<img src="/images/trash-solid.svg">
-							<span>Deletar Turma</span>
-						</div>
+						<form action="clonar-turma" method="post">
+							<button class="clonar-botao relative">
+								<img src="/images/clone-solid.svg">
+								<input style="display: none;" name="turma" th:value="${turma.getCodigo()}">
+								<span>Clonar Turma</span>
+							</button>
+						</form>
+						<form th:if="${resultados == null}" action="remover-turma" method="post">
+							<button class="apagar-botao relative">
+								<img src="/images/trash-solid.svg">
+								<input style="display: none" name="turma" th:value="${turma.getCodigo()}">
+								<span>Deletar Turma</span>
+							</button>
+						<form action="clonar-turma" method="post">
 					</div>
 				</div>
 			</div>

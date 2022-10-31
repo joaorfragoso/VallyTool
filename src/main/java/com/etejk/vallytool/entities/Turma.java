@@ -25,9 +25,11 @@ public class Turma {
 	private List<Disciplina> disciplinas;
 
 	public Turma() { }
+	
 	public Turma(String codigo, List<Disciplina> disciplinas) {
 		this.codigo = codigo;
 		this.disciplinas = disciplinas;
+		this.ativada = true;
 	}
 	public String getCodigo() {
 		return codigo;

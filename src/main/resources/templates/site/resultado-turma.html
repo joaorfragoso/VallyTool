@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<div th:text="TURMA + ${turma.getCodigo}"> </div>
+	<div>TERCEIRO TRIMESTRE</div>
+	<div th:each="resultado: ${resultados}">
+		<div th:text="${resultado.getDisciplina().getNome()}"></div>
+		<div th:text="${resultado.getUsuario().getNome()}"></div>
+		
+		<div th:each="conceito: ${resultado.getConceitos()}" th:text="${conceito}">
+		</div>
+	</div>
+</body>
+</html>
