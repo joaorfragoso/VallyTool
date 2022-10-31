@@ -35,7 +35,7 @@
 			min-width: 260px;
 			width: 44%;
 			height: fit-content;
-			max-height: 80%;
+			max-height: 40vh;
 			box-sizing: border-box;
 			padding-right: 5px;
 			overflow-y: auto;
@@ -73,11 +73,13 @@
 			align-content: flex-start;
 			gap: 15px;
 			font-weight: 300;
-			font-size: 18px;
+			font-size: 16px;
+			--altura-botoes: 2.7em;
+			--largura-botoes: 180px;
 		}
 		.estado-fieldset {
-			width: 200px;
-			height: 3em;
+			width: var(--largura-botoes);
+			height: var(--altura-botoes);
 			padding: 0 8px;
 			box-sizing: border-box;
 			border: 1px solid rgba(0, 0, 0, 0.4);
@@ -92,39 +94,43 @@
 			position: absolute;
 			top: 0;
 			transform: translatey(-70%);
-			left: 10px;
+			left: 8px;
 			padding: 0 2px;
 		}
 		.clonar-botao {
 			background-color: rgba(12, 144, 240, 0.8);
 			border: 1px solid rgb(12, 144, 240);
 		}
+		.clonar-botao:hover {
+			background-color: rgba(12, 144, 240)
+		}
 		.apagar-botao {
 			background-color: rgba(198, 16, 16, 0.8);
 			border: 1px solid rgb(198, 16, 16);
 		}
+		.apagar-botao:hover {
+			background-color: rgba(198, 16, 16);
+		}
 		.clonar-botao img, .apagar-botao img {
-			position: absolute;
-			top: 50%;
-			left: 10px;
-			transform: translatey(-50%);
 			height: 50%;
 			filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(310deg) brightness(104%) contrast(101%);
 		}
 		.clonar-botao, .apagar-botao {
-			width: 200px;
-			height: 3em;
+			width: var(--largura-botoes);
+			height: var(--altura-botoes);
+			padding: 0 8px;
 			box-sizing: border-box;
 			border-radius: 6px;
 			color: white;
-			display: flex;
-			justify-content: center;
+			display: grid;
+			grid-template-columns: max-content auto;
+			justify-items: center;
 			align-items: center;
 			cursor: pointer;
 		}
 		.switch-label {
-			width: 60px;
-			height: 30px;
+			height: 58%;
+			aspect-ratio: 2/1;
 			background-color: #B1B1B1;
 			border-radius: 35px;
 			cursor: pointer;
@@ -150,6 +156,15 @@
 			left: 100%;
 			transform: translate(calc(-100% - 3px), -50%);
 		}
+		
+		@media (min-width: 800px) {
+			.configuracoes-botoes-div {
+				font-size: 18px;
+			
+				--altura-botoes: 3em;
+				--largura-botoes: 200px;
+			}
+		}
 	</style>
 	<link rel="stylesheet" href="/styles/estrutura.css">
 </head>
@@ -174,23 +189,23 @@
 						<div th:each="disciplina : ${disciplinas}" th:text="${disciplina.getNome()}" class="item-div">Matemática</div>
 					</div>
 					<div class="configuracoes-botoes-div">
-						<fieldset class="estado-fieldset relative">
+						<div class="estado-fieldset relative">
 							<legend>Estado</legend>
 							<label class="switch-label relative" onclick="checarEstado()">
 								<form action="alterar-turma" method="post">
 								<input th:checked="${turma.isAtivada()}" name="ativada" type="checkbox" class="estado-checkbox" onclick="this.parentNode.classList.toggle('ativo');this.value=this.checked; form.submit();">
 								<input style="display: none;"name="turma" th:value="${param.turma}">
-								</form>
+								</form>				
 							</label>
 							<span class="estado-legenda">undefined</span>
-						</fieldset>
+						</div>
 						<div class="clonar-botao relative">
 							<img src="/images/clone-solid.svg">
-							Clonar Turma
+							<span>Clonar Turma</span>
 						</div>
 						<div class="apagar-botao relative">
 							<img src="/images/trash-solid.svg">
-							Deletar Turma
+							<span>Deletar Turma</span>
 						</div>
 					</div>
 				</div>
@@ -204,6 +219,10 @@
 	const estadoCheckbox = document.getElementsByClassName("estado-checkbox")[0];
 	const estadoLegenda = document.getElementsByClassName("estado-legenda")[0];
 	checarEstado();
+	
+	estadoCheckbox.addEventListener("click", function() {
+		this.value = this.checked;
+	})
 
 	function checarEstado() {
         if (estadoCheckbox.checked) {
