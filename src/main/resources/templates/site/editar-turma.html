@@ -12,7 +12,8 @@
 		.aba {
 			display: grid;
 			grid-template-rows: max-content max-content auto;
-			grid-template-columns: minmax(260px, 60%);
+			grid-template-columns: minmax(260px, 100%);
+			padding: 0 30px 30px 30px;
 			justify-content: center;
 			row-gap: 15px;
 		}
@@ -31,14 +32,15 @@
 		}
 		
 		.lista-div {
-			width: 100%;
-			height: 80%;
+			min-width: 260px;
+			width: 44%;
+			height: fit-content;
+			max-height: 80%;
 			box-sizing: border-box;
 			padding-right: 5px;
 			overflow-y: auto;
 			border-radius: 4px;
 			font-weight: 500;
-			align-self: center;
 		}
 		.item-div:nth-child(1) {	
 			margin: 0;
@@ -56,7 +58,98 @@
 			align-items: center;
 			box-shadow: 1px 1px rgba(0, 0, 0, 0.5);
 		}
-
+		.configuracoes-div {
+			margin-top: 45px;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			row-gap: 60px;
+		}
+		.configuracoes-botoes-div {
+			min-width: 200px;
+			width: 44%;
+			display: flex;
+			flex-wrap: wrap;
+			align-content: flex-start;
+			gap: 15px;
+			font-weight: 300;
+			font-size: 18px;
+		}
+		.estado-fieldset {
+			width: 200px;
+			height: 3em;
+			padding: 0 8px;
+			box-sizing: border-box;
+			border: 1px solid rgba(0, 0, 0, 0.4);
+			border-radius: 6px;
+			display: grid;
+			grid-template-columns: max-content auto;
+			align-items: center;
+			justify-items: center;
+		}
+		.estado-fieldset legend {
+			background-color: white;
+			position: absolute;
+			top: 0;
+			transform: translatey(-70%);
+			left: 10px;
+			padding: 0 2px;
+		}
+		.clonar-botao {
+			background-color: rgba(12, 144, 240, 0.8);
+			border: 1px solid rgb(12, 144, 240);
+		}
+		.apagar-botao {
+			background-color: rgba(198, 16, 16, 0.8);
+			border: 1px solid rgb(198, 16, 16);
+		}
+		.clonar-botao img, .apagar-botao img {
+			position: absolute;
+			top: 50%;
+			left: 10px;
+			transform: translatey(-50%);
+			height: 50%;
+			filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(310deg) brightness(104%) contrast(101%);
+		}
+		.clonar-botao, .apagar-botao {
+			width: 200px;
+			height: 3em;
+			box-sizing: border-box;
+			border-radius: 6px;
+			color: white;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+		}
+		.switch-label {
+			width: 60px;
+			height: 30px;
+			background-color: #B1B1B1;
+			border-radius: 35px;
+			cursor: pointer;
+		}
+		.ativo {
+			background-color: #23CC1F;
+		}
+		.estado-checkbox {
+			position: absolute;
+			top: 50%;
+			transform: translatey(-50%);
+			left: 3px;
+			background-color: white;
+			height: 83%;
+			aspect-ratio: 1/1;
+			margin: 0;
+			appearance: none;
+			border-radius: 50%;
+			transition: all 0.4s ease-out;
+			cursor: pointer;
+		}
+		.estado-checkbox:checked {
+			left: 100%;
+			transform: translate(calc(-100% - 3px), -50%);
+		}
 	</style>
 	<link rel="stylesheet" href="/styles/estrutura.css">
 </head>
@@ -73,24 +166,25 @@
 					<div class="lista-div">
 						<div class="novo-item" onclick="this.getElementsByClassName('novoitem-input')[0].focus()">
 	                        <form>
-	                            <input name="codigo" type="text" pattern="[0-9]{3}" class="novoitem-input" id="novoItemInput" placeholder="Nova Disciplina" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
+	                            <input name="codigo" type="text" pattern="[0-9]{3}" class="novoitem-input" id="novoItemInput" placeholder="Nova Disciplina" maxlength="30" autocomplete="off" required>
 	                            <button class="criar-botao oculto">Criar</button>
 	                        </form>
 	                    </div>
 						<div class="item-div">Matemática</div>
 					</div>
-					<div class="botoes-div">
-						<fieldset>
+					<div class="configuracoes-botoes-div">
+						<fieldset class="estado-fieldset relative">
 							<legend>Estado</legend>
-							<input type="checkbox" class="estado-checkbox">
-							<span class="switch-checkbox"></span>
-							<span class="estado-legenda">Ativado</span>
+							<label class="switch-label relative" onclick="checarEstado()">
+								<input type="checkbox" class="estado-checkbox" onclick="this.parentNode.classList.toggle('ativo')">
+							</label>
+							<span class="estado-legenda">undefined</span>
 						</fieldset>
-						<div>
+						<div class="clonar-botao relative">
 							<img src="/images/clone-solid.svg">
 							Clonar Turma
 						</div>
-						<div>
+						<div class="apagar-botao relative">
 							<img src="/images/trash-solid.svg">
 							Deletar Turma
 						</div>
@@ -102,6 +196,17 @@
 </body>
 <script src="/modules/novoItemInput.js"></script>
 <script>
+	const estadoCheckbox = document.getElementsByClassName("estado-checkbox")[0];
+	const estadoLegenda = document.getElementsByClassName("estado-legenda")[0];
+	checarEstado();
+
+	function checarEstado() {
+		if (estadoCheckbox.checked) {
+			estadoLegenda.innerHTML = "Ativada";
+		} else {
+			estadoLegenda.innerHTML = "Desativada";
+		}
+	}
 	const bloqueiaCaractere = (function () {
 	    let ValueAnterior = "";
 	    return function (element) {

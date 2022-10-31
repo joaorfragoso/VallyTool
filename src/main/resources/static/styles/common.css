@@ -53,7 +53,7 @@ strong {
 }
 
 .botao-verde:hover, .novo-item:hover {
-	background-color: #29b381;
+	background-color: #29b381!important;
 }
 /*-----*/
 
@@ -69,6 +69,7 @@ strong {
 	cursor: pointer;
 }
 /*-----*/
+
 /*Botão Utilizado Para Voltar para Janela Anterior*/
 .voltar-botao {
 	z-index: 98;
