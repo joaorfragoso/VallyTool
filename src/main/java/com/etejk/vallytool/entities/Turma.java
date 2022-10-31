@@ -49,6 +49,9 @@ public class Turma {
 		this.disciplinas = disciplinas;
 	}
 	
+	public void addDisciplina(Disciplina disciplina) {
+		this.disciplinas.add(disciplina);
+	}
 	
 	
 }

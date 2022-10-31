@@ -18,9 +18,8 @@ public class Disciplina {
 	public Disciplina() {
 	}
 	
-	public Disciplina(Integer id, String nome) {
+	public Disciplina(String nome) {
 		this.nome = nome;
-		this.Id = id;
 	}
 	
 	public String getNome() {
