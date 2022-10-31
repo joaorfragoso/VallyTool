@@ -104,18 +104,18 @@
 		.clonar-botao:hover {
 			background-color: rgba(12, 144, 240)
 		}
-		.apagar-botao {
+		.configuracoes-botoes-div .apagar-botao {
 			background-color: rgba(198, 16, 16, 0.8);
 			border: 1px solid rgb(198, 16, 16);
 		}
-		.apagar-botao:hover {
+		.configuracoes-botoes-div .apagar-botao:hover {
 			background-color: rgba(198, 16, 16);
 		}
-		.clonar-botao img, .apagar-botao img {
+		.clonar-botao img, .configuracoes-botoes-div .apagar-botao img {
 			height: 50%;
 			filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(310deg) brightness(104%) contrast(101%);
 		}
-		.clonar-botao, .apagar-botao {
+		.clonar-botao, .configuracoes-botoes-div .apagar-botao {
 			width: var(--largura-botoes);
 			height: var(--altura-botoes);
 			padding: 0 8px;
@@ -157,6 +157,31 @@
 			transform: translate(calc(-100% - 3px), -50%);
 		}
 		
+		.item-div .apagar-botao {
+			border: 0;
+			outline: 0;
+			position: absolute;
+			cursor: pointer;
+			appearance: none;
+			display: none;
+			margin: 0;
+			padding: 0;
+			right: 10px;
+			top: 50%;
+			transform: translatey(-50%);
+			height: 50%;
+			aspect-ratio: 1/1;
+			background: transparent url(/images/trash-solid.svg) no-repeat center;
+			filter: invert(100%) sepia(3%) saturate(7487%) hue-rotate(299deg) brightness(101%) contrast(113%);
+			transition: rotate 0.4s ease-out;
+		}
+
+		.item-div:hover .apagar-botao {
+			display: block;
+		}
+		.item-div .apagar-botao:hover {
+			rotate: -10deg;
+		}
 		@media (min-width: 800px) {
 			.configuracoes-botoes-div {
 				font-size: 18px;
@@ -181,24 +206,27 @@
 					<div class="lista-div">
 						<div class="novo-item" onclick="this.getElementsByClassName('novoitem-input')[0].focus()">
 	                        <form action="editar-turma" method="post">
-	                            <input style="display:none" name="turma" th:value="${param.turma}">
+	                            <input style="display: none;" name="turma" th:value="${param.turma}">
 	                            <input name="disciplina" type="text" class="novoitem-input" id="novoItemInput" placeholder="Nova Disciplina" maxlength="30" autocomplete="off" required>
 	                            <button class="criar-botao oculto">Criar</button>
 	                        </form>
 	                    </div>
-						<div th:each="disciplina : ${disciplinas}" th:text="${disciplina.getNome()}" class="item-div">Matemática</div>
+						<div th:each="disciplina : ${disciplinas}" class="item-div relative container">
+							<th:block th:text="${disciplina.getNome()}"/>
+							<button class="apagar-botao"></button>
+						</div>
 					</div>
 					<div class="configuracoes-botoes-div">
-						<div class="estado-fieldset relative">
-							<legend>Estado</legend>
-							<label class="switch-label relative" onclick="checarEstado()">
-								<form action="alterar-turma" method="post">
-								<input th:checked="${turma.isAtivada()}" name="ativada" type="checkbox" class="estado-checkbox" onclick="this.parentNode.classList.toggle('ativo');this.value=this.checked; form.submit();">
-								<input style="display: none;"name="turma" th:value="${param.turma}">
-								</form>				
-							</label>
-							<span class="estado-legenda">undefined</span>
-						</div>
+						<form action="alterar-turma" method="post">
+							<div class="estado-fieldset relative">
+								<legend>Estado</legend>
+									<label class="switch-label relative" for="estado-checkbox" onclick="checarEstado()">
+										<input style="display: none;"name="turma" th:value="${param.turma}">
+										<input th:checked="${turma.isAtivada()}" name="ativada" type="checkbox" class="estado-checkbox" id="estado-checkbox">
+									</label>
+								<span class="estado-legenda">undefined</span>
+							</div>
+						</form>				
 						<div class="clonar-botao relative">
 							<img src="/images/clone-solid.svg">
 							<span>Clonar Turma</span>
@@ -218,18 +246,21 @@
 <script>
 	const estadoCheckbox = document.getElementsByClassName("estado-checkbox")[0];
 	const estadoLegenda = document.getElementsByClassName("estado-legenda")[0];
+	const estadoSwitch = document.getElementsByClassName("switch-label")[0];
 	checarEstado();
 	
-	estadoCheckbox.addEventListener("click", function() {
-		this.value = this.checked;
+	estadoSwitch.addEventListener("click", function() {
+		estadoCheckbox.value = estadoCheckbox.checked;
+		estadoCheckbox.checked = true;
+		estadoCheckbox.form.submit();
 	})
 
 	function checarEstado() {
         if (estadoCheckbox.checked) {
-            estadoCheckbox.parentNode.parentNode.classList.add("ativo");
+            estadoSwitch.classList.add("ativo");
             estadoLegenda.innerHTML = "Ativada";
         } else {
-            estadoCheckbox.parentNode.parentNode.classList.remove("ativo");
+            estadoSwitch.classList.remove("ativo");
             estadoLegenda.innerHTML = "Desativada";
         }
     }
@@ -246,5 +277,20 @@
 	        ValueAnterior = element.value;
 	    }
 	})()
+	
+	const apagarBotaoArray = document.getElementsByClassName("apagar-botao");
+	for (i = 0; i < apagarBotaoArray.length; i++) {
+		const container = document.getElementsByClassName("container")[i];
+		apagarBotaoArray[i].addEventListener("mouseenter", function(){
+			container.style.color = "white";
+			container.style.backgroundColor = "rgba(210, 4, 45, 0.8)";
+			container.style.outline = "1px solid #FF0000";
+		})
+		apagarBotaoArray[i].addEventListener("mouseleave", function(){
+			container.style.backgroundColor = "#b0ddff";
+			container.style.outline = "initial";
+			container.style.color = "initial";
+		})
+	}
 </script>
 </html>

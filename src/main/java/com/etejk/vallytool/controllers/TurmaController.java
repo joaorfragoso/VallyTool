@@ -95,7 +95,7 @@ public class TurmaController {
 		if(turmaEnt.isAtivada()) {
 			System.out.println("fodas");
 		}
-		System.out.println("ativada");
+		System.out.println(ativada);
 		
 		return "redirect:/turmas/editar-turma?turma=" + turma;
 	}

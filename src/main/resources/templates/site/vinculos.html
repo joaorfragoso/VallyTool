@@ -107,6 +107,7 @@
 			position: absolute;
 			cursor: pointer;
 			appearance: none;
+			display: none;
 			margin: 0;
 			padding: 0;
 			right: 10px;
@@ -130,7 +131,7 @@
 			background-color: rgb(11, 134, 221);
 		}
 
-		.novo-item {
+		.vincular-item {
 			width: 120px;
 			background-color: #2FC891;
 			cursor: pointer;
@@ -201,9 +202,6 @@
 		}
 
 		@media (min-width: 800px) {
-			.apagar-botao {
-				display: none;
-			}
 			.aba .lista-div {
 				flex-direction: row;
 				flex-wrap: wrap;
@@ -240,7 +238,7 @@
 					<div class="etapa-botao">Disciplinas</div>
 				</div>
 				<div class="lista-div">
-					<div class="novo-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
+					<div class="vincular-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
 					<div th:each="turma : ${turmasUsuario}" class="item-div relative container">
 						<a th:href="@{vinculos(id=${usuario.getId()}, turma=${turma.getCodigo()}, etapa=1)}" 
 						th:text="${turma.getCodigo()}" class="hover-azul">
@@ -267,7 +265,7 @@
 					<div class="etapa-botao selecionado">Disciplinas</div>
 				</div>
 				<div class="lista-div">
-					<div class="novo-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
+					<div class="vincular-item item-div" onclick="abrirJanela('modal-vincular')">Vincular</div>
 					<div th:if="${relacoes != null}"th:each="relacao : ${relacoes}" class="item-div hover-azul fit-content container">
 						<th:block th:text="${relacao.getDisciplina().getNome()}"/>
 						<form action="remover-disciplina" method="post">
