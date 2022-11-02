@@ -77,6 +77,11 @@
 			--altura-botoes: 2.7em;
 			--largura-botoes: 180px;
 		}
+		.configuracoes-botoes-div button {
+			font-family: inherit;
+			font-size: inherit;
+			font-weight: inherit;
+		}
 		.estado-fieldset {
 			width: var(--largura-botoes);
 			height: var(--altura-botoes);
@@ -149,10 +154,9 @@
 			margin: 0;
 			appearance: none;
 			border-radius: 50%;
-			transition: all 0.4s ease-out;
 			cursor: pointer;
 		}
-		.estado-checkbox:checked {
+		.marcado {
 			left: 100%;
 			transform: translate(calc(-100% - 3px), -50%);
 		}
@@ -185,7 +189,7 @@
 		@media (min-width: 800px) {
 			.configuracoes-botoes-div {
 				font-size: 18px;
-			
+				justify-content: flex-end;
 				--altura-botoes: 3em;
 				--largura-botoes: 200px;
 			}
@@ -224,11 +228,12 @@
 						<form action="alterar-turma" method="post">
 							<div class="estado-fieldset relative">
 								<legend>Estado</legend>
-									<label class="switch-label relative" for="estado-checkbox" onclick="checarEstado()">
+									<label class="switch-label relative" for="estado-checkbox">
 										<input style="display: none;"name="turma" th:value="${param.turma}">
-										<input th:checked="${turma.isAtivada()}" name="ativada" type="checkbox" class="estado-checkbox" id="estado-checkbox">
+										<input th:checked="${turma.isAtivada()}" name="ativada" type="checkbox"
+										class="estado-checkbox oculto" id="estado-checkbox">
 									</label>
-								<span class="estado-legenda">undefined</span>
+								<span class="estado-legenda"></span>
 							</div>
 						</form>				
 						<form action="clonar-turma" method="post">
@@ -260,21 +265,29 @@
 	const estadoSwitch = document.getElementsByClassName("switch-label")[0];
 	checarEstado();
 	
-	estadoSwitch.addEventListener("click", function() {
+	estadoCheckbox.addEventListener("click", function() {
+		checarEstado()
 		estadoCheckbox.value = estadoCheckbox.checked;
-		estadoCheckbox.checked = true;
-		estadoCheckbox.form.submit();
+		setTimeout(function(){			
+			estadoCheckbox.checked = true;
+			estadoCheckbox.form.submit();
+		}, 400)
 	})
 
 	function checarEstado() {
         if (estadoCheckbox.checked) {
             estadoSwitch.classList.add("ativo");
+            estadoCheckbox.classList.add("marcado");
             estadoLegenda.innerHTML = "Ativada";
         } else {
             estadoSwitch.classList.remove("ativo");
+            estadoCheckbox.classList.remove("marcado");
             estadoLegenda.innerHTML = "Desativada";
         }
     }
+	estadoCheckbox.style.transition = "all 0.4s";
+	estadoCheckbox.classList.remove("oculto");
+
 	const bloqueiaCaractere = (function () {
 	    let ValueAnterior = "";
 	    return function (element) {
