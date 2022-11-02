@@ -43,6 +43,16 @@ public class TrimestreDatabase {
 	public Trimestre getTrimestre() {
 		return trimestre;
 	}
+	
+	public String getTrimestreParsed() {
+		if(trimestre == Trimestre.PRIMEIRO) {
+			return "'º Trimestre";
+		}else if(trimestre == Trimestre.SEGUNDO) {
+			return "2º Trimestre";
+		}
+		
+		return "3º Trimestre";
+	}
 
 	public void setTrimestre(Trimestre trimestre) {
 		this.trimestre = trimestre;

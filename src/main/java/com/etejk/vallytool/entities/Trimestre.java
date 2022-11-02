@@ -18,4 +18,14 @@ public enum Trimestre {
 		this.id = id;
 	}
 	
+	public static Trimestre getTrimestre(Integer id) {
+		if(id == 1) {
+			return Trimestre.PRIMEIRO;
+		}else if (id == 2) {
+			return Trimestre.SEGUNDO;
+		}
+
+		return Trimestre.TERCEIRO;
+	}
+	
 }
