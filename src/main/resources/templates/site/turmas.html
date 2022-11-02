@@ -107,7 +107,8 @@
 				<button class="botao-verde">Emitir Resultado</button>
 			</div>
 		</div>
-		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
+		<div th:if="${param.error}" th:replace="common/base::erro"></div>
+		<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
 	</div>
 </body>
 <script src="/modules/menu.js"></script>

@@ -278,7 +278,6 @@
 				</div>
 			</div>
 		</div>
-		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
 	</div>
 	<div class="modal-vincular oculto" id="modal-vincular" onclick="this.classList.add('oculto')">
 		<!--Turmas Form-->
@@ -312,6 +311,8 @@
 			<button class="botao-verde">Vincular</button>
 		</form>
 	</div>
+	<div th:if="${param.error}" th:replace="common/base::erro"></div>
+	<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
 </body>
 <script src="/modules/janelaFunctions.js"></script>
 <script src="/modules/urlParametros.js"></script>

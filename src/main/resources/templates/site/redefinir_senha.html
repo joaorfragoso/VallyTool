@@ -81,8 +81,6 @@
 					<div class="cpf-div">
 						<label for="input-cpf">CPF</label>
 						<input type="text" name="cpf" id="input-cpf" pattern=".{14}" maxlength="14" required>
-						<span th:if="${param.error}" class="incorreto"><span class="aviso">&#9888;</span>CPF
-							Incorreto</span>
 					</div>
 				</div>
 				<div class="botao-div">
@@ -103,6 +101,8 @@
 	<footer>
 		<strong>&copy;VallyTool</strong>
 	</footer>
+	<div th:if="${param.error}" th:replace="common/base::erro"></div>
+	<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
 </body>
 <script src="modules/cpfInput.js"></script>
 <script>

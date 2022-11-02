@@ -6,14 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
     <title>VallyTool</title>
-    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/common.css">
     <style>
         .botoes-menu li:nth-child(3){
             width: 150px;
         }
+        .aba {
+			font-weight: 300;
+			padding: 30px;
+		}
+        .configuracao-divisao {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+		.configuracao-divisao .titulo-divisao {
+			font-size: 20px;
+			margin-bottom: 8px;
+			font-weight: 400;
+		}
+		.dado-campo {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 6px;
+		}
+		.dado-div {
+			max-width: 85%;
+		}
+		.editar-botao {
+			background: transparent url(/images/pen-to-square-solid.svg) no-repeat center;
+			border: 0;
+			opacity: 0.7;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+		}
+		.quebra-linha {
+			width: 100%;
+		}
     </style>
-	<link rel="stylesheet" href="styles/estrutura.css">
-    <link rel="stylesheet" href="styles/professor.css">
+	<link rel="stylesheet" href="/styles/estrutura.css">
 </head>
 <body>
     <header th:replace="common/base::cabecalho_logado"></header>
@@ -22,7 +56,35 @@
         	<div sec:authorize="hasRole('PROFESSOR')" th:replace="common/base::menu_prof"></div>
             <div sec:authorize="hasRole('SOP')" th:replace="common/base::menu_sop"></div>
             <div class="aba">
-                
+            	<div class="configuracao-divisao">
+	                <span class="titulo-divisao">Dados do Perfil</span>
+	                <div class="quebra-linha"></div>
+	                <div class="dado-campo">
+	                	<span class="dado-titulo">Nome</span>
+	                	<div class="quebra-linha"></div>
+		                <div class="dado-div"></div>
+		                <button class="editar-botao">
+	                </div>
+	                <div class="dado-campo">
+	                	<span class="dado-titulo">CPF</span>
+	                	<div class="quebra-linha"></div>
+		                <div class="dado-div"></div>
+		                <button class="editar-botao">
+	                </div>
+	                <div class="quebra-linha"></div>
+	                <div class="dado-campo">
+	                	<span class="dado-titulo">Email</span>
+	                	<div class="quebra-linha"></div>
+		                <div class="dado-div"></div>
+		                <button class="editar-botao">
+	                </div>
+	                <div class="dado-campo">
+	                	<span class="dado-titulo">Senha</span>
+	                	<div class="quebra-linha"></div>
+		                <div class="dado-div"></div>
+		                <button class="editar-botao">
+	                </div>
+            	</div>
             </div>
         </div>
     </div>

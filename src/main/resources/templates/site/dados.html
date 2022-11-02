@@ -51,10 +51,9 @@
             height: 20px;
             width: 20px;
         }
-        .input1 {
-			cursor: not-allowed;
+		.dado-div {
+			margin-top: 8px;
 		}
-		
 		@media (min-width: 800px) {
 			#tela-cadastro, .aba-dados {
 				row-gap: 60px;
@@ -101,16 +100,16 @@
 				<a href="/inicio" class="fechar-botao"></a>
 				<form th:action="@{/usuarios/update}" method="post">
 					<div class="text-input">
-						<label>Nome</label><br>
-						<input name="nome" type="text" th:value="${usuario.getNome()}" readonly class="input1" autocomplete="off" required>
+						<label>Nome</label>
+						<div th:text="${usuario.getNome()}" class="dado-div"></div>
 					</div>
 					<div class="text-input">
-						<label>Email</label><br>
-						<input name="email" type="email" th:value="${usuario.getEmail()}" readonly class="input1" autocomplete="off" required>
+						<label>Email</label>
+						<div th:text="${usuario.getEmail()}" class="dado-div"></div>
 					</div>
 					<div class="text-input">
-						<label>CPF</label><br>
-						<input name="cpf" type="text" th:value="${usuario.getCpf()}" readonly class="input1" id="input-cpf" autocomplete="off" pattern=".{14}" maxlength="14" required>
+						<label>CPF</label>
+						<div th:text="${usuario.getCpf()}" class="dado-div"></div>
 					</div>
 					<div th:unless="${usuario.getNome() == usuarioLogado}"  class="cargo-opcao">
 						<span>Cargo</span>
@@ -128,7 +127,8 @@
 				</form>
 			</div>
 		</div>
-		<div th:if="${param.error}" th:replace="common/base::aviso"></div>
+		<div th:if="${param.error}" th:replace="common/base::erro"></div>
+		<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
 	</div>
 </body>
 <script>
