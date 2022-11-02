@@ -20,10 +20,12 @@ import com.etejk.vallytool.entities.Disciplina;
 import com.etejk.vallytool.entities.Relacao;
 import com.etejk.vallytool.entities.Resultado;
 import com.etejk.vallytool.entities.Trimestre;
+import com.etejk.vallytool.entities.TrimestreDatabase;
 import com.etejk.vallytool.entities.Turma;
 import com.etejk.vallytool.repositories.DisciplinaRepository;
 import com.etejk.vallytool.repositories.RelacaoRepository;
 import com.etejk.vallytool.repositories.ResultadoRepository;
+import com.etejk.vallytool.repositories.TrimestreAtualRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
 
 @Controller
@@ -41,6 +43,9 @@ public class TurmaController {
 	
 	@Autowired
 	RelacaoRepository rer;
+	
+	@Autowired
+	TrimestreAtualRepository tar;
 	
 	@PostMapping("")
 	public String saveTurma(@Valid Turma turma) {
@@ -66,7 +71,7 @@ public class TurmaController {
 		}else {
 			model.addAttribute("turmas", tr.findAll());
 		}
-		
+		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		return "site/turmas";
 	}
 	
@@ -180,5 +185,18 @@ public class TurmaController {
 		model.addAttribute("anos", anos);
 		model.addAttribute("resultados", resultados);
 		return "site/resultados";
+	}
+	
+	@PostMapping("fechar-trimestre")
+	public String fecharTrimestre() {
+		TrimestreDatabase td = tar.getTrimestreAtual();
+		
+		if(td.getTrimestre() == Trimestre.TERCEIRO) {
+			tar.fecharTrimestre();
+			return "redirect:/turmas";
+		}
+		
+		tar.trocarTrimestre(Trimestre.getTrimestre(td.getTrimestre().getId() + 1));
+		return "redirect:/turmas";
 	}
 }

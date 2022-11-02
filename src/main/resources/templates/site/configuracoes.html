@@ -62,14 +62,19 @@
 	                <div class="dado-campo">
 	                	<span class="dado-titulo">Nome</span>
 	                	<div class="quebra-linha"></div>
-		                <div class="dado-div"></div>
+		                <div th:text="${usuario.getNome()}" class="dado-div"></div>
 		                <button class="editar-botao">
+	                </div>
+	                <div class="dado-campo">
+	                	<span class="dado-titulo">CPF</span>
+	                	<div class="quebra-linha"></div>
+		                <div th:text="${usuario.getCpf()}" class="dado-div"></div>
 	                </div>
 	                <div class="quebra-linha"></div>
 	                <div class="dado-campo">
 	                	<span class="dado-titulo">Email</span>
 	                	<div class="quebra-linha"></div>
-		                <div class="dado-div"></div>
+		                <div th:text="${usuario.getEmail()}" class="dado-div"></div>
 		                <button class="editar-botao">
 	                </div>
 	                <div class="dado-campo">
@@ -77,11 +82,6 @@
 	                	<div class="quebra-linha"></div>
 		                <div class="dado-div"></div>
 		                <button class="editar-botao">
-	                </div>
-	                <div class="dado-campo">
-	                	<span class="dado-titulo">CPF</span>
-	                	<div class="quebra-linha"></div>
-		                <div class="dado-div"></div>
 	                </div>
             	</div>
             </div>

@@ -56,8 +56,12 @@ public class RedefinirController {
 		rs.createPasswordToken(token, user);
 		
 		String url = "http://localhost:8080" + "/redefinir/atualizarSenha?token=" + token;
+		try {
 		es.sendEmail(user.getEmail(), url);
-		
+		}catch(Exception e) {
+			model.addAttribute("error", "Algo deu errado, tente novamente.");
+			return new ModelAndView("redirect:/redefinir", model);
+		}
 		model.addAttribute("sucess", "Um email foi enviado para você contendo as informações sobre a redefinição de senha");
 		model.addAttribute("email", user.getEmail());
 		return new ModelAndView("redirect:/redefinir", model);
@@ -91,13 +95,13 @@ public class RedefinirController {
 	
 	@GetMapping("/invalido")
 	public ModelAndView invalido(ModelMap model) {
-		model.addAttribute("errorToken", "Token Inválido");
+		model.addAttribute("error", "Token Inválido");
 		return new ModelAndView("redirect:/login" , model);
 	}
 	
 	@GetMapping("/invalidUser")
 	public ModelAndView usuarioInvalido(ModelMap model) {
-		model.addAttribute("errorUsuario", "Usuario Inválido");
+		model.addAttribute("error", "Usuario Inválido");
 		System.out.println("invalid");
 		return new ModelAndView("redirect:/login" , model);
 		
