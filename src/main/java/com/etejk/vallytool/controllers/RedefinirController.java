@@ -91,13 +91,13 @@ public class RedefinirController {
 	
 	@GetMapping("/invalido")
 	public ModelAndView invalido(ModelMap model) {
-		model.addAttribute("errorToken", "Token Inválido");
+		model.addAttribute("error", "Token Inválido");
 		return new ModelAndView("redirect:/login" , model);
 	}
 	
 	@GetMapping("/invalidUser")
 	public ModelAndView usuarioInvalido(ModelMap model) {
-		model.addAttribute("errorUsuario", "Usuario Inválido");
+		model.addAttribute("error", "Usuario Inválido");
 		System.out.println("invalid");
 		return new ModelAndView("redirect:/login" , model);
 		
