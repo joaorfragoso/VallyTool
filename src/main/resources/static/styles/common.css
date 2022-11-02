@@ -184,7 +184,7 @@ strong {
 
 /*Janela de Aviso*/
 .aviso {
-	position: absolute;
+	position: fixed;
 	width: max-content;
 	min-width: 260px;
 	max-width: 80%;
