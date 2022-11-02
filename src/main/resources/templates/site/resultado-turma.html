@@ -1,8 +1,226 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
+
 <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>VallyTool</title>
+	<link rel="stylesheet" href="/styles/reset.css">
+	<link rel="stylesheet" href="/styles/common.css">
+	<style>
+		.botoes-menu li:nth-child(2) {
+			width: 150px;
+		}
+		.aba {
+			font-weight: 300;
+			display: grid;
+			grid-template-rows: max-content auto max-content;
+			row-gap: 40px;
+			padding-bottom: 20px;
+		}
+		.aba-legenda {
+			display: flex;
+			flex-direction: column;
+			row-gap: 10px;
+			align-items: center;
+			justify-self: center;
+		}
+		.data {
+			font-weight: 500;
+			font-size: 18px;
+		}
+		.turma-div {
+			background-color: #0C90F0;
+			width: 100px;
+			height: 2em;
+			border-radius: 0 0 4px 4px;
+			color: white;
+			font-size: 20px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		
+		.legenda {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			justify-content: center;
+			font-weight: 400;
+			font-size: 14px;
+			justify-self: center;
+		}
+		.legenda-item {
+			display: flex;
+			column-gap: 2px;
+			align-items: center;
+		}
+		.legenda .marcador {
+			border-radius: 6px;
+			width: 25px;
+			height: 25px;
+		}
+		.legenda .muito-bom .marcador {
+			background-color: #0C90F0;
+		}
+		.legenda .bom .marcador {
+			background-color: #79DE76;
+		}
+		.legenda .regular .marcador {
+			background-color: #ECE57F;
+		}
+		.legenda .insuficiente .marcador {
+			background-color: #EEB853;
+		}
+		.legenda .pessimo .marcador {
+			background-color: #C61010;
+		}
+		
+		.disciplinas-div {
+			width: 100%;
+			height: max-content;
+			overflow-x: scroll;
+			display: flex;
+			scroll-snap-type: x mandatory;
+		}
+		.disciplina-container {
+			width: 100%;
+			min-width: 100%;
+			height: max-content;
+			row-gap: 8px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			scroll-snap-align: start;
+		}
+		.disciplina {
+			min-width: 120px;
+			width: fit-content;
+			height: 2.2em;
+			background-color: #0C90F0;
+			color: white;
+			font-size: 18px;
+			border-radius: 4px;
+			padding: 0 8px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.avaliacao {
+			width: 85%;
+			height: max-content;
+			padding: 10px;
+			border-radius: 4px;
+			background-color: #FDFDFD;
+			border: 1px solid rgba(0, 0, 0, 0.1);
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+			display: grid;
+			grid-template-columns: max-content auto;
+		}
+		.aspectos {
+			display: flex;
+			flex-direction: column;
+			row-gap: 20px;
+			font-size: 14px;
+			padding-right: 4px;
+			border-right: 1px solid rgba(0, 0, 0, 0.2);
+		}
+		.conceitos {
+			display: flex;
+			flex-direction: column;
+			row-gap: 20px;
+		}
+		.conceito {
+			height: 14px;
+		}
+		.conceito.muito-bom {
+			background-color: #0C90F0;
+			width: 70%;
+		}
+		.conceito.bom {
+			background-color: #79DE76;
+			width: 55%;
+		}
+		.conceito.regular {
+			background-color: #ECE57F;
+			width: 40%;
+		}
+		.conceito.insuficiente {
+			background-color: #EEB853;
+			width: 25%;
+		}
+		.conceito.pessimo {
+			background-color: #C61010;
+			width: 10%;
+		}
+	</style>
+	<link rel="stylesheet" href="/styles/estrutura.css">
 </head>
+
 <body>
+    <header th:replace="common/base::cabecalho_logado"></header>
+    <div class="main">
+        <div class="tela">
+        	<div sec:authorize="hasRole('PROFESSOR')" th:replace="common/base::menu_prof"></div>
+            <div sec:authorize="hasRole('SOP')" th:replace="common/base::menu_sop"></div>
+            <div class="aba">
+            	<div class="aba-legenda">
+            		<div th:text="${turma.getCodigo}" class="turma-div"></div>
+            		<div class="data">3º Trimestre / 2022</div>
+            	</div>
+            	
+            	<div class="disciplinas-div">
+            		<div class="disciplina-container">
+            			<div class="disciplina">Matemática</div>
+            			<div class="avaliacao">
+            				<div class="aspectos">
+            					<div>Aproveitamento</div>
+            					<div>Participação</div>
+            					<div>Frequência</div>
+            					<div>Atitude</div>
+            					<div>Entrosamento</div>
+            					<div>Rel. Aluno/Prof</div>
+            				</div>
+            				<div class="conceitos">
+            					<div class="conceito muito-bom"></div>
+            					<div class="conceito regular"></div>
+            					<div class="conceito bom"></div>
+            					<div class="conceito insuficiente"></div>
+            					<div class="conceito pessimo"></div>
+            					<div class="conceito bom"></div>
+            				</div>
+            			</div>
+            		</div>
+            	</div>
+            	
+            	<div class="legenda">
+            		<div class="legenda-item muito-bom">
+            			<div class="marcador"></div>
+            			Muito Bom
+            		</div>
+            		<div class="legenda-item bom">
+            			<div class="marcador"></div>
+            			Bom
+            		</div>
+            		<div class="legenda-item regular">
+            			<div class="marcador"></div>
+            			Regular
+            		</div>
+            		<div class="legenda-item insuficiente">
+            			<div class="marcador"></div>
+            			Insuficiente
+            		</div>
+            		<div class="legenda-item pessimo">
+            			<div class="marcador"></div>
+            			Péssimo
+            		</div>
+            	</div>
+            </div>
+        </div>
+    </div>	
+	<!--
 	<div th:text="TURMA + ${turma.getCodigo}"> </div>
 	<div>TERCEIRO TRIMESTRE</div>
 	<div th:each="resultado: ${resultados}">
@@ -12,5 +230,7 @@
 		<div th:each="conceito: ${resultado.getConceitos()}" th:text="${conceito}">
 		</div>
 	</div>
+	-->
 </body>
+<script src="/modules/menu.js"></script>
 </html>

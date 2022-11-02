@@ -11,7 +11,7 @@ header {
     background-color: white;
     grid-row: 1/2;
     width: 100%;
-    height: 110px;
+    height: 100%;
     display: grid;
     grid-template-columns: 70px auto 70px;
     box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.25);
@@ -22,7 +22,7 @@ header {
 .main {
 	background-color: #eeeeee;
     height: calc(100vh - 110px);
-    min-height: 580px;
+
     position: relative;
     grid-row: 2/3;
     display: flex;
@@ -32,9 +32,9 @@ header {
 
 .tela {
 	background-color: white;
-    width: 330px;
+    width: 90%;
     max-width: 90%;
-    height: 500px;
+    height: 90%;
     box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
     border-radius: 6px;
     box-sizing: border-box;
