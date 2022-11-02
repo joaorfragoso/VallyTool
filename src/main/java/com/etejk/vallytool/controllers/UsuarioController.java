@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -48,13 +49,16 @@ public class UsuarioController {
 	DisciplinaRepository dr;
 
 	@PostMapping("usuarios/update")
-	public String updateUsuario(Model model,@RequestParam(name = "id") String id,
+	public String updateUsuario(Authentication auth, Model model,@RequestParam(name = "id") String id,
 								@RequestParam(name = "role") String role) {
 		
 		Optional<Usuario> usuario = ur.findById(Integer.parseInt(id));
-		if(!usuario.isPresent()) {
+		if(!usuario.isPresent() || usuario.get().getNome() == auth.getName()) {
 			return "redirect:/usuarios/dados";
 		}
+		
+		
+		
 		List<RoleModel> roles = new ArrayList<>();
 		RoleModel roleModel = rr.findByRoleName(RoleName.valueOf(role));
 		if(roleModel == null) {
@@ -236,13 +240,14 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("usuarios/dados")
-    public String dados(Model model, @RequestParam(name = "id") String id) {
+    public String dados(Authentication auth, Model model, @RequestParam(name = "id") String id) {
 
         Optional<Usuario> user = ur.findById(Integer.parseInt(id));
         if(!user.isPresent()) {
             return "redirect:/inicio";
         };
-
+        
+        model.addAttribute("usuarioLogado", auth.getName());
         model.addAttribute("usuario", user.get());
         return "site/dados";
     }

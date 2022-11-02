@@ -112,7 +112,7 @@
 						<label>CPF</label><br>
 						<input name="cpf" type="text" th:value="${usuario.getCpf()}" readonly class="input1" id="input-cpf" autocomplete="off" pattern=".{14}" maxlength="14" required>
 					</div>
-					<div class="cargo-opcao">
+					<div th:unless="${usuario.getNome() == usuarioLogado}"  class="cargo-opcao">
 						<span>Cargo</span>
 						<p id="roleUsuario" style="display: none" th:text=${usuario.getAuthority()}> </p>
 						<div class="opcaolabel-div">
@@ -120,7 +120,7 @@
 							<label class="label1" for="radioProfessor1">Professor</label>
 						</div>
 					</div>
-					<div class="opcaolabel-div cargo-opcao">
+					<div th:unless="${usuario.getNome() == usuarioLogado}" class="opcaolabel-div cargo-opcao">
 						<input type="radio" id="radioSop1" name="role" value="ROLE_SOP" onclick="form.submit()" required>
 						<label class="label1" for="radioSop1">SOP</label>
 					</div>
