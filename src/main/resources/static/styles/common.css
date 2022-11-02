@@ -201,16 +201,20 @@ strong {
 	left: 50%;
 	bottom: 0;
 	transform: translate(-50%, -50%);
-	border-radius: 4px;
-	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
-	outline: 1px solid #FF0000;
-	background-color: rgba(198, 16, 16, 0.9);
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
 	color: white;
+	border-radius: 100px;
+	background-color: rgb(30, 30, 30);
 }
-.exclamacao {
+.aviso-icon {
 	width: 25px;
 	height: 25px;
-	filter: drop-shadow(0 4px 4px rgb(0, 0, 0, 0.4));
+}
+.sucesso .aviso-icon {
+	filter: invert(49%) sepia(91%) saturate(1632%) hue-rotate(81deg) brightness(102%) contrast(97%);
+}
+.erro .aviso-icon {
+	filter: invert(14%) sepia(79%) saturate(5054%) hue-rotate(5deg) brightness(85%) contrast(108%);
 }
 .aviso .avisofechar-botao {
 	background: transparent url(../images/xmark-solid.svg) no-repeat center;
@@ -219,6 +223,12 @@ strong {
 	border: 0;
 	filter: invert(100%);
 	cursor: pointer;
+}
+.erro {
+	outline: 1px solid #FF0000;
+}
+.sucesso {
+	outline: 1px solid rgb(6, 255, 0);
 }
 /*-----*/
 

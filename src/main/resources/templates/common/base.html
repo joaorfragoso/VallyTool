@@ -49,8 +49,13 @@
 	</nav>
 </div>
 
-<div style="display: none;" class="aviso" th:fragment="aviso">
-	<img src="/images/triangle-exclamation-solid.svg" alt="aviso" class="exclamacao">
+<div th:if=${param.error} class="aviso erro" th:fragment="erro">
+	<img src="/images/triangle-exclamation-solid.svg" alt="aviso" class="aviso-icon">
 	<span th:text="${param.error}"></span>
+	<button class="avisofechar-botao" onclick="this.parentNode.style.display='none'"></button>
+</div>
+<div th:if="${param.sucess}" class="aviso sucesso" th:fragment="sucesso">
+	<img src="/images/check-solid.svg" alt="aviso" class="aviso-icon">
+	<span th:text="${param.sucess}"></span>
 	<button class="avisofechar-botao" onclick="this.parentNode.style.display='none'"></button>
 </div>

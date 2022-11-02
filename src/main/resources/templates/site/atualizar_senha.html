@@ -86,5 +86,7 @@
     <footer>
         <strong>&copy;VallyTool</strong>
     </footer>
+	<div th:if="${param.error}" th:replace="common/base::erro"></div>
+	<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
 </body>
 </html>

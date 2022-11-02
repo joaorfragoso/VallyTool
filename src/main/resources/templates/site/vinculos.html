@@ -312,6 +312,8 @@
 			<button class="botao-verde">Vincular</button>
 		</form>
 	</div>
+	<div th:if="${param.error}" th:replace="common/base::erro"></div>
+	<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
 </body>
 <script src="/modules/janelaFunctions.js"></script>
 <script src="/modules/urlParametros.js"></script>

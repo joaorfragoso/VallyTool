@@ -36,6 +36,7 @@ strong {
 .botao-div {
     padding: 0 7.5%;
 }
+/*
 .incorreto {
 	display: static;
 	position: absolute;
@@ -61,7 +62,7 @@ strong {
 	font-style: normal;
 	margin-right: 5px;
 }
-
+*/
 /* Input */
 input[type=text], input[type=password] {
     font-size: 16px;

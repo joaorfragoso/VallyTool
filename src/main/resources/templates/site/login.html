@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VallyTool</title>
-    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/common.css">
     <style>
         .login {
             background-color: white;
@@ -74,10 +75,11 @@
                     </div>
                     <input type="password" name="password" id="input-senha" autocomplete="current-password" maxlength="11" required>
                     <button class="senha-visibilidade" id="senha-visibilidade" type="button" onclick="revelarSenha()"></button>
+                    <!--
                     <span th:if="${param.error}" class="incorreto"><span class="aviso">&#9888;</span>CPF ou Senha Incorreto</span>
                     <span th:if="${param.errorToken}" class="incorreto">&#9888;Token Inválido</span></span>
                     <span th:if="${param.errorUsuario}" class="incorreto">&#9888;Usuario inválido</span></span>
-                    <span th:if="${param.sucess}" class="correto"><span style="color: green">&radic; Senha trocada com sucesso</span></span>
+                    -->
                 </div>
             </div>
             <div class="botao-div">
@@ -88,6 +90,8 @@
     <footer>
         <strong>&copy;VallyTool</strong>
     </footer>
+    <div th:replace="common/base::sucesso"></div>
+    <div th:replace="common/base::erro"></div>
 </body>
 <script src="modules/cpfInput.js"></script>
 <script>
