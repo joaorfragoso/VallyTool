@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.etejk.vallytool.entities.Usuario;
+import com.etejk.vallytool.repositories.TrimestreAtualRepository;
 import com.etejk.vallytool.repositories.UsuarioRepository;
 
 @Controller
@@ -19,11 +20,15 @@ public class ConfiguracoesController {
 	@Autowired
 	UsuarioRepository ur;
 	
+	@Autowired
+	TrimestreAtualRepository tar;
+	
 	@GetMapping()
 	public String configuracoes(Authentication auth,
 								Model model) {
 		Usuario usuario = ur.findByNome(auth.getName());
 		model.addAttribute("usuario", usuario);
+		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		return "site/configuracoes";
 	}
 	

@@ -27,6 +27,7 @@ import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.DisciplinaRepository;
 import com.etejk.vallytool.repositories.RelacaoRepository;
 import com.etejk.vallytool.repositories.RoleRepository;
+import com.etejk.vallytool.repositories.TrimestreAtualRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
 import com.etejk.vallytool.repositories.UsuarioRepository;
 
@@ -48,6 +49,9 @@ public class UsuarioController {
 	@Autowired
 	DisciplinaRepository dr;
 
+	@Autowired
+	TrimestreAtualRepository tar;
+	
 	@PostMapping("usuarios/update")
 	public String updateUsuario(Authentication auth, Model model,@RequestParam(name = "id") String id,
 								@RequestParam(name = "role") String role) {
@@ -118,6 +122,7 @@ public class UsuarioController {
 		}else {
 		model.addAttribute("usuarios", ur.findAll());
 		}
+		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		
 		return "site/inicio";
 	}
@@ -151,6 +156,7 @@ public class UsuarioController {
         }
         model.addAttribute("turmaSolicitada", turmaEnt);
         model.addAttribute("relacoes", relacoes);    
+		model.addAttribute("trimestre", tar.getTrimestreAtual());
         model.addAttribute("usuario", usuario);
         model.addAttribute("turmas", turmas);
         model.addAttribute("turmasUsuario", usuario.getTurmas());
@@ -245,7 +251,7 @@ public class UsuarioController {
         if(!user.isPresent()) {
             return "redirect:/inicio";
         };
-        
+		model.addAttribute("trimestre", tar.getTrimestreAtual());
         model.addAttribute("usuarioLogado", auth.getName());
         model.addAttribute("usuario", user.get());
         return "site/dados";

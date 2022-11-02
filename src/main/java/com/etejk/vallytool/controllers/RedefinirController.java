@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.dao.PasswordDAO;
 import com.etejk.vallytool.entities.Usuario;
+import com.etejk.vallytool.repositories.TrimestreAtualRepository;
 import com.etejk.vallytool.repositories.UsuarioRepository;
 import com.etejk.vallytool.services.EmailService;
 import com.etejk.vallytool.services.ResetService;
@@ -38,6 +39,8 @@ public class RedefinirController {
 	@Autowired
 	UsuarioService us;
 	
+	@Autowired
+	TrimestreAtualRepository tar;
 	@GetMapping()
 	public String redefinir() {
 		return "site/redefinir_senha";
@@ -74,6 +77,7 @@ public class RedefinirController {
 		}else{
 			model.addAttribute("token", token);
 		}
+		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		
 		return "site/atualizar_senha";
 	}

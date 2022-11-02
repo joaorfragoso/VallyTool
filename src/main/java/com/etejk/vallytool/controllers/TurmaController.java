@@ -83,6 +83,7 @@ public class TurmaController {
 		model.addAttribute("turma", turmaEnt);
 		List<Resultado> resultados = rr.findByTurma(turmaEnt);
 		model.addAttribute("resultados", resultados.isEmpty() ? null : resultados);
+		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		return "site/editar-turma";
 	}
 	
@@ -167,6 +168,7 @@ public class TurmaController {
 				Trimestre.valueOf(trimestre), turmaEnt);
 		System.out.println(resultados.isEmpty() ? "true" : "false");
 		model.addAttribute("turma", turmaEnt);
+		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		model.addAttribute("resultados", resultados);
 		return "site/resultado-turma";
 		
@@ -182,6 +184,7 @@ public class TurmaController {
 				anos.add(resultado.getData().getYear());
 			}
 		}
+		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		model.addAttribute("anos", anos);
 		model.addAttribute("resultados", resultados);
 		return "site/resultados";
