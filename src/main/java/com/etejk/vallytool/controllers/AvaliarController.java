@@ -25,6 +25,7 @@ import com.etejk.vallytool.repositories.DisciplinaRepository;
 import com.etejk.vallytool.repositories.ProfessoRepository;
 import com.etejk.vallytool.repositories.RelacaoRepository;
 import com.etejk.vallytool.repositories.ResultadoRepository;
+import com.etejk.vallytool.repositories.TrimestreAtualRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
 import com.etejk.vallytool.services.ResultadoService;
 import com.etejk.vallytool.services.TurmaService;
@@ -53,6 +54,9 @@ public class AvaliarController {
 	@Autowired
 	private RelacaoRepository rer;
 	
+	@Autowired
+	private TrimestreAtualRepository tar;
+	
 	@GetMapping("avaliar")
 	public String avaliar(Model model, Authentication auth,
 			@Param(value = "turma") String turma) {
@@ -61,7 +65,7 @@ public class AvaliarController {
 		List<Turma> turmas = usuario.getTurmas();
 		model.addAttribute("turmas", turmas);
 		model.addAttribute("disciplinas", usuario.getDisciplinas());
-		System.out.println(turma);
+		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		model.addAttribute("relacoes", rer.findByUsuario(usuario));
 		model.addAttribute("usuario", usuario);
 		return "site/avaliar_turma";

@@ -19,6 +19,7 @@ public class TrimestreDatabase {
 	
 	@Enumerated(EnumType.STRING)
 	public Trimestre trimestre;
+	
 	public boolean aberto;
 	
 	public TrimestreDatabase() {
