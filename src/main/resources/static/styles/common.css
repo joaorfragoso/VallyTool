@@ -19,11 +19,12 @@ strong {
 /*Customização Scrollbar*/
 *::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
 }
 *::-webkit-scrollbar-track {
     background-color: transparent;
     border-radius: 10px;
-    height: 98%;
+    height: 90%;
 }
 *::-webkit-scrollbar-thumb {
     background-color: rgb(12, 144, 240);
@@ -31,6 +32,26 @@ strong {
 }
 *::-webkit-scrollbar-thumb:hover {
     background-color: rgb(11, 134, 221);
+}
+/*-----*/
+
+/*Div que Mostra o Dado do Usuário*/
+.dado-div {
+	width: 260px;
+	height: 2.5em;
+	padding: 0 10px;
+	box-sizing: border-box;
+	border-radius: 6px;
+	font-family: arial;
+	color: rgba(0, 0, 0, 0.6);
+	background-color: white;
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.10), 1px 0 4px rgba(0, 0, 0, 0.10);
+	display: flex;
+	align-items: center;
+	overflow-y: scroll;
+}
+.dado-div::-webkit-scrollbar {
+	height: 3px;
 }
 /*-----*/
 
@@ -209,12 +230,12 @@ strong {
 	border-radius: 6px;
 	border: 0;
 	outline: 0;
-	opacity: 0.6;
 	background-color: white;
-	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25), 1px 0 4px rgba(0, 0, 0, 0.25);
+	color: rgba(0, 0, 0, 0.6);
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.10), 1px 0 4px rgba(0, 0, 0, 0.10);
 }
 .input1::placeholder {
-	opacity: 0.4;
+	color: rgba(0, 0, 0, 0.4);
 }
 
 .opcaolabel-div, .input1 {
