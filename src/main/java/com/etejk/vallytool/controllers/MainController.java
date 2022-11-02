@@ -17,11 +17,6 @@ public class MainController {
 		return "redirect:/inicio";
 	}
 	
-	@GetMapping("configuracoes")
-	public String configuracoes() {
-		return "site/configuracoes";
-	}
-	
 	@GetMapping("login")
 	public String login() {
 		return "site/login";

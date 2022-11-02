@@ -58,7 +58,6 @@ public class UsuarioController {
 		}
 		
 		
-		
 		List<RoleModel> roles = new ArrayList<>();
 		RoleModel roleModel = rr.findByRoleName(RoleName.valueOf(role));
 		if(roleModel == null) {
