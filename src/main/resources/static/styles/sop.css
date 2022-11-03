@@ -12,9 +12,9 @@
 	width: 100%;
 	height: 2.5em;
 	box-sizing: border-box;
-	border-radius: 8px;
+	border-radius: 1em;
 	box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25);
-	font-size: 20px;
+	font-size: 18px;
 }
 .pesquisar-input {
 	width: calc(100% - 2em);
@@ -31,11 +31,11 @@
 }
 .pesquisar-botao {
 	aspect-ratio: 1/1;
-	height: 70%;
+	height: 60%;
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	right: 0.6em;
+	right: 1em;
 	background: transparent url(../images/magnifying-glass-solid.svg) no-repeat center;
 	border: 0;
 	cursor: pointer;
