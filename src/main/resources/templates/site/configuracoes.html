@@ -35,6 +35,14 @@
 		.dado-div {
 			max-width: 85%;
 		}
+		.dado-titulo {
+			font-size: 18px;
+		}
+		.password-fake {
+			font-size: 16px;
+			letter-spacing: 1px;
+			margin: 0;
+		}
 		.editar-botao {
 			background: transparent url(/images/pen-to-square-solid.svg) no-repeat center;
 			border: 0;
@@ -45,6 +53,62 @@
 		}
 		.quebra-linha {
 			width: 100%;
+		}
+		
+		.modal-blur {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.4);
+			z-index: 100;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.modal-configuracao {
+			background-color: #FAFAFA;
+			outline: rgba(0, 0, 0, 0.2);
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+			width: 400px;
+			height: 200px;
+			border-radius: 6px;
+		}
+		.modal-configuracao .input1 {
+			margin: 0;
+			font-size: 16px;
+			width: 80%;
+		}
+		.redefinir-form {
+			width: 100%;
+			height: 100%;
+			padding: 10px;
+			box-sizing: border-box;
+			display: grid;
+			grid-template-columns: 1fr;
+			grid-template-rows: max-content auto max-content;
+			justify-content: center;
+			justify-items: center;
+			align-items: center;
+		}
+		.redefinir-botoes {
+			display: flex;
+			justify-content: center;
+			gap: 10px;
+		}
+		.redefinir-botoes button {
+			width: 90px;
+			height: 30px;
+			border-radius: 4px;
+			border: 1px solid rgba(0, 0, 0, 0.15);
+			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+			font-family: inherit;
+			cursor: pointer;
+		}
+		.redefinir-botoes .salvar-botao {
+			color: white;
+		}
+		.redefinir-botoes .cancelar-botao {
+			color: rgba(0, 0, 0, 0.6);
 		}
     </style>
 	<link rel="stylesheet" href="/styles/estrutura.css">
@@ -63,7 +127,7 @@
 	                	<span class="dado-titulo">Nome</span>
 	                	<div class="quebra-linha"></div>
 		                <div th:text="${usuario.getNome()}" class="dado-div"></div>
-		                <button class="editar-botao">
+		                <button class="editar-botao" onclick="abrirJanela('modal-configuracao'); abrirJanela('redefinirnome-form')"></button>
 	                </div>
 	                <div class="dado-campo">
 	                	<span class="dado-titulo">CPF</span>
@@ -75,19 +139,48 @@
 	                	<span class="dado-titulo">Email</span>
 	                	<div class="quebra-linha"></div>
 		                <div th:text="${usuario.getEmail()}" class="dado-div"></div>
-		                <button class="editar-botao">
+		                <button class="editar-botao" onclick="abrirJanela('modal-configuracao'); abrirJanela('redefiniremail-form')"></button>
 	                </div>
 	                <div class="dado-campo">
 	                	<span class="dado-titulo">Senha</span>
 	                	<div class="quebra-linha"></div>
-		                <div class="dado-div"></div>
-		                <button class="editar-botao">
+		                <input class="input1 password-fake" type="password" value="123456" readonly>
+		                <button class="editar-botao" onclick="abrirJanela('modal-configuracao'); abrirJanela('redefinirsenha-form')"></button>
 	                </div>
             	</div>
             </div>
         </div>
     </div>
+    <div class="modal-blur oculto" id="modal-configuracao" onclick="this.classList.add('oculto');">
+    	<div class="modal-configuracao" onclick="event.stopPropagation()">
+	    	<form class="redefinirnome-form redefinir-form oculto" id="redefinirnome-form">
+	    		<label>Redefinir Nome</label>
+	    		<input type="text" class="input1" placeholder="Novo Nome" required>
+	    		<div class="redefinir-botoes">
+	    			<button class="cancelar-botao" type="button">Cancelar</button>
+	    			<button class="salvar-botao botao-verde">Salvar</button>
+	    		</div>
+	    	</form>
+	    	<form class="redefiniremail-form redefinir-form oculto" id="redefiniremail-form">
+	    		<label>Redefinir Email</label>
+	    		<input type="email" class="input1" placeholder="Novo Email" required>
+	    		<div class="redefinir-botoes">
+	    			<button class="cancelar-botao" type="button">Cancelar</button>
+	    			<button class="salvar-botao">Salvar</button>
+	    		</div>
+	    	</form>
+	    	<form class="redefinirsenha-form redefinir-form oculto" id="redefinirsenha-form">
+	    		<label>Redefinir Senha</label>
+	    		<input type="password" class="input1" placeholder="Nova Senha" required>
+	    		<div class="redefinir-botoes">
+	    			<button class="cancelar-botao" type="button">Cancelar</button>
+	    			<button class="salvar-botao">Salvar</button>
+	    		</div>
+	    	</form>
+    	</div>
+    </div>
     <div th:replace="common/base::confirmacao"></div>
 </body>
 <script src="/modules/menu.js"></script>
+<script src="/modules/janelaFunctions.js"></script>
 </html>

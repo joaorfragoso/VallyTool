@@ -19,7 +19,7 @@ const requisicaoConfirmacaoBotoes = document.getElementsByClassName("requisitarC
 
 for (i = 0; i < requisicaoConfirmacaoBotoes.length; i++) {
 	requisicaoConfirmacaoBotoes[i].addEventListener("click", function() {
-		confirmacaoJanela.classList.toggle("oculto");
+		confirmacaoJanela.classList.remove("oculto");
 		const elemento = this;
 		document.getElementById("mensagem-confirmacao").innerHTML = elemento.getAttribute("confirmacaomensagem");
 		confirmacaoJanela.querySelector(".confirmar-botao").onclick = function() {
