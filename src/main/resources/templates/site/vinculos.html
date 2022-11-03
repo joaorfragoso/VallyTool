@@ -300,7 +300,7 @@
 			<span class="titulo-form" >Vincular Disciplinas</span>
 			<div th:if="${param.turma != null}" class="lista-div">
 				<div class="flex-div">
-					<label th:each="disciplina: ${turmaSolicitada.getDisciplinas()}" class="label1 item-div" th:for="'disciplina' + ${disciplina.getNome()}">
+					<label th:each="disciplina: ${disciplinas}" class="label1 item-div" th:for="'disciplina' + ${disciplina.getNome()}">
 						<input type="checkbox" class="checkbox1" name="disciplinas" th:id="'disciplina' + ${disciplina.getNome()}" th:value="${disciplina.getNome()}">
 						<th:block th:text="${disciplina.getNome()}">
 					</label>

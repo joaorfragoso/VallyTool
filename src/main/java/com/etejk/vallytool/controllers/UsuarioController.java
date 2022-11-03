@@ -151,14 +151,25 @@ public class UsuarioController {
 		List<Turma> turmas = tr.findAll();
 		turmas.removeAll(usuario.getTurmas());
 		List<Relacao> relacoes = rer.findByTurmaAndUsuario(turmaEnt, usuario);
+		List<Disciplina> disciplinas = new ArrayList<>();
 		for (Relacao relacao : relacoes) {
-			turmaEnt.getDisciplinas().remove(relacao.getDisciplina());
+			Disciplina disciplina = relacao.getDisciplina();
+			if(!disciplinas.contains(disciplina)) {
+				disciplinas.add(disciplina);
+			}
 		}
-		List<Relacao> turmaRelacao = rer.findByTurma(turmaEnt);
-		for (Relacao relacao : turmaRelacao) {
-			turmaEnt.getDisciplinas().remove(relacao.getDisciplina());
+		List<Relacao> relacoesTurma = rer.findByTurma(turmaEnt);
+		List<Disciplina> disciplinasTurma = new ArrayList<>();
+		for (Relacao relacao : relacoesTurma) {
+			Disciplina disciplina = relacao.getDisciplina();
+			if(!disciplinasTurma.contains(disciplina)) {
+				disciplinasTurma.add(disciplina);
+			}
 		}
+		
+		disciplinasTurma.removeAll(disciplinas);
 		model.addAttribute("turmaSolicitada", turmaEnt);
+		model.addAttribute("disciplinas", disciplinasTurma);
 		model.addAttribute("relacoes", relacoes);
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		model.addAttribute("usuario", usuario);
@@ -213,7 +224,7 @@ public class UsuarioController {
 		for (String disciplina : disciplinas) {
 
 			Disciplina disciplinaEnt = dr.findByNome(disciplina);
-			if (disciplinaEnt == null || turmaEnt.getDisciplinas().contains(disciplinaEnt)) {
+			if (disciplinaEnt == null) {
 				model.addAttribute("error", "Disciplinas inexistente");
 				return new ModelAndView("redirect:/inicio");
 			}
@@ -240,7 +251,6 @@ public class UsuarioController {
 				return new ModelAndView("redirect:/usuarios/error", model);
 			}
 		}
-		tr.save(turmaEnt);
 		model.addAttribute("sucess", "Professor relacionado!");
 		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&turma=" + turma + "&etapa=1", model);
 

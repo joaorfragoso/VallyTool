@@ -20,15 +20,11 @@ public class Turma {
 	@NotBlank
 	private String codigo;
 	private boolean ativada;
-	
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	private List<Disciplina> disciplinas;
 
 	public Turma() { }
 	
-	public Turma(String codigo, List<Disciplina> disciplinas) {
+	public Turma(String codigo) {
 		this.codigo = codigo;
-		this.disciplinas = disciplinas;
 		this.ativada = true;
 	}
 	public String getCodigo() {
@@ -49,16 +45,5 @@ public class Turma {
 	public void setAtivada(boolean ativada) {
 		this.ativada = ativada;
 	}
-	public List<Disciplina> getDisciplinas() {
-		return disciplinas;
-	}
-	public void setDisciplinas(List<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
-	}
-	
-	public void addDisciplina(Disciplina disciplina) {
-		this.disciplinas.add(disciplina);
-	}
-	
 	
 }

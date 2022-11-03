@@ -33,6 +33,12 @@ public class Relacao {
 		this.disciplina = disciplina;
 		this.usuario = usuario;
 	}
+	
+	public Relacao(Turma turma, Disciplina disciplina) {
+		super();
+		this.turma = turma;
+		this.disciplina = disciplina;
+	}
 
 	public Integer getId() {
 		return id;

@@ -88,10 +88,11 @@ public class TurmaController {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		List<Relacao> relacoes = rer.findByTurma(turmaEnt);
 		List<Disciplina> disciplinas = new ArrayList<>();
-		disciplinas.addAll(turmaEnt.getDisciplinas());
-		
-		for(Relacao relacao: relacoes) {
-			disciplinas.add(relacao.getDisciplina());
+		for (Relacao relacao : relacoes) {
+			Disciplina disciplina = relacao.getDisciplina();
+			if(!disciplinas.contains(disciplina)) {
+				disciplinas.add(disciplina);
+			}
 		}
 		
 		model.addAttribute("disciplinas", disciplinas);
@@ -114,16 +115,23 @@ public class TurmaController {
 		if(disciplinaEnt == null) {
 			Disciplina disciplinaNova = new Disciplina(disciplina);
 			dr.save(disciplinaNova);
-			turmaEnt.addDisciplina(disciplinaNova);
-			tr.save(turmaEnt);
+			Relacao relacao = new Relacao(turmaEnt, disciplinaNova);
+			rer.save(relacao);
 			
 			model.addAttribute("sucess", "Turma editada!");
 			return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
 		}
-		
-		if(!turmaEnt.getDisciplinas().contains(disciplinaEnt)) {
-			turmaEnt.addDisciplina(disciplinaEnt);
-			tr.save(turmaEnt);
+		List<Relacao> relacoes = rer.findByTurma(turmaEnt);
+		List<Disciplina> disciplinas = new ArrayList<>();
+		for (Relacao relacao : relacoes) {
+			Disciplina disciplinaFor = relacao.getDisciplina();
+			if(!disciplinas.contains(disciplinaFor)) {
+				disciplinas.add(disciplinaFor);
+			}
+		}
+		if(!disciplinas.contains(disciplinaEnt)) {
+			Relacao relacao = new Relacao(turmaEnt, disciplinaEnt);
+			rer.save(relacao);
 		}
 		
 		model.addAttribute("sucess", "Turma editada!");
@@ -147,15 +155,23 @@ public class TurmaController {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		String novoCodigo = String.valueOf(Integer.parseInt(turmaEnt.getCodigo()) + 1);
 		
+		List<Relacao> relacoes = rer.findByTurma(turmaEnt);
 		List<Disciplina> disciplinas = new ArrayList<>();
-		
-		for(Disciplina disciplina: turmaEnt.getDisciplinas()) {
-			disciplinas.add(disciplina);
+		for (Relacao relacao : relacoes) {
+			Disciplina disciplina = relacao.getDisciplina();
+			if(!disciplinas.contains(disciplina)) {
+				disciplinas.add(disciplina);
+			}
 		}
-		Turma turmaClonada = new Turma(novoCodigo, disciplinas);
+		
+		Turma turmaClonada = new Turma(novoCodigo);
 		tr.save(turmaClonada);
 		
-		turmaClonada = tr.findByCodigo(novoCodigo);
+		for(Disciplina disciplina: disciplinas) {
+			Relacao relacao = new Relacao(turmaClonada, disciplina);
+			rer.save(relacao);
+		}
+		
 		model.addAttribute("sucess", "Turma clonada!");
 		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + novoCodigo, model);
 	}
@@ -175,8 +191,8 @@ public class TurmaController {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		Disciplina disciplinaEnt = dr.findByNome(disciplina);
 		
-		turmaEnt.getDisciplinas().remove(disciplinaEnt);
-		tr.save(turmaEnt);
+		Relacao relacao = rer.findByTurmaAndDisciplina(turmaEnt, disciplinaEnt);
+		rer.delete(relacao);
 		
 		model.addAttribute("sucess", "Turma resolvida!");
 		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model) ;
