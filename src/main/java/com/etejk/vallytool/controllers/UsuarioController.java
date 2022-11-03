@@ -151,14 +151,25 @@ public class UsuarioController {
 		List<Turma> turmas = tr.findAll();
 		turmas.removeAll(usuario.getTurmas());
 		List<Relacao> relacoes = rer.findByTurmaAndUsuario(turmaEnt, usuario);
+		List<Disciplina> disciplinas = new ArrayList<>();
 		for (Relacao relacao : relacoes) {
-			turmaEnt.getDisciplinas().remove(relacao.getDisciplina());
+			Disciplina disciplina = relacao.getDisciplina();
+			if(!disciplinas.contains(disciplina)) {
+				disciplinas.add(disciplina);
+			}
 		}
-		List<Relacao> turmaRelacao = rer.findByTurma(turmaEnt);
-		for (Relacao relacao : turmaRelacao) {
-			turmaEnt.getDisciplinas().remove(relacao.getDisciplina());
+		List<Relacao> relacoesTurma = rer.findByTurma(turmaEnt);
+		List<Disciplina> disciplinasTurma = new ArrayList<>();
+		for (Relacao relacao : relacoesTurma) {
+			Disciplina disciplina = relacao.getDisciplina();
+			if(!disciplinasTurma.contains(disciplina)) {
+				disciplinasTurma.add(disciplina);
+			}
 		}
+		
+		disciplinasTurma.removeAll(disciplinas);
 		model.addAttribute("turmaSolicitada", turmaEnt);
+		model.addAttribute("disciplinas", disciplinasTurma);
 		model.addAttribute("relacoes", relacoes);
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		model.addAttribute("usuario", usuario);
@@ -177,8 +188,6 @@ public class UsuarioController {
 			model.addAttribute("error", "Usuário inexistente");
 			return new ModelAndView("redirect:/inicio");
 		}
-		;
-
 		Usuario usuario = user.get();
 
 		for (String turma : turmas) {
@@ -232,6 +241,7 @@ public class UsuarioController {
 			model.addAttribute("error", "Algo deu errado");
 			return new ModelAndView("redirect:/usuarios/error", model);
 		}
+		
 		for (Disciplina disciplina : disciplinaList) {
 			Relacao relacao = new Relacao(turmaEnt, disciplina, usuario);
 			try {

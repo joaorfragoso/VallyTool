@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +32,12 @@ public class Relacao {
 		this.turma = turma;
 		this.disciplina = disciplina;
 		this.usuario = usuario;
+	}
+	
+	public Relacao(Turma turma, Disciplina disciplina) {
+		super();
+		this.turma = turma;
+		this.disciplina = disciplina;
 	}
 
 	public Integer getId() {

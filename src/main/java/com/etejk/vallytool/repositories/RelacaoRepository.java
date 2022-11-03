@@ -18,7 +18,7 @@ public interface RelacaoRepository extends JpaRepository<Relacao, Integer> {
 	List<Relacao> findByUsuario(Usuario usuario);
 	
 	@Query("SELECT r FROM Relacao r WHERE r.turma = ?1 AND r.disciplina = ?2")
-	List<Relacao> findByTurmaAndDisciplina(Turma turma, Disciplina disciplina);
+	Relacao findByTurmaAndDisciplina(Turma turma, Disciplina disciplina);
 	
 	@Query("SELECT r FROM Relacao r WHERE r.turma = ?1 AND r.usuario = ?2")
 	List<Relacao> findByTurmaAndUsuario(Turma turma, Usuario usuario);

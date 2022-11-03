@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.hibernate.dialect.Teradata14Dialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -85,12 +86,56 @@ public class TurmaController {
 	@GetMapping("editar-turma")
 	public String editarTurma(Model model, @RequestParam(name ="turma") String turma) {
 		Turma turmaEnt = tr.findByCodigo(turma);
-		model.addAttribute("disciplinas", turmaEnt.getDisciplinas());
+		List<Relacao> relacoes = rer.findByTurma(turmaEnt);
+		List<Disciplina> disciplinas = new ArrayList<>();
+		for (Relacao relacao : relacoes) {
+			Disciplina disciplina = relacao.getDisciplina();
+			if(!disciplinas.contains(disciplina)) {
+				disciplinas.add(disciplina);
+			}
+		}
+		
+		model.addAttribute("disciplinas", disciplinas);
 		model.addAttribute("turma", turmaEnt);
 		List<Resultado> resultados = rr.findByTurma(turmaEnt);
 		model.addAttribute("resultados", resultados.isEmpty() ? null : resultados);
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		return "site/editar-turma";
+	}
+	@PostMapping("editar-turma")
+	public ModelAndView editarTurma(ModelMap model,
+			@RequestParam(name = "turma") String turma,
+			@RequestParam(name = "disciplina") String disciplina) {
+		
+		Turma turmaEnt = tr.findByCodigo(turma);
+		if(turma == null) {
+			return new ModelAndView("redirect:/turmas/error");
+		}
+		Disciplina disciplinaEnt = dr.findByNome(disciplina);
+		if(disciplinaEnt == null) {
+			Disciplina disciplinaNova = new Disciplina(disciplina);
+			dr.save(disciplinaNova);
+			Relacao relacao = new Relacao(turmaEnt, disciplinaNova);
+			rer.save(relacao);
+			
+			model.addAttribute("sucess", "Turma editada!");
+			return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
+		}
+		List<Relacao> relacoes = rer.findByTurma(turmaEnt);
+		List<Disciplina> disciplinas = new ArrayList<>();
+		for (Relacao relacao : relacoes) {
+			Disciplina disciplinaFor = relacao.getDisciplina();
+			if(!disciplinas.contains(disciplinaFor)) {
+				disciplinas.add(disciplinaFor);
+			}
+		}
+		if(!disciplinas.contains(disciplinaEnt)) {
+			Relacao relacao = new Relacao(turmaEnt, disciplinaEnt);
+			rer.save(relacao);
+		}
+		
+		model.addAttribute("sucess", "Turma editada!");
+		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
 	}
 	
 	@PostMapping("alterar-turma")
@@ -110,15 +155,23 @@ public class TurmaController {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		String novoCodigo = String.valueOf(Integer.parseInt(turmaEnt.getCodigo()) + 1);
 		
+		List<Relacao> relacoes = rer.findByTurma(turmaEnt);
 		List<Disciplina> disciplinas = new ArrayList<>();
-		
-		for(Disciplina disciplina: turmaEnt.getDisciplinas()) {
-			disciplinas.add(disciplina);
+		for (Relacao relacao : relacoes) {
+			Disciplina disciplina = relacao.getDisciplina();
+			if(!disciplinas.contains(disciplina)) {
+				disciplinas.add(disciplina);
+			}
 		}
-		Turma turmaClonada = new Turma(novoCodigo, disciplinas);
+		
+		Turma turmaClonada = new Turma(novoCodigo);
 		tr.save(turmaClonada);
 		
-		turmaClonada = tr.findByCodigo(novoCodigo);
+		for(Disciplina disciplina: disciplinas) {
+			Relacao relacao = new Relacao(turmaClonada, disciplina);
+			rer.save(relacao);
+		}
+		
 		model.addAttribute("sucess", "Turma clonada!");
 		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + novoCodigo, model);
 	}
@@ -138,37 +191,12 @@ public class TurmaController {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		Disciplina disciplinaEnt = dr.findByNome(disciplina);
 		
-		turmaEnt.getDisciplinas().remove(disciplinaEnt);
-		tr.save(turmaEnt);
+		Relacao relacao = rer.findByTurmaAndDisciplina(turmaEnt, disciplinaEnt);
+		rer.delete(relacao);
 		
 		model.addAttribute("sucess", "Turma resolvida!");
 		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model) ;
 		}
-	@PostMapping("editar-turma")
-	public ModelAndView editarTurma(ModelMap model,
-								@RequestParam(name = "turma") String turma,
-								@RequestParam(name = "disciplina") String disciplina) {
-		
-		Turma turmaEnt = tr.findByCodigo(turma);
-		Disciplina disciplinaEnt = dr.findByNome(disciplina);
-		if(disciplinaEnt == null) {
-			Disciplina disciplinaNova = new Disciplina(disciplina);
-			dr.save(disciplinaNova);
-			turmaEnt.addDisciplina(disciplinaNova);
-			tr.save(turmaEnt);
-			
-			model.addAttribute("sucess", "Turma editada!");
-			return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
-		}
-		
-		if(!turmaEnt.getDisciplinas().contains(disciplinaEnt)) {
-			turmaEnt.addDisciplina(disciplinaEnt);
-			tr.save(turmaEnt);
-		}
-		
-		model.addAttribute("sucess", "Turma editada!");
-		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
-	}
 	
 	@GetMapping("resultado-turma")
 	public String resultado(@RequestParam(name = "ano") String ano,
