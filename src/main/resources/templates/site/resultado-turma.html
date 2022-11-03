@@ -12,6 +12,7 @@
 		.botoes-menu li:nth-child(2) {
 			width: 150px;
 		}
+
 		.aba {
 			font-weight: 300;
 			display: grid;
@@ -19,6 +20,7 @@
 			row-gap: 40px;
 			padding: 0 20px;
 		}
+
 		.aba-legenda {
 			display: flex;
 			flex-direction: column;
@@ -26,10 +28,12 @@
 			align-items: center;
 			justify-self: center;
 		}
+
 		.data {
 			font-weight: 500;
 			font-size: 18px;
 		}
+
 		.turma-div {
 			background-color: #0C90F0;
 			width: 100px;
@@ -41,7 +45,7 @@
 			justify-content: center;
 			align-items: center;
 		}
-		
+
 		.legenda {
 			display: flex;
 			flex-wrap: wrap;
@@ -51,32 +55,39 @@
 			font-size: 14px;
 			justify-self: center;
 		}
+
 		.legenda-item {
 			display: flex;
 			column-gap: 2px;
 			align-items: center;
 		}
+
 		.legenda .marcador {
 			border-radius: 6px;
 			width: 20px;
 			height: 20px;
 		}
+
 		.legenda .muito-bom .marcador {
 			background-color: #0C90F0;
 		}
+
 		.legenda .bom .marcador {
 			background-color: #79DE76;
 		}
+
 		.legenda .regular .marcador {
 			background-color: #ECE57F;
 		}
+
 		.legenda .insuficiente .marcador {
 			background-color: #EEB853;
 		}
+
 		.legenda .pessimo .marcador {
 			background-color: #C61010;
 		}
-		
+
 		.disciplinas-div {
 			width: 100%;
 			height: max-content;
@@ -84,6 +95,7 @@
 			display: flex;
 			scroll-snap-type: x mandatory;
 		}
+
 		.disciplina-container {
 			width: 100%;
 			min-width: 100%;
@@ -95,6 +107,7 @@
 			align-items: center;
 			scroll-snap-align: start;
 		}
+
 		.disciplina {
 			min-width: 120px;
 			width: fit-content;
@@ -108,6 +121,7 @@
 			justify-content: center;
 			align-items: center;
 		}
+
 		.avaliacao {
 			width: 90%;
 			height: max-content;
@@ -120,6 +134,7 @@
 			display: grid;
 			grid-template-columns: max-content auto;
 		}
+
 		.aspectos {
 			display: flex;
 			flex-direction: column;
@@ -128,40 +143,48 @@
 			padding-right: 4px;
 			border-right: 1px solid rgba(0, 0, 0, 0.2);
 		}
+
 		.conceitos {
 			display: flex;
 			flex-direction: column;
 			row-gap: 20px;
 		}
+
 		.conceito {
 			height: 14px;
 		}
+
 		.conceito.muitobom {
 			background-color: #0C90F0;
 			width: 70%;
 		}
+
 		.conceito.bom {
 			background-color: #79DE76;
 			width: 55%;
 		}
+
 		.conceito.regular {
 			background-color: #ECE57F;
 			width: 40%;
 		}
+
 		.conceito.insuficiente {
 			background-color: #EEB853;
 			width: 25%;
 		}
+
 		.conceito.péssimo {
 			background-color: #C61010;
 			width: 10%;
 		}
-		
+
 		@media (min-width: 800px) {
 			.disciplinas-div {
 				flex-wrap: wrap;
 				row-gap: 50px;
 			}
+
 			.disciplina-container {
 				width: 33%;
 				min-width: 33%;
@@ -173,68 +196,60 @@
 </head>
 
 <body>
-    <header th:replace="common/base::cabecalho_logado"></header>
-    <div class="main">
-        <div class="tela">
-        	<div sec:authorize="hasRole('PROFESSOR')" th:replace="common/base::menu_prof"></div>
-            <div sec:authorize="hasRole('SOP')" th:replace="common/base::menu_sop"></div>
-            <div class="aba">
-            	<div class="aba-legenda">
-            		<div th:text="${turma.getCodigo}" class="turma-div"></div>
-            		<div class="data" th:text="${trimestre.getTrimestreParsed()} + ' / ' + ${ano}">3º Trimestre / 2022</div>
-            	</div>
-            <div th:each="resultado: ${resultados}" class="disciplinas-div">
-
-            	<div class="legenda">
-            		<div class="legenda-item muito-bom">
-            			<div class="marcador"></div>
-            			Muito Bom
-            		</div>
-            		<div class="legenda-item bom">
-            			<div class="marcador"></div>
-            			Bom
-            		</div>
-            		<div class="legenda-item regular">
-            			<div class="marcador"></div>
-            			Regular
-            		</div>
-            		<div class="legenda-item insuficiente">
-            			<div class="marcador"></div>
-            			Insuficiente
-            		</div>
-            		<div class="legenda-item pessimo">
-            			<div class="marcador"></div>
-            			Péssimo
-            		</div>
-            	</div>
-            	
-            	<div class="disciplinas-div">
-            		<div class="disciplina-container">
-            			<div th:text="${resultado.getDisciplina().getNome()}" class="disciplina">Matemática</div>
-            			<div class="avaliacao">
-            				<div class="aspectos">
-            					<div th:each="competencia : ${competencias}" th:text="${competencia.getNome()}">Aproveitamento</div>
-            				</div>
-            				<div class="conceitos">
-            					<div th:each="conceito: ${resultado.getConceitos()}" th:classappend="${conceito.toLowerCase()} == 'muito bom' ? 'muitobom' : ${conceito.toLowerCase()}" class="conceito"></div>
-            				</div>
-            			</div>
-            		</div>
-            	</div>
-            </div>
-        </div>
-    </div>	
-	<!--
-	<div th:text="TURMA + ${turma.getCodigo}"> </div>
-	<div>TERCEIRO TRIMESTRE</div>
-	<div th:each="resultado: ${resultados}">
-		<div th:text="${resultado.getDisciplina().getNome()}"></div>
-		<div th:text="${resultado.getUsuario().getNome()}"></div>
-		
-		<div th:each="conceito: ${resultado.getConceitos()}" th:text="${conceito}">
+	<header th:replace="common/base::cabecalho_logado"></header>
+	<div c"main">
+		<div class="tela">
+			<div sec:authorize="hasRole('PROFESSOR')" th:replace="common/base::menu_prof"></div>
+			<div sec:authorize="hasRole('SOP')" th:replace="common/base::menu_sop"></div>
+			<div class="aba">
+				<div class="aba-legenda">
+					<div th:text="${turma.getCodigo}" class="turma-div"></div>
+					<div class="data" th:text="${trimestre.getTrimestreParsed()} + ' / ' + ${ano}">3º Trimestre / 2022
+					</div>
+				</div>
+				<div class="legenda">
+					<div class="legenda-item muito-bom">
+						<div class="marcador"></div>
+						Muito Bom
+					</div>
+					<div class="legenda-item bom">
+						<div class="marcador"></div>
+						Bom
+					</div>
+					<div class="legenda-item regular">
+						<div class="marcador"></div>
+						Regular
+					</div>
+					<div class="legenda-item insuficiente">
+						<div class="marcador"></div>
+						Insuficiente
+					</div>
+					<div class="legenda-item pessimo">
+						<div class="marcador"></div>
+						Péssimo
+					</div>
+				</div>
+				<div class="disciplinas-div">
+					<div th:each="resultado: ${resultados}" class="disciplina-container">
+						<div th:text="${resultado.getDisciplina().getNome()}" class="disciplina">Matemática</div>
+						<div class="avaliacao">
+							<div class="aspectos">
+								<div th:each="competencia : ${competencias}" th:text="${competencia.getNome()}">
+									Aproveitamento</div>
+							</div>
+							<div class="conceitos">
+								<div th:each="conceito: ${resultado.getConceitos()}"
+									th:classappend="${conceito.toLowerCase()} == 'muito bom' ? 'muitobom' : ${conceito.toLowerCase()}"
+									class="conceito"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	-->
+
 </body>
 <script src="/modules/menu.js"></script>
+
 </html>
