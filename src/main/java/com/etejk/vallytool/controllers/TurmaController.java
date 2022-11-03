@@ -248,4 +248,5 @@ public class TurmaController {
 		model.addAttribute("sucess", "Trimestre fechado!");
 		return new ModelAndView("redirect:/turmas", model);
 	}
+
 }
