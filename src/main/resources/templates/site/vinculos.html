@@ -107,7 +107,6 @@
 			position: absolute;
 			cursor: pointer;
 			appearance: none;
-			display: none;
 			margin: 0;
 			padding: 0;
 			right: 10px;
@@ -211,7 +210,9 @@
 				gap: 10px;
 				width: 380px;
 			}
-
+			.apagar-botao {
+				display: none;
+			}
 			.aba .item-div {
 				border-radius: 4px;
 			}
@@ -281,7 +282,7 @@
 	</div>
 	<div class="modal-vincular oculto" id="modal-vincular" onclick="this.classList.add('oculto')">
 		<!--Turmas Form-->
-		<form class="oculto" th:action="@{vinculos}" method="post" onclick="event.stopPropagation()">
+		<form class="oculto" th:action="@{vinculos}" method="post" onclick="event.stopPropagation()" onsubmit="return verificarCheckbox(this)">
 			<span class="titulo-form">Vincular Turmas</span>
 			<div class="lista-div">
 				<div class="flex-div">
@@ -296,8 +297,8 @@
 			<button class="botao-verde">Vincular</button>
 		</form>
 		<!--Disciplinas Form-->
-		<form class="oculto" th:action="@{relacao}" method="post" onclick="event.stopPropagation()">
-			<span class="titulo-form" >Vincular Disciplinas</span>
+		<form class="oculto" th:action="@{relacao}" method="post" onclick="event.stopPropagation()" onsubmit="return verificarCheckbox(this)">
+			<span class="titulo-form">Vincular Disciplinas</span>
 			<div th:if="${param.turma != null}" class="lista-div">
 				<div class="flex-div">
 					<label th:each="disciplina: ${disciplinas}" class="label1 item-div" th:for="'disciplina' + ${disciplina.getNome()}">
@@ -332,6 +333,13 @@
 			container.style.backgroundColor = "#0C90F0";
 			container.style.outline = "initial";
 		})
+	}
+	
+	function verificarCheckbox(element) {
+		if(element.querySelectorAll("input[type='checkbox']:checked").length === 0) {
+			return false
+		}
+		return true;
 	}
 </script>
 
