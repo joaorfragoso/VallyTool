@@ -22,7 +22,7 @@ header {
 .main {
 	background-color: #eeeeee;
     height: calc(100vh - 110px);
-
+	min-height: 580px;
     position: relative;
     grid-row: 2/3;
     display: flex;
@@ -118,7 +118,7 @@ header {
 .menu-extendido-div .trimestre {
 	justify-self: center;
 	font-size: 18px;
-	font-weight: 500	;
+	font-weight: 500;
 }
 
 .usuario-div {

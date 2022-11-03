@@ -198,15 +198,14 @@
 
 <body>
 	<header th:replace="common/base::cabecalho_logado"></header>
-	<div c"main">
+	<div class="main">
 		<div class="tela">
 			<div sec:authorize="hasRole('PROFESSOR')" th:replace="common/base::menu_prof"></div>
 			<div sec:authorize="hasRole('SOP')" th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 				<div class="aba-legenda">
 					<div th:text="${turma.getCodigo}" class="turma-div"></div>
-					<div class="data" th:text="${trimestre.getTrimestreParsed()} + ' / ' + ${ano}">3º Trimestre / 2022
-					</div>
+					<div class="data" th:text="${trimestre.getTrimestreParsed()} + ' / ' + ${ano}"></div>
 				</div>
 				<div class="legenda">
 					<div class="legenda-item muito-bom">

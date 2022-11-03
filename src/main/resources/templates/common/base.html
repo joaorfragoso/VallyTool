@@ -30,7 +30,7 @@
 			<li><a href="/configuracoes"><span>Configurações</span></a></li>
 		</ul>
 	</nav>
-	<!--<div th:text="${trimestre.getTrimestreParsed()}" class="trimestre"></div>-->
+	<div th:text="${trimestre.getTrimestreParsed()}" class="trimestre"></div>
 </div>
 
 <div class="menu-extendido-div" id="menu-extendido-div" th:fragment="menu_sop">
@@ -48,7 +48,7 @@
 			<li><a href="/configuracoes"><span>Configurações</span></a></li>
 		</ul>
 	</nav>
-	<!--<div th:text="${trimestre.getTrimestreParsed()}" class="trimestre"></div>-->
+	<div th:text="${trimestre.getTrimestreParsed()}" class="trimestre"></div>
 </div>
 
 <div th:if=${param.error} class="aviso erro" th:fragment="erro">
