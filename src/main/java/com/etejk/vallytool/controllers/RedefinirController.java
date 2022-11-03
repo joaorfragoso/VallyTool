@@ -83,18 +83,18 @@ public class RedefinirController {
 	}
 	
 	@PostMapping("/atualizarSenha")
-	public String atualizarSenha(PasswordDAO passwordDAO) {
+	public ModelAndView atualizarSenha(ModelMap model, PasswordDAO passwordDAO) {
 		if(rs.validatePasswordToken(passwordDAO.getToken()) != null) {
-			return "redirect:/redefinir/invalido";
+			return new ModelAndView("redirect:/redefinir/invalido");
 		}
 		
 		Usuario usuario = rs.findUserByToken(passwordDAO.getToken());
 		if(usuario != null) {
 			us.changeUserPassword(usuario, passwordDAO.getSenha());
-			return "redirect:/redefinir/sucesso";
+			return new ModelAndView("redirect:/redefinir/sucesso");
 		}
 		
-		return "redirect:/redefinir/invalidUser";
+		return new ModelAndView("redirect:/redefinir/invalidUser");
 	}
 	
 	@GetMapping("/invalido")

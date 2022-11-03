@@ -1,4 +1,4 @@
- package com.etejk.vallytool.controllers;
+package com.etejk.vallytool.controllers;
 
 import java.util.ArrayList;
 
@@ -33,16 +33,16 @@ import com.etejk.vallytool.repositories.UsuarioRepository;
 
 @Controller
 public class UsuarioController {
-	
+
 	@Autowired
 	UsuarioRepository ur;
-	
+
 	@Autowired
 	TurmaRepository tr;
-	
+
 	@Autowired
 	RoleRepository rr;
-	
+
 	@Autowired
 	RelacaoRepository rer;
 
@@ -51,210 +51,278 @@ public class UsuarioController {
 
 	@Autowired
 	TrimestreAtualRepository tar;
-	
+
 	@PostMapping("usuarios/update")
-	public String updateUsuario(Authentication auth, Model model,@RequestParam(name = "id") String id,
-								@RequestParam(name = "role") String role) {
-		
+	public ModelAndView updateUsuario(Authentication auth, ModelMap model, @RequestParam(name = "id") String id,
+			@RequestParam(name = "role") String role) {
+
 		Optional<Usuario> usuario = ur.findById(Integer.parseInt(id));
-		if(!usuario.isPresent() || usuario.get().getNome() == auth.getName()) {
-			return "redirect:/usuarios/dados";
+		if (!usuario.isPresent() || usuario.get().getNome() == auth.getName()) {
+			model.addAttribute("error", "Algo deu errado.");
+			return new ModelAndView("redirect:/usuarios/dados", model);
 		}
-		
-		
+
 		List<RoleModel> roles = new ArrayList<>();
 		RoleModel roleModel = rr.findByRoleName(RoleName.valueOf(role));
-		if(roleModel == null) {
-			return "redirect:/usuarios/dados";
+		if (roleModel == null) {
+			model.addAttribute("error", "Cargo inválido.");
+			return new ModelAndView("redirect:/usuarios/dados", model);
 		}
-		
-		if(roleModel.getRoleName().equals(RoleName.ROLE_SOP)) {
+
+		if (roleModel.getRoleName().equals(RoleName.ROLE_SOP)) {
 			List<Relacao> relacoes = rer.findByUsuario(usuario.get());
-			for(Relacao relacao: relacoes) {
-				rer.delete(relacao);
+			for (Relacao relacao : relacoes) {
+				try {
+					rer.delete(relacao);
+				} catch (Exception e) {
+					model.addAttribute("error", "Algo deu errado");
+					return new ModelAndView("redirect:/usuarios/error", model);
+				}
 			}
-			
+
 			usuario.get().getDisciplinas().clear();
 			usuario.get().getTurmas().clear();
 		}
-		
+
 		roles.add(roleModel);
 		usuario.get().setRoles(roles);
-		
+
 		ur.save(usuario.get());
-		return "redirect:/usuarios/dados?id=" + id;
-		
+		model.addAttribute("sucess", "Usuário atualizado!");
+		return new ModelAndView("redirect:/usuarios/dados?id=" + id, model);
+
 	}
+
 	@PostMapping("usuarios")
-	public String saveUsuario(@Valid UsuarioDAO usuarioDAO) {
+	public ModelAndView saveUsuario(ModelMap model, @Valid UsuarioDAO usuarioDAO) {
 		System.out.println(usuarioDAO);
-		
-		
+
 		List<RoleModel> findAllRoles = rr.findAll();
 		List<RoleModel> roles = new ArrayList<>();
 		for (RoleModel role : findAllRoles) {
-			if(role.getRoleName().name().equals(usuarioDAO.getRole())) {
+			if (role.getRoleName().name().equals(usuarioDAO.getRole())) {
 				roles.add(role);
 			}
 		}
-		
+
 		System.out.println(roles.get(0).getRoleName().name());
-		
-		Usuario usuarioOriginal = new Usuario(
-				usuarioDAO.getCpf().replace(".", "").replace("-", ""),
-				usuarioDAO.getNome(),
-				usuarioDAO.getEmail(),
-				usuarioDAO.senha(),
-				roles
-				);
+
+		Usuario usuarioOriginal = new Usuario(usuarioDAO.getCpf().replace(".", "").replace("-", ""),
+				usuarioDAO.getNome(), usuarioDAO.getEmail(), usuarioDAO.senha(), roles);
 		try {
-		ur.save(usuarioOriginal);
-		} catch (Exception e){
-			return "redirect:/usuarios/error";
+			ur.save(usuarioOriginal);
+		} catch (Exception e) {
+			model.addAttribute("error", "Algo deu errado");
+			return new ModelAndView("redirect:/usuarios/error", model);
 		}
-		return "redirect:/inicio";
+
+		model.addAttribute("sucess", "Usuário cadastrado!");
+		return new ModelAndView("redirect:/inicio", model);
 	}
-	
+
 	@GetMapping("inicio")
 	public String inicio(Model model, @Param("search") String search) {
-		if(search != null) {
+		if (search != null) {
 			model.addAttribute("usuarios", ur.search(search));
-		}else {
-		model.addAttribute("usuarios", ur.findAll());
+		} else {
+			model.addAttribute("usuarios", ur.findAll());
 		}
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
-		
+
 		return "site/inicio";
 	}
-	
+
 	@GetMapping("usuarios/error")
-	public ModelAndView usuarioError(ModelMap model){
+	public ModelAndView usuarioError(ModelMap model) {
 		model.addAttribute("error", "Usuario já cadastrado!");
 		return new ModelAndView("redirect:/inicio", model);
 	}
-	
+
 	@GetMapping("usuarios/vinculos")
-    public String vinculos(Model model, @RequestParam(name = "id") String id,
-    		@Param(value = "turma") String turma) {
+	public String vinculos(Model model, @RequestParam(name = "id") String id, @Param(value = "turma") String turma) {
 
-        Optional<Usuario> user = ur.findById(Integer.parseInt(id));
-        if(!user.isPresent() || user.get().getAuthority().equals("SOP")) {
-            return "redirect:/inicio";
-        };
-
-        Usuario usuario = user.get();
-        List<Turma> turmas = tr.findAll();
-        turmas.removeAll(usuario.getTurmas());
-        Turma turmaEnt = tr.findByCodigo(turma);
-        List<Relacao> relacoes = rer.findByTurmaAndUsuario(turmaEnt, usuario);
-        for (Relacao relacao : relacoes) {
+		Optional<Usuario> user = ur.findById(Integer.parseInt(id));
+		if (!user.isPresent() || user.get().getAuthority().equals("SOP")) {
+			return "redirect:/inicio";
+		}
+		;
+		Turma turmaEnt = tr.findByCodigo(turma);
+		Usuario usuario = user.get();
+		List<Turma> turmas = tr.findAll();
+		turmas.removeAll(usuario.getTurmas());
+		List<Relacao> relacoes = rer.findByTurmaAndUsuario(turmaEnt, usuario);
+		for (Relacao relacao : relacoes) {
 			turmaEnt.getDisciplinas().remove(relacao.getDisciplina());
 		}
-        List<Relacao> turmaRelacao = rer.findByTurma(turmaEnt);
-        for(Relacao relacao : turmaRelacao) {
-        	turmaEnt.getDisciplinas().remove(relacao.getDisciplina());
-        }
-        model.addAttribute("turmaSolicitada", turmaEnt);
-        model.addAttribute("relacoes", relacoes);    
+		List<Relacao> turmaRelacao = rer.findByTurma(turmaEnt);
+		for (Relacao relacao : turmaRelacao) {
+			turmaEnt.getDisciplinas().remove(relacao.getDisciplina());
+		}
+		model.addAttribute("turmaSolicitada", turmaEnt);
+		model.addAttribute("relacoes", relacoes);
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
-        model.addAttribute("usuario", usuario);
-        model.addAttribute("turmas", turmas);
-        model.addAttribute("turmasUsuario", usuario.getTurmas());
-        
-        return "site/vinculos";
-    }
-	
-	
-	@PostMapping("usuarios/vinculos")
-	public String salvarVinculo(@RequestParam(name = "id") String id, @RequestParam(name ="turmas") List<String> turmas) {
+		model.addAttribute("usuario", usuario);
+		model.addAttribute("turmas", turmas);
+		model.addAttribute("turmasUsuario", usuario.getTurmas());
 
-        Optional<Usuario> user = ur.findById(Integer.parseInt(id));
-        if(!user.isPresent()) {
-            return "redirect:/inicio";
-        };
-        
-        Usuario usuario = user.get();
-        
-        for(String turma: turmas) {
-        	usuario.addTurma(tr.findByCodigo(turma));
-        }
-        
-        ur.save(usuario);
-        return "redirect:/usuarios/vinculos?id=" + id + "&etapa=0";
-        
+		return "site/vinculos";
 	}
-	
+
+	@PostMapping("usuarios/vinculos")
+	public ModelAndView salvarVinculo(ModelMap model, @RequestParam(name = "id") String id,
+			@RequestParam(name = "turmas") List<String> turmas) {
+
+		Optional<Usuario> user = ur.findById(Integer.parseInt(id));
+		if (!user.isPresent()) {
+			model.addAttribute("error", "Usuário inexistente");
+			return new ModelAndView("redirect:/inicio");
+		}
+		;
+
+		Usuario usuario = user.get();
+
+		for (String turma : turmas) {
+			try {
+			usuario.addTurma(tr.findByCodigo(turma));
+			} catch(Exception e){
+				model.addAttribute("error", "Turma inexistente");
+				return new ModelAndView("redirect:/inicio");
+			}
+		}
+
+		ur.save(usuario);
+		model.addAttribute("sucess", "Vínculo feito");
+		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&etapa=0", model);
+
+	}
+
 	@PostMapping("usuarios/relacao")
-	public String relacionar(@RequestParam(name = "id") String id,
-							@RequestParam(name = "turma") String turma,
-							@RequestParam(name = "disciplinas") List<String> disciplinas) {
-		
-		Usuario usuario = ur.findById(Integer.parseInt(id)).get();		
+	public ModelAndView relacionar(ModelMap model, @RequestParam(name = "id") String id,
+			@RequestParam(name = "turma") String turma, @RequestParam(name = "disciplinas") List<String> disciplinas) {
+
+		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
+		if (usuario == null) {
+			model.addAttribute("error", "Usuário inexistente");
+			return new ModelAndView("redirect:/inicio");
+		}
 		Turma turmaEnt = tr.findByCodigo(turma);
+		if (turmaEnt == null) {
+			model.addAttribute("error", "Turma inexistente");
+			return new ModelAndView("redirect:/inicio");
+		}
+
 		List<Disciplina> disciplinaList = new ArrayList<>();
-		for (String disciplina: disciplinas) {
+		for (String disciplina : disciplinas) {
+
 			Disciplina disciplinaEnt = dr.findByNome(disciplina);
+			if (disciplinaEnt == null) {
+				model.addAttribute("error", "Disciplinas inexistente");
+				return new ModelAndView("redirect:/inicio");
+			}
 			disciplinaList.add(disciplinaEnt);
-			
-			if(!usuario.getDisciplinas().contains(disciplinaEnt)) {
+
+			if (!usuario.getDisciplinas().contains(disciplinaEnt)) {
 				usuario.addDisciplina(disciplinaEnt);
 			}
-			
+
 		}
-		
-		ur.save(usuario);
-			
-		for(Disciplina disciplina: disciplinaList) {
-		Relacao relacao = new Relacao(turmaEnt, disciplina, usuario);
-			rer.save(relacao);
+		try {
+			ur.save(usuario);
+		} catch (Exception e) {
+			model.addAttribute("error", "Algo deu errado");
+			return new ModelAndView("redirect:/usuarios/error", model);
 		}
-		
-		return "redirect:/usuarios/vinculos?id=" + id +"&turma="+ turma +"&etapa=1";
-		
+		for (Disciplina disciplina : disciplinaList) {
+			Relacao relacao = new Relacao(turmaEnt, disciplina, usuario);
+			try {
+				rer.save(relacao);
+			} catch (Exception e) {
+				model.addAttribute("error", "Algo deu errado");
+				return new ModelAndView("redirect:/usuarios/error", model);
+			}
+		}
+		model.addAttribute("sucess", "Professor relacionado!");
+		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&turma=" + turma + "&etapa=1", model);
+
 	}
-	
+
 	@PostMapping("usuarios/remover-turma")
-	public String removerTurma(@RequestParam(name = "turma") String turma,
+	public ModelAndView removerTurma(ModelMap model, @RequestParam(name = "turma") String turma,
 			@RequestParam(name = "id") String id) {
-		
+
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
+		if (usuario == null) {
+			model.addAttribute("error", "Usuário inexistente");
+			return new ModelAndView("redirect:/inicio");
+		}
 		Turma turmaEnt = tr.findByCodigo(turma);
-		
+		if (turmaEnt == null) {
+			model.addAttribute("error", "Turma inexistente");
+			return new ModelAndView("redirect:/inicio");
+		}
+
 		usuario.getTurmas().remove(turmaEnt);
 		List<Relacao> relacoes = rer.findByTurmaAndUsuario(turmaEnt, usuario);
-		for(Relacao relacao: relacoes) {
-			rer.delete(relacao);
+		for (Relacao relacao : relacoes) {
+			try {
+				rer.delete(relacao);
+			} catch (Exception e) {
+				model.addAttribute("error", "Algo deu errado");
+				return new ModelAndView("redirect:/usuarios/error", model);
+			}
 		}
-		ur.save(usuario);
-		
-		return "redirect:/usuarios/vinculos?id="+ id +"&etapa=0";
+		try {
+			ur.save(usuario);
+		} catch (Exception e) {
+			model.addAttribute("error", "Algo deu errado");
+			return new ModelAndView("redirect:/usuarios/error", model);
+		}
+		model.addAttribute("sucess", "Turma removida!!");
+		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&etapa=0", model);
 	}
-	
+
 	@PostMapping("usuarios/remover-disciplina")
-	public String removerDisciplinaTurma(@RequestParam(name = "turma") String turma,
-			@RequestParam(name = "id") String id,
-			@RequestParam(name = "disciplina") String disciplina) {
-		
+	public ModelAndView removerDisciplinaTurma(ModelMap model, @RequestParam(name = "turma") String turma,
+			@RequestParam(name = "id") String id, @RequestParam(name = "disciplina") String disciplina) {
+
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
+		if (usuario == null) {
+			model.addAttribute("error", "Usuário inexistente");
+			return new ModelAndView("redirect:/inicio");
+		}
 		Turma turmaEnt = tr.findByCodigo(turma);
+		if (turmaEnt == null) {
+			model.addAttribute("error", "Turma inexistente");
+			return new ModelAndView("redirect:/inicio");
+		}
 		Disciplina disciplinaEnt = dr.findByNome(disciplina);
-		
+		if (disciplinaEnt == null) {
+			model.addAttribute("error", "Disciplinas inexistente");
+			return new ModelAndView("redirect:/inicio");
+		}
 		Relacao relacao = rer.findByEverything(turmaEnt, disciplinaEnt, usuario);
-		rer.delete(relacao);
-		return "redirect:/usuarios/vinculos?id="+ id +"&turma="+ turma +"&etapa=1";
+		try {
+			rer.delete(relacao);
+		} catch (Exception e) {
+			model.addAttribute("error", "Algo deu errado");
+			return new ModelAndView("redirect:/usuarios/error", model);
+		}
+
+		model.addAttribute("sucess", "Disciplina removida!");
+		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&turma=" + turma + "&etapa=1", model);
 	}
-	
+
 	@GetMapping("usuarios/dados")
-    public String dados(Authentication auth, Model model, @RequestParam(name = "id") String id) {
+	public String dados(Authentication auth, Model model, @RequestParam(name = "id") String id) {
 
-        Optional<Usuario> user = ur.findById(Integer.parseInt(id));
-        if(!user.isPresent()) {
-            return "redirect:/inicio";
-        };
+		Optional<Usuario> user = ur.findById(Integer.parseInt(id));
+		if (!user.isPresent()) {
+			return "redirect:/inicio";
+		}
+		;
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
-        model.addAttribute("usuarioLogado", auth.getName());
-        model.addAttribute("usuario", user.get());
-        return "site/dados";
-    }
+		model.addAttribute("usuarioLogado", auth.getName());
+		model.addAttribute("usuario", user.get());
+		return "site/dados";
+	}
 }
-

@@ -135,7 +135,7 @@
 		.conceito {
 			height: 14px;
 		}
-		.conceito.muito-bom {
+		.conceito.muitobom {
 			background-color: #0C90F0;
 			width: 70%;
 		}
@@ -151,7 +151,7 @@
 			background-color: #EEB853;
 			width: 25%;
 		}
-		.conceito.pessimo {
+		.conceito.péssimo {
 			background-color: #C61010;
 			width: 10%;
 		}
@@ -168,28 +168,18 @@
             <div class="aba">
             	<div class="aba-legenda">
             		<div th:text="${turma.getCodigo}" class="turma-div"></div>
-            		<div class="data">3º Trimestre / 2022</div>
+            		<div class="data" th:text="${trimestre.getTrimestreParsed()} + ' / ' + ${ano}">3º Trimestre / 2022</div>
             	</div>
             	
-            	<div class="disciplinas-div">
+            	<div th:each="resultado: ${resultados}" class="disciplinas-div">
             		<div class="disciplina-container">
-            			<div class="disciplina">Matemática</div>
+            			<div th:text="${resultado.getDisciplina().getNome()}" class="disciplina">Matemática</div>
             			<div class="avaliacao">
             				<div class="aspectos">
-            					<div>Aproveitamento</div>
-            					<div>Participação</div>
-            					<div>Frequência</div>
-            					<div>Atitude</div>
-            					<div>Entrosamento</div>
-            					<div>Rel. Aluno/Prof</div>
+            					<div th:each="competencia : ${competencias}" th:text="${competencia.getNome()}">Aproveitamento</div>
             				</div>
             				<div class="conceitos">
-            					<div class="conceito muito-bom"></div>
-            					<div class="conceito regular"></div>
-            					<div class="conceito bom"></div>
-            					<div class="conceito insuficiente"></div>
-            					<div class="conceito pessimo"></div>
-            					<div class="conceito bom"></div>
+            					<div th:each="conceito: ${resultado.getConceitos()}" th:classappend="${conceito.toLowerCase()} == 'muito bom' ? 'muitobom' : ${conceito.toLowerCase()}" class="conceito"></div>
             				</div>
             			</div>
             		</div>

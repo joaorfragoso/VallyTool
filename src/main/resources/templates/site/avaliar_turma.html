@@ -180,14 +180,14 @@
         <div class="tela">
 			<div th:replace="common/base::menu_prof"></div>
             <form class="aba avaliacao-form" th:action="@{/avaliar}" method="post" th:object="${resultado}">
-                <div class="turma-div select-customizado">
-                    <select name="turma" class="turma-select" id="turmas" required>
-                        <option value="">Turmas</option>
-                        <div th:each="turma: ${turmas}"> 
-                        	<option th:text="${turma.codigo}" th:value="${turma.codigo}">350</option>
-                        </div>
-                    </select>
-                </div>
+	                <div class="turma-div select-customizado">
+	                    <select name="turma" class="turma-select" id="turmas" required>
+	                        <option value="">Turmas</option>
+	                        <div th:each="turma: ${turmas}"> 
+	                        	<option th:text="${turma.codigo}" th:value="${turma.codigo}">350</option>
+	                        </div>
+	                    </select>
+	                </div>
                 <div class="disciplina-div select-customizado">
                     <select name="disciplina" class="disciplina-select" id="disciplinas" required>
                         <option value="">Disciplinas</option>

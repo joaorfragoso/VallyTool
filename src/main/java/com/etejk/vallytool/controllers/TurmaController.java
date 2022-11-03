@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.entities.Disciplina;
+import com.etejk.vallytool.entities.PegarResultado;
 import com.etejk.vallytool.entities.Relacao;
 import com.etejk.vallytool.entities.Resultado;
 import com.etejk.vallytool.entities.Trimestre;
 import com.etejk.vallytool.entities.TrimestreDatabase;
 import com.etejk.vallytool.entities.Turma;
+import com.etejk.vallytool.repositories.CompetenciaRepository;
 import com.etejk.vallytool.repositories.DisciplinaRepository;
 import com.etejk.vallytool.repositories.RelacaoRepository;
 import com.etejk.vallytool.repositories.ResultadoRepository;
@@ -47,15 +49,19 @@ public class TurmaController {
 	@Autowired
 	TrimestreAtualRepository tar;
 	
+	@Autowired
+	CompetenciaRepository cr;
+	
 	@PostMapping("")
-	public String saveTurma(@Valid Turma turma) {
+	public ModelAndView saveTurma(@Valid Turma turma, ModelMap model) {
 		if(tr.findByCodigo(turma.getCodigo()) != null) {
-			return "redirect:/turmas/error";
+			return new ModelAndView("redirect:/turmas/error");
 		}
 		
 		turma.setAtivada(true);
 		tr.save(turma);
-		return "redirect:/turmas";
+		model.addAttribute("sucess", "Turma salva!");
+		return new ModelAndView("redirect:/turmas");
 	}
 	
 	@GetMapping("/error")
@@ -88,18 +94,19 @@ public class TurmaController {
 	}
 	
 	@PostMapping("alterar-turma")
-	public String alterarTurma(@RequestParam(name="turma") String turma,
+	public ModelAndView alterarTurma(ModelMap model, @RequestParam(name="turma") String turma,
 								@RequestParam(name="ativada") boolean ativada){
 		Turma turmaEnt = tr.findByCodigo(turma);
 		System.out.println(ativada);
 		turmaEnt.setAtivada(ativada);
 		
 		tr.save(turmaEnt);
-		return "redirect:/turmas/editar-turma?turma=" + turma;
+		model.addAttribute("sucess", "Turma alterada!");
+		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma);
 	}
 	
 	@PostMapping("clonar-turma")
-	public String clonarTurma(@RequestParam(name="turma") String turma) {
+	public ModelAndView clonarTurma(ModelMap model, @RequestParam(name="turma") String turma) {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		String novoCodigo = String.valueOf(Integer.parseInt(turmaEnt.getCodigo()) + 1);
 		
@@ -112,18 +119,21 @@ public class TurmaController {
 		tr.save(turmaClonada);
 		
 		turmaClonada = tr.findByCodigo(novoCodigo);
-		return "redirect:/turmas/editar-turma?turma=" + novoCodigo;
+		model.addAttribute("sucess", "Turma clonada!");
+		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + novoCodigo, model);
 	}
 	
 	@PostMapping("remover-turma")
-	public String removerTurma(@RequestParam(name = "turma") String turma) {
+	public ModelAndView removerTurma(ModelMap model, @RequestParam(name = "turma") String turma) {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		tr.delete(turmaEnt);
-		return "redirect:/turmas";
+		
+		model.addAttribute("sucess", "Turma resolvida!");
+		return new ModelAndView("redirect:/turmas", model);
 	}
 	
 	@PostMapping("remover-disciplina")
-	public String removerDisciplina(@RequestParam(name = "turma") String turma,
+	public ModelAndView removerDisciplina(ModelMap model, @RequestParam(name = "turma") String turma,
 									@RequestParam(name = "disciplina") String disciplina) {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		Disciplina disciplinaEnt = dr.findByNome(disciplina);
@@ -131,10 +141,11 @@ public class TurmaController {
 		turmaEnt.getDisciplinas().remove(disciplinaEnt);
 		tr.save(turmaEnt);
 		
-		return "redirect:/turmas/editar-turma?turma=" + turma ;
+		model.addAttribute("sucess", "Turma resolvida!");
+		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model) ;
 		}
 	@PostMapping("editar-turma")
-	public String editarTurma(Model model,
+	public ModelAndView editarTurma(ModelMap model,
 								@RequestParam(name = "turma") String turma,
 								@RequestParam(name = "disciplina") String disciplina) {
 		
@@ -146,7 +157,8 @@ public class TurmaController {
 			turmaEnt.addDisciplina(disciplinaNova);
 			tr.save(turmaEnt);
 			
-			return "redirect:/turmas/editar-turma?turma=" + turma;
+			model.addAttribute("sucess", "Turma editada!");
+			return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
 		}
 		
 		if(!turmaEnt.getDisciplinas().contains(disciplinaEnt)) {
@@ -154,7 +166,8 @@ public class TurmaController {
 			tr.save(turmaEnt);
 		}
 		
-		return "redirect:/turmas/editar-turma?turma=" + turma;
+		model.addAttribute("sucess", "Turma editada!");
+		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
 	}
 	
 	@GetMapping("resultado-turma")
@@ -166,9 +179,10 @@ public class TurmaController {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		List<Resultado> resultados = rr.findByEverything(Integer.parseInt(ano),
 				Trimestre.valueOf(trimestre), turmaEnt);
-		System.out.println(resultados.isEmpty() ? "true" : "false");
+		model.addAttribute("ano", ano);
 		model.addAttribute("turma", turmaEnt);
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
+		model.addAttribute("competencias", cr.findAll());
 		model.addAttribute("resultados", resultados);
 		return "site/resultado-turma";
 		
@@ -184,6 +198,8 @@ public class TurmaController {
 				anos.add(resultado.getData().getYear());
 			}
 		}
+		model.addAttribute("turma", turmaEnt);
+		model.addAttribute("resultadoObj", new PegarResultado(rr));
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		model.addAttribute("anos", anos);
 		model.addAttribute("resultados", resultados);
@@ -191,15 +207,17 @@ public class TurmaController {
 	}
 	
 	@PostMapping("fechar-trimestre")
-	public String fecharTrimestre() {
+	public ModelAndView fecharTrimestre(ModelMap model) {
 		TrimestreDatabase td = tar.getTrimestreAtual();
 		
 		if(td.getTrimestre() == Trimestre.TERCEIRO) {
 			tar.fecharTrimestre();
-			return "redirect:/turmas";
+			model.addAttribute("sucess", "Trimestre fechado!");
+			return new ModelAndView("redirect:/turmas", model);
 		}
 		
 		tar.trocarTrimestre(Trimestre.getTrimestre(td.getTrimestre().getId() + 1));
-		return "redirect:/turmas";
+		model.addAttribute("sucess", "Trimestre fechado!");
+		return new ModelAndView("redirect:/turmas", model);
 	}
 }
