@@ -153,17 +153,19 @@
     </div>
     <div class="modal-blur oculto" id="modal-configuracao" onclick="this.classList.add('oculto');">
     	<div class="modal-configuracao" onclick="event.stopPropagation()">
-	    	<form class="redefinirnome-form redefinir-form oculto" id="redefinirnome-form">
+	    	<form method="post" action="atualizar-nome" class="redefinirnome-form redefinir-form oculto" id="redefinirnome-form">
 	    		<label>Redefinir Nome</label>
-	    		<input type="text" class="input1" placeholder="Novo Nome" required>
+	    		<input name="id" th:value="${usuario.getId()}">
+	    		<input name="nome" type="text" class="input1" placeholder="Novo Nome" required>
 	    		<div class="redefinir-botoes">
 	    			<button class="cancelar-botao" type="button">Cancelar</button>
 	    			<button class="salvar-botao botao-verde">Salvar</button>
 	    		</div>
 	    	</form>
-	    	<form class="redefiniremail-form redefinir-form oculto" id="redefiniremail-form">
+	    	<form method="post" action="atualizar-email" class="redefiniremail-form redefinir-form oculto" id="redefiniremail-form">
 	    		<label>Redefinir Email</label>
-	    		<input type="email" class="input1" placeholder="Novo Email" required>
+	    		<input name="id" th:value="${usuario.getId()}">
+	    		<input name="email" type="email" class="input1" placeholder="Novo Email" required>
 	    		<div class="redefinir-botoes">
 	    			<button class="cancelar-botao" type="button">Cancelar</button>
 	    			<button class="salvar-botao">Salvar</button>
