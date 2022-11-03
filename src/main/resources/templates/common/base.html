@@ -61,3 +61,10 @@
 	<span th:text="${param.sucess}"></span>
 	<button class="avisofechar-botao" onclick="this.parentNode.style.display='none'"></button>
 </div>
+<div class="aviso confirmacao oculto" th:fragment="confirmacao">
+	<span id="mensagem-confirmacao"></span>
+	<div class="confirmacao-botoes">
+		<div class="bg-verde"><button class="confirmar-botao"></button></div>
+		<div class="bg-vermelho"><button class="avisofechar-botao" onclick="confirmacaoJanela.classList.toggle('oculto')"></button></div>
+	</div>
+</div>

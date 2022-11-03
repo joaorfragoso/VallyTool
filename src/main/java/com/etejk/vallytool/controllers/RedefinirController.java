@@ -65,7 +65,6 @@ public class RedefinirController {
 			model.addAttribute("error", "Algo deu errado, tente novamente.");
 			return new ModelAndView("redirect:/redefinir", model);
 		}
-		model.addAttribute("sucess", "Um email foi enviado para você contendo as informações sobre a redefinição de senha");
 		model.addAttribute("email", user.getEmail());
 		return new ModelAndView("redirect:/redefinir", model);
 	}

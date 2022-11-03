@@ -217,9 +217,9 @@
 						<div th:each="disciplina : ${disciplinas}" class="item-div relative container">
 							<th:block th:text="${disciplina.getNome()}"/>
 							<form action="remover-disciplina" method="post">
-							<input style="display: none" name="turma" th:value="${param.turma}"> 
-							<input style="display: none" name="disciplina" th:value="${disciplina.getNome()}"> 
-							<button class="apagar-botao"></button>
+								<input style="display: none" name="turma" th:value="${param.turma}"> 
+								<input style="display: none" name="disciplina" th:value="${disciplina.getNome()}"> 
+								<button class="apagar-botao"></button>
 							</form>
 						</div>
 					</div>
@@ -244,7 +244,7 @@
 						</form>
 						
 						<form th:if="${resultados == null}" action="remover-turma" method="post">
-							<button class="apagar-botao relative">
+							<button class="apagar-botao relative requisitarConfirmacao" confirmacaomensagem="Deletar Turma?" type="button">
 								<img src="/images/trash-solid.svg">
 								<input style="display: none" name="turma" th:value="${turma.getCodigo()}">
 								<span>Deletar Turma</span>
@@ -255,9 +255,11 @@
 			</div>
 		</div>
 	</div>
+	<div th:replace="common/base::confirmacao"></div>
 </body>
 <script src="/modules/menu.js"></script>
 <script src="/modules/novoItemInput.js"></script>
+<script src="/modules/janelaFunctions.js"></script>
 <script>
 	const estadoCheckbox = document.getElementsByClassName("estado-checkbox")[0];
 	const estadoLegenda = document.getElementsByClassName("estado-legenda")[0];

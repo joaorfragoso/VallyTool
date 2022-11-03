@@ -61,13 +61,13 @@ public class TurmaController {
 		
 		turma.setAtivada(true);
 		tr.save(turma);
-		model.addAttribute("sucess", "Turma salva!");
+		model.addAttribute("sucess", "Turma Salva!");
 		return new ModelAndView("redirect:/turmas");
 	}
 	
 	@GetMapping("/error")
 	public ModelAndView turmaError(ModelMap model) {
-		model.addAttribute("error", "Turma já existe!");
+		model.addAttribute("error", "Turma já Existe!");
 		return new ModelAndView("redirect:/turmas", model);
 	}
 	
@@ -118,7 +118,7 @@ public class TurmaController {
 			Relacao relacao = new Relacao(turmaEnt, disciplinaNova);
 			rer.save(relacao);
 			
-			model.addAttribute("sucess", "Turma editada!");
+			model.addAttribute("sucess", "Turma Editada!");
 			return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
 		}
 		List<Relacao> relacoes = rer.findByTurma(turmaEnt);
@@ -134,7 +134,7 @@ public class TurmaController {
 			rer.save(relacao);
 		}
 		
-		model.addAttribute("sucess", "Turma editada!");
+		model.addAttribute("sucess", "Turma Editada!");
 		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
 	}
 	
@@ -146,7 +146,7 @@ public class TurmaController {
 		turmaEnt.setAtivada(ativada);
 		
 		tr.save(turmaEnt);
-		model.addAttribute("sucess", "Turma alterada!");
+		model.addAttribute("sucess", "Turma Alterada!");
 		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma);
 	}
 	
@@ -172,7 +172,7 @@ public class TurmaController {
 			rer.save(relacao);
 		}
 		
-		model.addAttribute("sucess", "Turma clonada!");
+		model.addAttribute("sucess", "Turma Clonada!");
 		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + novoCodigo, model);
 	}
 	
@@ -181,7 +181,7 @@ public class TurmaController {
 		Turma turmaEnt = tr.findByCodigo(turma);
 		tr.delete(turmaEnt);
 		
-		model.addAttribute("sucess", "Turma resolvida!");
+		model.addAttribute("sucess", "Turma Removida!");
 		return new ModelAndView("redirect:/turmas", model);
 	}
 	
@@ -194,7 +194,7 @@ public class TurmaController {
 		Relacao relacao = rer.findByTurmaAndDisciplina(turmaEnt, disciplinaEnt);
 		rer.delete(relacao);
 		
-		model.addAttribute("sucess", "Turma resolvida!");
+		model.addAttribute("sucess", "Turma Removida!");
 		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model) ;
 		}
 	
@@ -240,12 +240,12 @@ public class TurmaController {
 		
 		if(td.getTrimestre() == Trimestre.TERCEIRO) {
 			tar.fecharTrimestre();
-			model.addAttribute("sucess", "Trimestre fechado!");
+			model.addAttribute("sucess", "Trimestre Fechado!");
 			return new ModelAndView("redirect:/turmas", model);
 		}
 		
 		tar.trocarTrimestre(Trimestre.getTrimestre(td.getTrimestre().getId() + 1));
-		model.addAttribute("sucess", "Trimestre fechado!");
+		model.addAttribute("sucess", "Trimestre Fechado!");
 		return new ModelAndView("redirect:/turmas", model);
 	}
 
