@@ -109,13 +109,14 @@
 					</div>
 				</div>
 				<form action="turmas/fechar-trimestre" method="post">
-					<button th:unless="${!trimestre.isAberto()}" class="botao-verde">Fechar Trimestre</button>
+					<button th:unless="${!trimestre.isAberto()}" type="button" class="botao-verde requisitarConfirmacao" confirmacaomensagem="Fechar Trimestre?">Fechar Trimestre</button>
 					<div th:if="${!trimestre.isAberto() && trimestre.getTrimestre().toString() == 'TERCEIRO'}">Espere o ano que vem para poder trocar o trimestre de novo</div>
 				</form>
 			</div>
 		</div>
 		<div th:if="${param.error}" th:replace="common/base::erro"></div>
 		<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
+		<div th:replace="common/base::confirmacao"></div>
 	</div>
 </body>
 <script src="/modules/menu.js"></script>

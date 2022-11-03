@@ -191,7 +191,6 @@ a {
 	height: 2.2em;
 	padding: 0 10px;
 	display: grid;
-	grid-template-columns: max-content auto max-content;
 	column-gap: 10px;
 	align-items: center;
 	justify-items: center;
@@ -224,11 +223,45 @@ a {
 	filter: invert(100%);
 	cursor: pointer;
 }
+
 .erro {
 	outline: 1px solid #FF0000;
+	grid-template-columns: max-content auto max-content;
 }
+
 .sucesso {
 	outline: 1px solid rgb(6, 255, 0);
+	grid-template-columns: max-content auto max-content;
+}
+
+.confirmacao {
+	outline: 1px solid #FF0000;
+	grid-template-columns: auto max-content;
+	gap: 20px;
+}
+.bg-vermelho {
+	background-color: #C61010;
+	border-radius: 50%;
+}
+.bg-verde {
+	background-color: #2FC891;
+	border-radius: 50%;
+}
+.confirmacao-botoes {
+	display: flex;
+	gap: 10px;
+	justify-self: flex-end;
+}
+.confirmacao-botoes .confirmar-botao, .confirmacao-botoes .avisofechar-botao {
+	margin: 5px;
+}
+.confirmar-botao {
+	background: transparent url(../images/check-solid.svg) no-repeat center;
+	width: 20px;
+	height: 20px;
+	border: 0;
+	filter: invert(100%);
+	cursor: pointer;
 }
 /*-----*/
 
