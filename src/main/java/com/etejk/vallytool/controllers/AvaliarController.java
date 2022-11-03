@@ -18,6 +18,7 @@ import com.etejk.vallytool.dao.ResultadoDAO;
 import com.etejk.vallytool.entities.Disciplina;
 import com.etejk.vallytool.entities.Resultado;
 import com.etejk.vallytool.entities.Trimestre;
+import com.etejk.vallytool.entities.TrimestreDatabase;
 import com.etejk.vallytool.entities.Turma;
 import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.CompetenciaRepository;
@@ -77,15 +78,48 @@ public class AvaliarController {
 		return new ModelAndView("redirect:/avaliar", model);
 	}
 	
+	@GetMapping("avaliar/trimestre-error")
+	public ModelAndView trimestreErro(ModelMap model) {
+		model.addAttribute("error", "Trimestre indisponível.");
+		return new ModelAndView("redirect:/avaliar", model);
+	}
+	
+	@GetMapping("avaliar/trimestre-fechado-error")
+	public ModelAndView trimestreFechadoErro(ModelMap model) {
+		model.addAttribute("error", "Oops, o trimestre está fechado");
+		return new ModelAndView("redirect:/avaliar", model);
+	}
+	
 	@PostMapping("/avaliar")
-	public String avaliar(@Valid ResultadoDAO resultado, Model model) {
+	public ModelAndView avaliar(ModelMap model, @Valid ResultadoDAO resultado) {
 		System.out.println(resultado);
 		
+		Trimestre trimestre = Trimestre.valueOf(resultado.getTrimestre());
+		TrimestreDatabase trimestreDatabase = tar.findAll().get(0);
+		Trimestre trimestreAtual = trimestreDatabase.getTrimestre();
+		if(trimestre != trimestreAtual) {
+			return new ModelAndView("redirect:/avaliar/trimestre-error");
+		}
 		
+		if(!trimestreDatabase.isAberto()) {
+			return new ModelAndView("redirect:/avaliar/trimestre-fechado-error");
+		}
 		
 		Turma turma = tr.findByCodigo(resultado.getTurma());
+		if(turma == null) {
+			model.addAttribute("error", "Turma inexistente!");
+			return new ModelAndView("redirect:/avaliar", model);
+		}
 		Disciplina disciplina = dr.findByNome(resultado.getDisciplina());
+		if(disciplina == null) {
+			model.addAttribute("error", "Disciplina inexistente!");
+			return new ModelAndView("redirect:/avaliar", model);
+		}
 		Usuario usuario = pr.findByNome(resultado.getUsuario());
+		if(usuario == null) {
+			model.addAttribute("error", "Usuário inexistente!");
+			return new ModelAndView("redirect:/avaliar", model);
+		}
 		Resultado resultadoOriginal = new Resultado(turma,
 				disciplina,
 				resultado.addConceitos(),
@@ -99,9 +133,10 @@ public class AvaliarController {
 		{
 			rr.save(resultadoOriginal);
 		} else {			
-			return "redirect:/avaliar/error";
+			return new ModelAndView("redirect:/avaliar/error");
 		}
 		
-		return "redirect:/avaliar";
+		model.addAttribute("sucess", "Resultado salvo!");
+		return new ModelAndView("redirect:/avaliar", model);
 	}
 }
