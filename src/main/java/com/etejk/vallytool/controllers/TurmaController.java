@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.hibernate.dialect.Teradata14Dialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -85,12 +86,48 @@ public class TurmaController {
 	@GetMapping("editar-turma")
 	public String editarTurma(Model model, @RequestParam(name ="turma") String turma) {
 		Turma turmaEnt = tr.findByCodigo(turma);
-		model.addAttribute("disciplinas", turmaEnt.getDisciplinas());
+		List<Relacao> relacoes = rer.findByTurma(turmaEnt);
+		List<Disciplina> disciplinas = new ArrayList<>();
+		disciplinas.addAll(turmaEnt.getDisciplinas());
+		
+		for(Relacao relacao: relacoes) {
+			disciplinas.add(relacao.getDisciplina());
+		}
+		
+		model.addAttribute("disciplinas", disciplinas);
 		model.addAttribute("turma", turmaEnt);
 		List<Resultado> resultados = rr.findByTurma(turmaEnt);
 		model.addAttribute("resultados", resultados.isEmpty() ? null : resultados);
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		return "site/editar-turma";
+	}
+	@PostMapping("editar-turma")
+	public ModelAndView editarTurma(ModelMap model,
+			@RequestParam(name = "turma") String turma,
+			@RequestParam(name = "disciplina") String disciplina) {
+		
+		Turma turmaEnt = tr.findByCodigo(turma);
+		if(turma == null) {
+			return new ModelAndView("redirect:/turmas/error");
+		}
+		Disciplina disciplinaEnt = dr.findByNome(disciplina);
+		if(disciplinaEnt == null) {
+			Disciplina disciplinaNova = new Disciplina(disciplina);
+			dr.save(disciplinaNova);
+			turmaEnt.addDisciplina(disciplinaNova);
+			tr.save(turmaEnt);
+			
+			model.addAttribute("sucess", "Turma editada!");
+			return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
+		}
+		
+		if(!turmaEnt.getDisciplinas().contains(disciplinaEnt)) {
+			turmaEnt.addDisciplina(disciplinaEnt);
+			tr.save(turmaEnt);
+		}
+		
+		model.addAttribute("sucess", "Turma editada!");
+		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
 	}
 	
 	@PostMapping("alterar-turma")
@@ -144,31 +181,6 @@ public class TurmaController {
 		model.addAttribute("sucess", "Turma resolvida!");
 		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model) ;
 		}
-	@PostMapping("editar-turma")
-	public ModelAndView editarTurma(ModelMap model,
-								@RequestParam(name = "turma") String turma,
-								@RequestParam(name = "disciplina") String disciplina) {
-		
-		Turma turmaEnt = tr.findByCodigo(turma);
-		Disciplina disciplinaEnt = dr.findByNome(disciplina);
-		if(disciplinaEnt == null) {
-			Disciplina disciplinaNova = new Disciplina(disciplina);
-			dr.save(disciplinaNova);
-			turmaEnt.addDisciplina(disciplinaNova);
-			tr.save(turmaEnt);
-			
-			model.addAttribute("sucess", "Turma editada!");
-			return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
-		}
-		
-		if(!turmaEnt.getDisciplinas().contains(disciplinaEnt)) {
-			turmaEnt.addDisciplina(disciplinaEnt);
-			tr.save(turmaEnt);
-		}
-		
-		model.addAttribute("sucess", "Turma editada!");
-		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
-	}
 	
 	@GetMapping("resultado-turma")
 	public String resultado(@RequestParam(name = "ano") String ano,

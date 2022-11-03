@@ -177,8 +177,6 @@ public class UsuarioController {
 			model.addAttribute("error", "Usuário inexistente");
 			return new ModelAndView("redirect:/inicio");
 		}
-		;
-
 		Usuario usuario = user.get();
 
 		for (String turma : turmas) {
@@ -215,7 +213,7 @@ public class UsuarioController {
 		for (String disciplina : disciplinas) {
 
 			Disciplina disciplinaEnt = dr.findByNome(disciplina);
-			if (disciplinaEnt == null) {
+			if (disciplinaEnt == null || turmaEnt.getDisciplinas().contains(disciplinaEnt)) {
 				model.addAttribute("error", "Disciplinas inexistente");
 				return new ModelAndView("redirect:/inicio");
 			}
@@ -232,6 +230,7 @@ public class UsuarioController {
 			model.addAttribute("error", "Algo deu errado");
 			return new ModelAndView("redirect:/usuarios/error", model);
 		}
+		
 		for (Disciplina disciplina : disciplinaList) {
 			Relacao relacao = new Relacao(turmaEnt, disciplina, usuario);
 			try {
@@ -241,6 +240,7 @@ public class UsuarioController {
 				return new ModelAndView("redirect:/usuarios/error", model);
 			}
 		}
+		tr.save(turmaEnt);
 		model.addAttribute("sucess", "Professor relacionado!");
 		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&turma=" + turma + "&etapa=1", model);
 
