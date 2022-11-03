@@ -76,6 +76,10 @@
 		.novaturma-input:focus::placeholder {
 			opacity: 0;
 		}
+		form {
+			width: fit-content;
+			height: fit-content;
+		}
 	</style>
 	<link rel="stylesheet" href="/styles/estrutura.css">
 	<link rel="stylesheet" href="/styles/common.css">
@@ -104,7 +108,6 @@
 						<a class="editar-botao" th:href="@{turmas/editar-turma(turma=${turma.getCodigo()})}"></a>
 					</div>
 				</div>
-				<div th:text="${trimestre.getTrimestreParsed()}"></div>
 				<form action="turmas/fechar-trimestre" method="post">
 					<button th:unless="${!trimestre.isAberto()}" class="botao-verde">Fechar Trimestre</button>
 					<div th:if="${!trimestre.isAberto() && trimestre.getTrimestre().toString() == 'TERCEIRO'}">Espere o ano que vem para poder trocar o trimestre de novo</div>

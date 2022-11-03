@@ -1,9 +1,10 @@
 .aba {
 	padding: 20px 0px;
 	display: grid;
-	grid-template-rows: 15% auto 15%;
+	grid-template-rows: max-content auto max-content;
 	grid-template-columns: minmax(260px, 60%);
 	justify-content: center;
+	justify-items: center;
 	row-gap: 10%;
 }
 .pesquisar-form {
