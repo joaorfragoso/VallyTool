@@ -44,7 +44,7 @@ public class ConfiguracoesController {
 								@RequestParam(name = "nome") String nome) {
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
 		if(usuario == null) {
-			model.addAttribute("error", "Usuário inválido!");
+			model.addAttribute("error", "Usuário Inválido!");
 			return new ModelAndView("redirect:/configuracoes", model);
 		}
 		
@@ -59,7 +59,7 @@ public class ConfiguracoesController {
 		Authentication authentication = new UsernamePasswordAuthenticationToken(usuario.getNome(), usuario.getPassword(), usuario.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
-		model.addAttribute("sucess", "Nome altedado!");
+		model.addAttribute("sucess", "Nome Alterado!");
 		return new ModelAndView("redirect:/configuracoes", model);
 	}
 	
@@ -68,7 +68,7 @@ public class ConfiguracoesController {
 								@RequestParam(name = "email") String email) {
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
 		if(usuario == null) {
-			model.addAttribute("error", "Usuário inválido!");
+			model.addAttribute("error", "Usuário Inválido!");
 			return new ModelAndView("redirect:/configuracoes", model);
 		}
 		usuario.setEmail(email);
@@ -79,7 +79,7 @@ public class ConfiguracoesController {
 			return new ModelAndView("redirect:/configuracoes", model);
 		}
 		
-		model.addAttribute("sucess", "Email alterado!");
+		model.addAttribute("sucess", "Email Alterado!");
 		return new ModelAndView("redirect:/configuracoes", model);
 	}
 	
@@ -88,7 +88,7 @@ public class ConfiguracoesController {
 								@RequestParam(name = "senha") String senha) {
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
 		if(usuario == null) {
-			model.addAttribute("error", "Usuário inválido!");
+			model.addAttribute("error", "Usuário Inválido!");
 			return new ModelAndView("redirect:/configuracoes", model);
 		}
 		
@@ -102,7 +102,7 @@ public class ConfiguracoesController {
 			return new ModelAndView("redirect:/configuracoes", model);
 		}
 		
-		model.addAttribute("sucess", "Senha alterado!");
+		model.addAttribute("sucess", "Senha Alterada!");
 		return new ModelAndView("redirect:/configuracoes", model);
 	}
 }

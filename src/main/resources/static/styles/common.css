@@ -7,6 +7,9 @@ a {
 .relative {
 	position: relative;
 }
+.none {
+	display: none;
+}
 	
 .remover-after:after{
 	content: none!important;

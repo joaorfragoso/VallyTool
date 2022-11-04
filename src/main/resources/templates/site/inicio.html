@@ -102,15 +102,11 @@
 		<div class="tela">
 			<div th:replace="common/base::menu_prof"></div>
 			<div class="aba">
-				<div>
-					<h1>Bem-Vindo ao VallyTool</h1>
-					<p>Comece já a avaliar suas turmas</p>
-					<a href="/avaliar"><button class="avaliar-turma-botao">Avaliar Turmas</button></a>
-					<ul class="turmas-nao-avaliadas"></ul>
+				<div class="aba-legenda">Suas Turmas</div>
+				<div class="mensagem-sem-turma">
+					<img src="./images/poochita.png">
+					<div class="mensagem">Atualmente não há turmas designadas à você.</div>
 				</div>
-				<footer>
-					<strong>3º Trimestre</strong>
-				</footer>
 			</div>
 		</div>
 	</div>

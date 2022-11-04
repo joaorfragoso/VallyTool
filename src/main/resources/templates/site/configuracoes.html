@@ -18,8 +18,9 @@
 		}
         .configuracao-divisao {
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
 			gap: 10px;
+			flex-wrap: wrap;
 		}
 		.configuracao-divisao .titulo-divisao {
 			font-size: 20px;
@@ -55,6 +56,10 @@
 			width: 100%;
 		}
 		
+		.configuracao-divisao .input1 {
+			max-width: 85%;
+		}
+		
 		.modal-blur {
 			position: absolute;
 			width: 100%;
@@ -70,6 +75,7 @@
 			outline: rgba(0, 0, 0, 0.2);
 			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
 			width: 400px;
+			max-width: 80%;
 			height: 200px;
 			border-radius: 6px;
 		}
@@ -89,6 +95,13 @@
 			justify-content: center;
 			justify-items: center;
 			align-items: center;
+		}
+		.confirmarsenha-div {
+			width: 80%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 10px;
 		}
 		.redefinir-botoes {
 			display: flex;
@@ -130,56 +143,56 @@
 		                <button class="editar-botao" onclick="abrirJanela('modal-configuracao'); abrirJanela('redefinirnome-form')"></button>
 	                </div>
 	                <div class="dado-campo">
-	                	<span class="dado-titulo">CPF</span>
-	                	<div class="quebra-linha"></div>
-		                <div th:text="${usuario.getCpf()}" class="dado-div"></div>
-	                </div>
-	                <div class="quebra-linha"></div>
-	                <div class="dado-campo">
 	                	<span class="dado-titulo">Email</span>
 	                	<div class="quebra-linha"></div>
 		                <div th:text="${usuario.getEmail()}" class="dado-div"></div>
 		                <button class="editar-botao" onclick="abrirJanela('modal-configuracao'); abrirJanela('redefiniremail-form')"></button>
 	                </div>
+	                <div class="quebra-linha"></div>
 	                <div class="dado-campo">
 	                	<span class="dado-titulo">Senha</span>
 	                	<div class="quebra-linha"></div>
 		                <input class="input1 password-fake" type="password" value="123456" readonly>
 		                <button class="editar-botao" onclick="abrirJanela('modal-configuracao'); abrirJanela('redefinirsenha-form')"></button>
 	                </div>
+	                <div class="dado-campo">
+	                	<span class="dado-titulo">CPF</span>
+	                	<div class="quebra-linha"></div>
+		                <div th:text="${usuario.getCpf()}" class="dado-div"></div>
+	                </div>
             	</div>
             </div>
         </div>
     </div>
-    <div class="modal-blur oculto" id="modal-configuracao" onclick="this.classList.add('oculto');">
+    <div class="modal-blur oculto" id="modal-configuracao" onclick="fecharModal()">
     	<div class="modal-configuracao" onclick="event.stopPropagation()">
 	    	<form method="post" th:action="@{configuracoes/atualizar-nome}" class="redefinirnome-form redefinir-form oculto" id="redefinirnome-form">
 	    		<label>Redefinir Nome</label>
 	    		<input class="none" name="id" th:value="${usuario.getId()}">
-	    		<input name="nome" type="text" class="input1" placeholder="Novo Nome" required>
+	    		<input name="nome" type="text" class="input1" placeholder="Novo Nome" autocomplete="off" required>
 	    		<div class="redefinir-botoes">
-	    			<button class="cancelar-botao" type="button">Cancelar</button>
+	    			<button class="cancelar-botao" onclick="fecharModal()" type="button">Cancelar</button>
 	    			<button class="salvar-botao botao-verde">Salvar</button>
 	    		</div>
 	    	</form>
 	    	<form method="post" th:action="@{configuracoes/atualizar-email}" class="redefiniremail-form redefinir-form oculto" id="redefiniremail-form">
 	    		<label>Redefinir Email</label>
 	    		<input class="none" name="id" th:value="${usuario.getId()}">
-	    		<input name="email" type="email" class="input1" placeholder="Novo Email" required>
+	    		<input name="email" type="email" class="input1" placeholder="Novo Email" autocomplete="off" required>
 	    		<div class="redefinir-botoes">
-	    			<button class="cancelar-botao" type="button">Cancelar</button>
-	    			<button class="salvar-botao">Salvar</button>
+	    			<button class="cancelar-botao" onclick="fecharModal()" type="button">Cancelar</button>
+	    			<button class="salvar-botao botao-verde">Salvar</button>
 	    		</div>
 	    	</form>
 	    	<form method="post" th:action="@{configuracoes/atualizar-senha}" class="redefinirsenha-form redefinir-form oculto" id="redefinirsenha-form">
-	    		                <label>Redefinir Senha</label>
+                <label>Redefinir Senha</label>
                 <input name="id" class="none" th:value="${usuario.getId()}">
                 <div class="confirmarsenha-div">
                     <input name="senha" type="password" class="input1" placeholder="Nova Senha" minlength="4" maxlength="11" autocomplete="off" required>
                     <input type="password" class="input1" placeholder="Confirmar Senha" minlength="4" maxlength="11" autocomplete="off" required>
                 </div>
                 <div class="redefinir-botoes">
-                    <button class="cancelar-botao" type="button">Cancelar</button>
+                    <button class="cancelar-botao" onclick="fecharModal()" type="button">Cancelar</button>
                     <button class="salvar-botao botao-verde">Salvar</button>
                 </div>
 	    	</form>
@@ -191,4 +204,11 @@
 </body>
 <script src="/modules/menu.js"></script>
 <script src="/modules/janelaFunctions.js"></script>
+<script>
+	const modal = document.getElementById("modal-configuracao");
+	function fecharModal() {
+		modal.classList.add('oculto');
+		modal.querySelectorAll('.redefinir-form').forEach(form => form.classList.add('oculto'));
+	}
+</script>
 </html>

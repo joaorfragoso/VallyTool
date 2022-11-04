@@ -1,27 +1,33 @@
 .aba {
     display: grid;
-    grid-template-rows: max-content max-content auto;
-    padding: 15px 0;
-    text-align: center;
+    grid-template-rows: max-content auto;
+    justify-content: center;
+    justify-items: center;
+	text-align: center;
 }
 
-.aba h1 {
-	font-size: 24px;
-	margin-bottom: 10px;
-}
-
-.avaliar-turma-botao {
-	background-color: rgb(12, 144, 240);
-	width: 140px;
-	height: 40px;
-	border: 1px solid rgb(209, 209, 209);
-	border-radius: 4px;
+.aba-legenda {
+	width: 100px;
+	height: 2.3em;
+	padding: 0 4px;
+	background-color: #0C90F0;
 	color: white;
-	font-size: 15px;
-	margin-top: 40px;
-	cursor: pointer;
+	border-radius: 0 0 6px 6px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+	font-weight: 300;
 }
-
-.avaliar-turma-botao:hover {
-	background-color: rgb(11, 134, 221);
+.mensagem-sem-turma {
+	font-size: 24px;
+	align-self: center;
+}
+.mensagem-sem-turma img {
+	width: 256px;
+}
+.mensagem-sem-turma .mensagem {
+	text-align: center;
+	margin: auto;
+	width: 80%;
 }
