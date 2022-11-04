@@ -153,34 +153,40 @@
     </div>
     <div class="modal-blur oculto" id="modal-configuracao" onclick="this.classList.add('oculto');">
     	<div class="modal-configuracao" onclick="event.stopPropagation()">
-	    	<form method="post" action="atualizar-nome" class="redefinirnome-form redefinir-form oculto" id="redefinirnome-form">
+	    	<form method="post" th:action="@{configuracoes/atualizar-nome}" class="redefinirnome-form redefinir-form oculto" id="redefinirnome-form">
 	    		<label>Redefinir Nome</label>
-	    		<input name="id" th:value="${usuario.getId()}">
+	    		<input class="none" name="id" th:value="${usuario.getId()}">
 	    		<input name="nome" type="text" class="input1" placeholder="Novo Nome" required>
 	    		<div class="redefinir-botoes">
 	    			<button class="cancelar-botao" type="button">Cancelar</button>
 	    			<button class="salvar-botao botao-verde">Salvar</button>
 	    		</div>
 	    	</form>
-	    	<form method="post" action="atualizar-email" class="redefiniremail-form redefinir-form oculto" id="redefiniremail-form">
+	    	<form method="post" th:action="@{configuracoes/atualizar-email}" class="redefiniremail-form redefinir-form oculto" id="redefiniremail-form">
 	    		<label>Redefinir Email</label>
-	    		<input name="id" th:value="${usuario.getId()}">
+	    		<input class="none" name="id" th:value="${usuario.getId()}">
 	    		<input name="email" type="email" class="input1" placeholder="Novo Email" required>
 	    		<div class="redefinir-botoes">
 	    			<button class="cancelar-botao" type="button">Cancelar</button>
 	    			<button class="salvar-botao">Salvar</button>
 	    		</div>
 	    	</form>
-	    	<form class="redefinirsenha-form redefinir-form oculto" id="redefinirsenha-form">
-	    		<label>Redefinir Senha</label>
-	    		<input type="password" class="input1" placeholder="Nova Senha" required>
-	    		<div class="redefinir-botoes">
-	    			<button class="cancelar-botao" type="button">Cancelar</button>
-	    			<button class="salvar-botao">Salvar</button>
-	    		</div>
+	    	<form method="post" th:action="@{configuracoes/atualizar-senha}" class="redefinirsenha-form redefinir-form oculto" id="redefinirsenha-form">
+	    		                <label>Redefinir Senha</label>
+                <input name="id" class="none" th:value="${usuario.getId()}">
+                <div class="confirmarsenha-div">
+                    <input name="senha" type="password" class="input1" placeholder="Nova Senha" minlength="4" maxlength="11" autocomplete="off" required>
+                    <input type="password" class="input1" placeholder="Confirmar Senha" minlength="4" maxlength="11" autocomplete="off" required>
+                </div>
+                <div class="redefinir-botoes">
+                    <button class="cancelar-botao" type="button">Cancelar</button>
+                    <button class="salvar-botao botao-verde">Salvar</button>
+                </div>
 	    	</form>
     	</div>
     </div>
+    <div th:if="${param.error}" th:replace="common/base::erro"></div>
+	<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
     <div th:replace="common/base::confirmacao"></div>
 </body>
 <script src="/modules/menu.js"></script>

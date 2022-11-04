@@ -1,7 +1,11 @@
 package com.etejk.vallytool.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,7 +40,7 @@ public class ConfiguracoesController {
 	}
 	
 	@PostMapping("/atualizar-nome")
-	public ModelAndView atualizarNome(ModelMap model, @RequestParam(name = "id") String id,
+	public ModelAndView atualizarNome(@AuthenticationPrincipal User user, ModelMap model, @RequestParam(name = "id") String id,
 								@RequestParam(name = "nome") String nome) {
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
 		if(usuario == null) {
@@ -51,6 +55,9 @@ public class ConfiguracoesController {
 			model.addAttribute("error", "Oops! Algo deu errado!");
 			return new ModelAndView("redirect:/configuracoes", model);
 		}
+		
+		Authentication authentication = new UsernamePasswordAuthenticationToken(usuario.getNome(), usuario.getPassword(), usuario.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		model.addAttribute("sucess", "Nome altedado!");
 		return new ModelAndView("redirect:/configuracoes", model);
@@ -95,7 +102,7 @@ public class ConfiguracoesController {
 			return new ModelAndView("redirect:/configuracoes", model);
 		}
 		
-		model.addAttribute("sucess", "Email alterado!");
+		model.addAttribute("sucess", "Senha alterado!");
 		return new ModelAndView("redirect:/configuracoes", model);
 	}
 }
