@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>VallyTool</title>
+	<script src="/modules/modoEscuro.js"></script>
 	<link rel="stylesheet" href="/styles/reset.css">
 	<link rel="stylesheet" href="/styles/common.css">
 	<style>
@@ -39,6 +40,7 @@
 			border-radius: 4px;
 			font-weight: 500;
 			align-self: center;
+			color: black;
 		}
 		.item-div:nth-child(1) {	
 			margin: 0;
@@ -112,4 +114,6 @@
 		<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
 	</div>
 </body>
+<script src="/modules/menu.js"></script>
+<script src="modules/botaoModoEscuro.js"></script>
 </html>

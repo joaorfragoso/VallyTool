@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>VallyTool</title>
+	<script src="/modules/modoEscuro.js"></script>
 	<link rel="stylesheet" href="/styles/reset.css">
 	<link rel="stylesheet" href="/styles/common.css">
 	<style>
@@ -22,7 +23,7 @@
 			padding: 20px 20px;
 			box-sizing: border-box;
 			border-radius: 6px;
-			background-color: white;
+			background-color: var(--bgcor-primaria);
 			display: grid;
 			grid-template-rows: max-content auto;
 			row-gap: 20px;
@@ -125,12 +126,12 @@
 			<div class="aba">
 				<form class="pesquisar-form" th:action="@{/inicio}">
 					<input name="search" type="text" placeholder="Buscar Usuário" class="pesquisar-input" autocomplete="off">
-					<button value="submit" class="pesquisar-botao"></button>
+					<button value="submit" class="pesquisar-botao inverterEscuro"></button>
 				</form>
 				<div class="lista-div">
 					<div th:if="!${usuarios}">
 						<img src="/images/capivara-lupa.png" style="width: 300px">
-						<p>Hmm... nenhum usuário encontrado.</p>
+						<p>Hmm... Nenhum usuário encontrado.</p>
 					</div>
 					<div th:each="usuario: ${usuarios}" class="item-div">
 						<span th:text="${usuario.getNome()}" class="nome"></span>
@@ -184,6 +185,7 @@
 <script sec:authorize="hasRole('SOP')" src="modules/cpfInput.js"></script>
 <script src="modules/aviso.js"></script>
 <script src="modules/janelaFunctions.js"></script>
+<script src="modules/botaoModoEscuro.js"></script>
 <script>
 	const spanCargoArray = document.querySelectorAll(".item-div .cargo");
 	

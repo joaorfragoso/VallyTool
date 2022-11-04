@@ -1,3 +1,16 @@
+:root {
+	--bgcor-primaria: #ffffff;
+	--bgcor-secundaria: #eeeeee;
+	--inverter: 0;
+	--bgcor-input: #ffffff;
+	--txtcor-input: rgba(0, 0, 0, 0.6);
+	--txtcor-placeholder: rgba(0, 0, 0, 0.4);
+}
+
+body {
+	background-color: var(--bgcor-secundaria);
+}
+
 a {
 	text-decoration: none!important;
 }
@@ -9,6 +22,9 @@ a {
 }
 .none {
 	display: none;
+}
+.inverterEscuro {
+	filter: invert(var(--inverter));
 }
 	
 .remover-after:after{
@@ -46,8 +62,8 @@ a {
 	box-sizing: border-box;
 	border-radius: 6px;
 	font-family: arial;
-	color: rgba(0, 0, 0, 0.6);
-	background-color: white;
+	color: var(--txtcor-input);
+	background-color: var(--bgcor-input);
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.10), 1px 0 4px rgba(0, 0, 0, 0.10);
 	display: flex;
 	align-items: center;
@@ -276,12 +292,13 @@ a {
 	border-radius: 6px;
 	border: 0;
 	outline: 0;
-	background-color: white;
-	color: rgba(0, 0, 0, 0.6);
+	background-color: var(--bgcor-input);
+	color: var(--txtcor-input);
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.10), 1px 0 4px rgba(0, 0, 0, 0.10);
 }
 .input1::placeholder {
-	color: rgba(0, 0, 0, 0.4);
+	/*color: rgba(0, 0, 0, 0.4);*/
+	color: var(--txtcor-placeholder);
 }
 
 .opcaolabel-div, .input1 {
