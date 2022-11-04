@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.etejk.vallytool.entities.PasswordResetToken;
 import com.etejk.vallytool.entities.Relacao;
 import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.RelacaoRepository;
+import com.etejk.vallytool.repositories.ResetRepository;
 import com.etejk.vallytool.repositories.ResultadoRepository;
 import com.etejk.vallytool.repositories.TrimestreAtualRepository;
 import com.etejk.vallytool.repositories.UsuarioRepository;
@@ -38,6 +40,7 @@ public class ConfiguracoesController {
 	@Autowired
 	RelacaoRepository rer;
 	
+	ResetRepository resr;
 	@GetMapping()
 	public String configuracoes(Authentication auth,
 								Model model) {
@@ -132,6 +135,11 @@ public class ConfiguracoesController {
 				model.addAttribute("error", "Algo deu errado.");
 				return new ModelAndView("redirect:/usuarios", model);
 			}
+		}
+		
+		List<PasswordResetToken> tokens = resr.findByUsuario(usuario);
+		for (PasswordResetToken passwordResetToken : tokens) {
+			resr.delete(passwordResetToken);
 		}
 		
 		try {

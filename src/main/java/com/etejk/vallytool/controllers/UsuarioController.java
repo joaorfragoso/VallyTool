@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import com.etejk.vallytool.dao.UsuarioDAO;
 import com.etejk.vallytool.entities.Disciplina;
+import com.etejk.vallytool.entities.PasswordResetToken;
 import com.etejk.vallytool.entities.Relacao;
 import com.etejk.vallytool.entities.RoleModel;
 import com.etejk.vallytool.entities.RoleName;
@@ -28,6 +29,7 @@ import com.etejk.vallytool.entities.Turma;
 import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.DisciplinaRepository;
 import com.etejk.vallytool.repositories.RelacaoRepository;
+import com.etejk.vallytool.repositories.ResetRepository;
 import com.etejk.vallytool.repositories.RoleRepository;
 import com.etejk.vallytool.repositories.TrimestreAtualRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
@@ -53,6 +55,9 @@ public class UsuarioController {
 
 	@Autowired
 	TrimestreAtualRepository tar;
+	
+	@Autowired
+	ResetRepository resr;
 
 	@PostMapping("usuarios/update")
 	public ModelAndView updateUsuario(Authentication auth, ModelMap model, @RequestParam(name = "id") String id,
@@ -386,6 +391,11 @@ public class UsuarioController {
 				model.addAttribute("error", "Algo deu errado.");
 				return new ModelAndView("redirect:/usuarios", model);
 			}
+		}
+		
+		List<PasswordResetToken> tokens = resr.findByUsuario(usuario);
+		for (PasswordResetToken passwordResetToken : tokens) {
+			resr.delete(passwordResetToken);
 		}
 		
 		try {

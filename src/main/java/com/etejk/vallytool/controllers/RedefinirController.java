@@ -66,6 +66,7 @@ public class RedefinirController {
 			return new ModelAndView("redirect:/redefinir", model);
 		}
 		model.addAttribute("email", user.getEmail());
+		model.addAttribute("sucess", "Email Enviado.");
 		return new ModelAndView("redirect:/redefinir", model);
 	}
 	
