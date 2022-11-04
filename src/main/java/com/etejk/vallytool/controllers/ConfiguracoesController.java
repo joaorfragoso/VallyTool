@@ -1,13 +1,20 @@
 package com.etejk.vallytool.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.TrimestreAtualRepository;
@@ -33,22 +40,69 @@ public class ConfiguracoesController {
 	}
 	
 	@PostMapping("/atualizar-nome")
-	public String atualizarNome(@RequestParam(name = "id") String id,
+	public ModelAndView atualizarNome(@AuthenticationPrincipal User user, ModelMap model, @RequestParam(name = "id") String id,
 								@RequestParam(name = "nome") String nome) {
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
-		usuario.setNome(nome);
-		ur.save(usuario);
+		if(usuario == null) {
+			model.addAttribute("error", "Usuário Inválido!");
+			return new ModelAndView("redirect:/configuracoes", model);
+		}
 		
-		return "redirect:/configuracoes";
+		usuario.setNome(nome);
+		try {
+		ur.save(usuario);
+		}catch(Exception e) {
+			model.addAttribute("error", "Oops! Algo deu errado!");
+			return new ModelAndView("redirect:/configuracoes", model);
+		}
+		
+		Authentication authentication = new UsernamePasswordAuthenticationToken(usuario.getNome(), usuario.getPassword(), usuario.getAuthorities());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		
+		model.addAttribute("sucess", "Nome Alterado!");
+		return new ModelAndView("redirect:/configuracoes", model);
 	}
 	
 	@PostMapping("/atualizar-email")
-	public String atualizarEmail(@RequestParam(name = "id") String id,
-								@RequestParam(name = "nome") String email) {
+	public ModelAndView atualizarEmail(ModelMap model, @RequestParam(name = "id") String id,
+								@RequestParam(name = "email") String email) {
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
+		if(usuario == null) {
+			model.addAttribute("error", "Usuário Inválido!");
+			return new ModelAndView("redirect:/configuracoes", model);
+		}
 		usuario.setEmail(email);
+		try {
 		ur.save(usuario);
+		}catch(Exception e) {
+			model.addAttribute("error", "Oops! Algo deu errado!");
+			return new ModelAndView("redirect:/configuracoes", model);
+		}
 		
-		return "redirect:/configuracoes";
+		model.addAttribute("sucess", "Email Alterado!");
+		return new ModelAndView("redirect:/configuracoes", model);
+	}
+	
+	@PostMapping("/atualizar-senha")
+	public ModelAndView atualizarSenha(ModelMap model, @RequestParam(name = "id") String id,
+								@RequestParam(name = "senha") String senha) {
+		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
+		if(usuario == null) {
+			model.addAttribute("error", "Usuário Inválido!");
+			return new ModelAndView("redirect:/configuracoes", model);
+		}
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		usuario.setSenha(encoder.encode(senha));
+		
+		try {
+		ur.save(usuario);
+		}catch(Exception e) {
+			model.addAttribute("error", "Oops! Algo deu errado!");
+			return new ModelAndView("redirect:/configuracoes", model);
+		}
+		
+		model.addAttribute("sucess", "Senha Alterada!");
+		return new ModelAndView("redirect:/configuracoes", model);
 	}
 }

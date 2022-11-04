@@ -27,6 +27,8 @@ public class WebSecurityConfig{
                 .antMatchers(HttpMethod.POST, "/login/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/avaliar/**").hasRole("PROFESSOR")
                 .antMatchers(HttpMethod.POST, "/avaliar/**").hasRole("PROFESSOR")
+                .antMatchers(HttpMethod.GET, "/configuracoes/**").hasAnyRole("PROFESSOR", "SOP")
+                .antMatchers(HttpMethod.POST, "/configuraceos/**").hasAnyRole("PROFESSOR", "SOP")
                 .antMatchers(HttpMethod.GET, "/usuarios/**").hasRole("SOP")
                 .antMatchers(HttpMethod.POST, "/usuarios/**").hasRole("SOP")
                 .antMatchers(HttpMethod.GET, "/turmas/**").hasRole("SOP")

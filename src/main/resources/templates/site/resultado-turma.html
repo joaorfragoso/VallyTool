@@ -192,6 +192,28 @@
 				flex-wrap: wrap;
 			}
 		}
+		
+		@media print {
+			body {
+				-webkit-print-color-adjust: exact;
+			}
+			.turma-div {
+				border-radius: 4px;
+			}
+			.disciplinas-div {
+				margin-top: 50px;
+				flex-direction: column;
+				row-gap: 50px;
+				padding-bottom: 20px;
+				align-items: center;
+			}
+
+			.disciplina-container {
+				width: 60%;
+				min-width: 33%;
+				flex-wrap: wrap;
+			}
+		}
 	</style>
 	<link rel="stylesheet" href="/styles/estrutura.css">
 </head>
@@ -251,5 +273,4 @@
 
 </body>
 <script src="/modules/menu.js"></script>
-
 </html>
