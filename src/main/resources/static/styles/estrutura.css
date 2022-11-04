@@ -103,7 +103,7 @@ header {
 .menu-extendido-div {
     z-index: 99;
     position: absolute;
-    background-color: white;
+    background-color: var(--bgcor-primaria);
     top: 0;
     left: 0;
     width: 180px;

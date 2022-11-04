@@ -123,10 +123,16 @@ public class AvaliarController {
 	
 	@PostMapping("avaliar-turma")
 	public ModelAndView avaliar(ModelMap model, @Valid ResultadoDAO resultado) {
+		
 		System.out.println(resultado);
 		
 		Trimestre trimestre = Trimestre.valueOf(resultado.getTrimestre());
 		TrimestreDatabase trimestreDatabase = tar.findAll().get(0);
+		if(!trimestreDatabase.isAberto() || !trimestre.equals(trimestreDatabase.getTrimestre())  ) {
+			model.addAttribute("error","Trimestre Fechado!");
+			return new ModelAndView("redirect:/avaliar/turmas", model);
+			
+		}
 		Trimestre trimestreAtual = trimestreDatabase.getTrimestre();
 		if(trimestre != trimestreAtual) {
 			return new ModelAndView("redirect:/avaliar/trimestre-error");
@@ -164,7 +170,16 @@ public class AvaliarController {
 		{
 			rr.save(resultadoOriginal);
 		} else {			
-			return new ModelAndView("redirect:/avaliar/error");
+			Resultado resultadoFoda = resr.findByEverything(resultadoOriginal.getData().getYear(), resultadoOriginal.getTrimestre(), turma, usuario, disciplina);
+			try {
+			resr.save(resultadoFoda);
+			}catch(Exception e) {
+				model.addAttribute("error", "Algo deu errado!");
+				return new ModelAndView("redirect:/avaliar/turmas", model);
+			}
+			
+			model.addAttribute("sucess", "Resultado editado!");
+			return new ModelAndView("redirect:/avaliar/turmas", model);
 		}
 		
 		model.addAttribute("sucess", "Resultado salvo!");

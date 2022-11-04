@@ -96,7 +96,7 @@
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 				<div class="aba-selecionada"><img src="/images/folder-solid.svg">Resultados</div>
-				<a th:href="@{/turmas}" class="fechar-botao"></a>
+				<a th:href="@{/turmas}" class="fechar-botao inverterEscuro"></a>
 				<div th:text=${param.turma} class="turma-div">350</div>
 				<div class="lista-div">
 					<div th:each="ano: ${anos}" class="item-div">
@@ -115,5 +115,5 @@
 	</div>
 </body>
 <script src="/modules/menu.js"></script>
-<script src="modules/botaoModoEscuro.js"></script>
+<script src="/modules/botaoModoEscuro.js"></script>
 </html>

@@ -23,6 +23,7 @@ import com.etejk.vallytool.dao.UsuarioDAO;
 import com.etejk.vallytool.entities.Disciplina;
 import com.etejk.vallytool.entities.PasswordResetToken;
 import com.etejk.vallytool.entities.Relacao;
+import com.etejk.vallytool.entities.Resultado;
 import com.etejk.vallytool.entities.RoleModel;
 import com.etejk.vallytool.entities.RoleName;
 import com.etejk.vallytool.entities.Turma;
@@ -30,6 +31,7 @@ import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.DisciplinaRepository;
 import com.etejk.vallytool.repositories.RelacaoRepository;
 import com.etejk.vallytool.repositories.ResetRepository;
+import com.etejk.vallytool.repositories.ResultadoRepository;
 import com.etejk.vallytool.repositories.RoleRepository;
 import com.etejk.vallytool.repositories.TrimestreAtualRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
@@ -49,6 +51,9 @@ public class UsuarioController {
 
 	@Autowired
 	RelacaoRepository rer;
+	
+	@Autowired
+	ResultadoRepository resulr;
 
 	@Autowired
 	DisciplinaRepository dr;
@@ -381,7 +386,11 @@ public class UsuarioController {
 			model.addAttribute("error", "Usuário Inexistente");
 			return new ModelAndView("redirect:/inicio", model);
 		}
-		
+		 
+		List<Resultado> resultados = resulr.findByUsuario(usuario);
+		for (Resultado resultado : resultados) {
+			resulr.delete(resultado);
+		}
 		List<Relacao> relacaos = rer.findByUsuario(usuario);
 		for (Relacao relacao : relacaos) {
 			relacao.setUsuario(null);

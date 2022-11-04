@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.entities.PasswordResetToken;
 import com.etejk.vallytool.entities.Relacao;
+import com.etejk.vallytool.entities.Resultado;
 import com.etejk.vallytool.entities.Usuario;
 import com.etejk.vallytool.repositories.RelacaoRepository;
 import com.etejk.vallytool.repositories.ResetRepository;
@@ -40,7 +41,11 @@ public class ConfiguracoesController {
 	@Autowired
 	RelacaoRepository rer;
 	
+	@Autowired
 	ResetRepository resr;
+	
+	@Autowired
+	ResultadoRepository resulr;
 	@GetMapping()
 	public String configuracoes(Authentication auth,
 								Model model) {
@@ -124,6 +129,11 @@ public class ConfiguracoesController {
 		if(usuario == null) {
 			model.addAttribute("error", "Usuário Inválido!");
 			return new ModelAndView("redirect:/configuracoes", model);
+		}
+		
+		List<Resultado> resultados = resulr.findByUsuario(usuario);
+		for (Resultado resultado : resultados) {
+			resulr.delete(resultado);
 		}
 		
 		List<Relacao> relacaos = rer.findByUsuario(usuario);
