@@ -71,11 +71,11 @@ public class AvaliarController {
 		Usuario usuario = pr.findByNome(auth.getName());
 		model.addAttribute("competencias", cr.findAll());
 		List<Turma> turmas = usuario.getTurmas();
-		PegarResultado pegarResultado = new PegarResultado(resr);
+		PegarResultado pegarResultado = new PegarResultado(resr, rer);
 		if(turmas.isEmpty()) {
 			turmas = null;
 		}
-
+		model.addAttribute("usuario", usuario);
 		model.addAttribute("ano", LocalDate.now().getYear());
 		model.addAttribute("pegarResultado" ,pegarResultado);
 		model.addAttribute("turmas", turmas);
