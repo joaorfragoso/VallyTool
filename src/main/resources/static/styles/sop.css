@@ -88,3 +88,14 @@
 	cursor: pointer;	
 	background: transparent url(../images/wrench-solid.svg) no-repeat center;
 }
+
+.nenhum-resultado {
+	margin: auto;
+	text-align: center;
+}
+.nenhum-resultado img {
+	width: 256px;
+}
+.nenhum-resultado p {
+	color: white;
+}

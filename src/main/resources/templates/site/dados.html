@@ -166,7 +166,7 @@
 				</form>
 				<form th:unless="${usuario.getNome() == usuarioLogado}" action="remover-usuario" method="post">
 					<input class="none" name="id" th:value="${usuario.getId()}"></input>
-	        		<button class="deletar-botao relative requisitarConfirmacao" confirmacaomensagem="Excluir Usuário?">
+	        		<button class="deletar-botao relative requisitarConfirmacao" type="button" confirmacaomensagem="Excluir Usuário?">
 	        			<img src="/images/trash-solid.svg">
 	        			<span>Excluir Usuário</span>
 	        		</button>
@@ -175,6 +175,7 @@
 		</div>
 		<div th:if="${param.error}" th:replace="common/base::erro"></div>
 		<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
+		<div th:replace="common/base::confirmacao"></div>
 	</div>
 </body>
 <script>
@@ -189,5 +190,6 @@
 </script>
 <script th:src="@{/modules/menu.js}"></script>
 <script th:src="@{/modules/aviso.js}"></script>
+<script src="/modules/janelaFunctions.js"></script>
 <script src="modules/botaoModoEscuro.js"></script>
 </html>
