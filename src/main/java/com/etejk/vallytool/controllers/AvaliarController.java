@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.dao.ResultadoDAO;
@@ -83,16 +84,16 @@ public class AvaliarController {
 		return "site/inicio";
 	}
 	
-	@GetMapping
+	@GetMapping("avaliar-turma")
 	public String avaliar(Model model, Authentication auth,
-			@Param(value = "turma") String turma) {
+			@RequestParam(value = "turma") String turma) {
 		Usuario usuario = pr.findByNome(auth.getName());
-		model.addAttribute("competencias", cr.findAll());
-		List<Turma> turmas = usuario.getTurmas();
-		model.addAttribute("turmas", turmas);
+		Turma turmaEnt = tr.findByCodigo(turma);
+		model.addAttribute("turma", turmaEnt);
 		model.addAttribute("disciplinas", usuario.getDisciplinas());
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		model.addAttribute("relacoes", rer.findByUsuario(usuario));
+		model.addAttribute("competencias", cr.findAll());
 		model.addAttribute("usuario", usuario);
 		return "site/avaliar_turma";
 	}

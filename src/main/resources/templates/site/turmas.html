@@ -92,7 +92,7 @@
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 				<form class="pesquisar-form" th:action="@{/turmas}">
-					<input name="search" type="text" placeholder="Buscar Turma" class="pesquisar-input" autocomplete="off">
+					<input oninput="bloqueiaCaractere(this)" name="search" type="text" placeholder="Buscar Turma" class="pesquisar-input" autocomplete="off">
 					<button value="submit" class="pesquisar-botao"></button>
 				</form>
 				<div class="lista-div">
@@ -101,6 +101,10 @@
 							<input name="codigo" type="text" pattern="[0-9]{3}" class="novoitem-input" id="novoItemInput" placeholder="Nova Turma" maxlength="3" oninput="bloqueiaCaractere(this)" autocomplete="off" required>
 							<button class="criar-botao oculto">Criar</button>
 						</form>
+					</div>
+					<div th:if="!${turmas}">
+						<img src="/images/capivara-lupa.png" style="width: 300px">
+						<p>Hmm... nenhum turma encontrada.</p>
 					</div>
 					<div th:each="turma: ${turmas}" class="item-div">
 						<span th:text="${turma.codigo}" class="turma"></span>

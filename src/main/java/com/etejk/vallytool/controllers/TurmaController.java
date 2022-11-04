@@ -74,9 +74,17 @@ public class TurmaController {
 	@GetMapping("")
 	public String turmas(Model model, @Param("search") String search) {
 		if(search != null) {
-		model.addAttribute("turmas", tr.search(search));
+		List<Turma> turmasSearch = tr.search(search);
+		if(turmasSearch.isEmpty()) {
+			turmasSearch = null;
+		}
+		model.addAttribute("turmas", turmasSearch);
 		}else {
-			model.addAttribute("turmas", tr.findAll(Sort.by("codigo").ascending()));
+			List<Turma> turmas = tr.findAll(Sort.by("codigo").ascending());
+			if(turmas.isEmpty()) {
+				turmas = null;
+			}
+			model.addAttribute("turmas", turmas);
 		}
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		return "site/turmas";
