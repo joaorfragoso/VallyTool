@@ -96,7 +96,7 @@
 			justify-items: center;
 		}
 		.estado-fieldset legend {
-			background-color: var(--bgcor-principal);
+			background-color: var(--bgcor-primaria);
 			position: absolute;
 			top: 0;
 			transform: translatey(-70%);
@@ -205,7 +205,7 @@
 			<div th:replace="common/base::menu_sop"></div>
 			<div class="aba">
 				<div class="aba-selecionada"><img src="/images/wrench-solid.svg">Editar Turma</div>
-				<a th:href="@{/turmas}" class="fechar-botao"></a>
+				<a th:href="@{/turmas}" class="fechar-botao inverterEscuro"></a>
 				<div th:text=${param.turma} class="turma-div">350</div>
 				<div class="configuracoes-div">
 					<div class="lista-div">
@@ -264,7 +264,7 @@
 <script src="/modules/menu.js"></script>
 <script src="/modules/novoItemInput.js"></script>
 <script src="/modules/janelaFunctions.js"></script>
-<script src="modules/botaoModoEscuro.js"></script>
+<script src="/modules/botaoModoEscuro.js"></script>
 <script>
 	const estadoCheckbox = document.getElementsByClassName("estado-checkbox")[0];
 	const estadoLegenda = document.getElementsByClassName("estado-legenda")[0];
