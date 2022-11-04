@@ -111,11 +111,13 @@
 				<div th:if="${turmas}" class="lista-turmas">
 					<a th:each="turma : ${turmas}" th:href="@{avaliar-turma(turma=${turma.getCodigo()})}" class="item-div">
 						<div th:text="${turma.getCodigo()}"class="turma"></div>
-						<div th:text="${pegarResultado.pegarResultado(ano, turma, trimestre.getTrimestre().toString()).isEmpty()} ? 'Não Avaliada' : 'Avaliada' " class="status"></div>
+						<div th:text="${pegarResultado.verificarResultados(ano, turma, trimestre.getTrimestre().toString(), usuario)}" class="status"></div>
 					</a>
 				</div>
 			</div>
 		</div>
+		<div th:if="${param.error}" th:replace="common/base::erro"></div>
+		<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
 	</div>
 	<!-- SOP -->
 	<div class="main" sec:authorize="hasRole('SOP')">
@@ -129,7 +131,7 @@
 				<div class="lista-div">
 					<div th:if="!${usuarios}">
 						<img src="/images/capivara-lupa.png" style="width: 300px">
-						<p>Hmm... nenhum usuário encontrado.</p>
+						<p>Hmm... Nenhum usuário encontrado.</p>
 					</div>
 					<div th:each="usuario: ${usuarios}" class="item-div">
 						<span th:text="${usuario.getNome()}" class="nome"></span>

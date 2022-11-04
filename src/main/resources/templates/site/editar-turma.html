@@ -258,6 +258,8 @@
 		</div>
 	</div>
 	<div th:replace="common/base::confirmacao"></div>
+	<div th:if="${param.error}" th:replace="common/base::erro"></div>
+	<div th:if="${param.sucess}" th:replace="common/base::sucesso"></div>
 </body>
 <script src="/modules/menu.js"></script>
 <script src="/modules/novoItemInput.js"></script>

@@ -1,5 +1,7 @@
 package com.etejk.vallytool.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.etejk.vallytool.entities.Relacao;
 import com.etejk.vallytool.entities.Usuario;
+import com.etejk.vallytool.repositories.RelacaoRepository;
+import com.etejk.vallytool.repositories.ResultadoRepository;
 import com.etejk.vallytool.repositories.TrimestreAtualRepository;
 import com.etejk.vallytool.repositories.UsuarioRepository;
 
@@ -29,6 +34,9 @@ public class ConfiguracoesController {
 	
 	@Autowired
 	TrimestreAtualRepository tar;
+	
+	@Autowired
+	RelacaoRepository rer;
 	
 	@GetMapping()
 	public String configuracoes(Authentication auth,
@@ -104,5 +112,37 @@ public class ConfiguracoesController {
 		
 		model.addAttribute("sucess", "Senha Alterada!");
 		return new ModelAndView("redirect:/configuracoes", model);
+	}
+	
+	@PostMapping("/deletar-conta")
+	public ModelAndView deletarConta(ModelMap model, 
+									@RequestParam(name = "id") String id) {
+		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
+		if(usuario == null) {
+			model.addAttribute("error", "Usuário Inválido!");
+			return new ModelAndView("redirect:/configuracoes", model);
+		}
+		
+		List<Relacao> relacaos = rer.findByUsuario(usuario);
+		for (Relacao relacao : relacaos) {
+			relacao.setUsuario(null);
+			try {
+			rer.save(relacao);
+			}catch(Exception e) {
+				model.addAttribute("error", "Algo deu errado.");
+				return new ModelAndView("redirect:/usuarios", model);
+			}
+		}
+		
+		try {
+			ur.delete(usuario);
+		}catch(Exception e) {
+			model.addAttribute("error", "Algo deu errado.");
+			return new ModelAndView("redirect:/usuarios", model);
+		}
+		
+		model.addAttribute("sucess", "Conta Excluída :(");
+		return new ModelAndView("redirect:/logout", model);
+		
 	}
 }

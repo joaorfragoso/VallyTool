@@ -204,10 +204,13 @@
 	                </div>
             	</div>
             	<div class="configuracao-divisao">
-            		<button class="deletar-botao relative requisitarConfirmacao" confirmacaomensagem="Realmente Deseja Excluir sua Conta?">
-            			<img src="/images/trash-solid.svg">
-            			<span>Excluir Conta</span>
-            		</button>
+	            	<form th:action="@{configuracoes/deletar-usuario}" method="post">
+						<input style="display: none" name="id" th:value="${usuario.getId()}"></input>
+	            		<button class="deletar-botao relative requisitarConfirmacao" confirmacaomensagem="Realmente Deseja Excluir sua Conta?">
+	            			<img src="/images/trash-solid.svg">
+	            			<span>Excluir Conta</span>
+	            		</button>
+	            	</form>
             	</div>
             </div>
         </div>

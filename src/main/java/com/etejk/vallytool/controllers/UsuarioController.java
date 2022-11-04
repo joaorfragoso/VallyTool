@@ -366,4 +366,36 @@ public class UsuarioController {
 		model.addAttribute("usuario", user.get());
 		return "site/dados";
 	}
+	
+	@PostMapping("usuarios/remover-usuario")
+	public ModelAndView removerUsuario(ModelMap model,
+										@RequestParam(name = "id") String id) {
+		
+		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
+		if (usuario == null) {
+			model.addAttribute("error", "Usuário Inexistente");
+			return new ModelAndView("redirect:/usuarios", model);
+		}
+		
+		List<Relacao> relacaos = rer.findByUsuario(usuario);
+		for (Relacao relacao : relacaos) {
+			relacao.setUsuario(null);
+			try {
+			rer.save(relacao);
+			}catch(Exception e) {
+				model.addAttribute("error", "Algo deu errado.");
+				return new ModelAndView("redirect:/usuarios", model);
+			}
+		}
+		
+		try {
+			ur.delete(usuario);
+		}catch(Exception e) {
+			model.addAttribute("error", "Algo deu errado.");
+			return new ModelAndView("redirect:/usuarios", model);
+		}
+		
+		model.addAttribute("sucess", "Usuario Deletado!");
+		return new ModelAndView("redirect:/inicio", model);
+	}
 }

@@ -11,7 +11,7 @@ import com.etejk.vallytool.entities.Turma;
 @Repository
 public interface TurmaRepository extends JpaRepository<Turma, Integer>{
 	
-	@Query("SELECT u FROM Turma u WHERE u.codigo LIKE %?1%")
+	@Query("SELECT u FROM Turma u WHERE u.codigo LIKE %?1% ORDER BY u.codigo ASC" )
 	List<Turma> search(String search);
 	
 	Turma findByCodigo(String codigo);

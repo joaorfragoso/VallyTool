@@ -164,10 +164,13 @@
 					</div>
 					<input style="display: none" name ="id" th:value="${usuario.getId()}"></input>
 				</form>
-        		<button class="deletar-botao relative requisitarConfirmacao" confirmacaomensagem="Excluir Usuário?">
-        			<img src="/images/trash-solid.svg">
-        			<span>Excluir Usuário</span>
-        		</button>
+				<form th:unless="${usuario.getNome() == usuarioLogado}" action="remover-usuario" method="post">
+					<input class="none" name="id" th:value="${usuario.getId()}"></input>
+	        		<button class="deletar-botao relative requisitarConfirmacao" confirmacaomensagem="Excluir Usuário?">
+	        			<img src="/images/trash-solid.svg">
+	        			<span>Excluir Usuário</span>
+	        		</button>
+				</form>
 			</div>
 		</div>
 		<div th:if="${param.error}" th:replace="common/base::erro"></div>

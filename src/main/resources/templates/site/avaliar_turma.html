@@ -186,7 +186,7 @@
     <div class="main">
         <div class="tela">
 			<div th:replace="common/base::menu_prof"></div>
-            <form class="aba avaliacao-form" th:action="@{/avaliar}" method="post" th:object="${resultado}">
+            <form class="aba avaliacao-form" th:action="@{/avaliar/avaliar-turma}" method="post" th:object="${resultado}">
 	                <div class="turma-div" th:text="'Turma ' + ${turma.getCodigo()}"></div>
                 <div class="disciplina-div select-customizado">
                     <select name="disciplina" class="disciplina-select" id="disciplinas" required>
@@ -206,6 +206,7 @@
                 <div style="display: none;">
                 	<input name= "trimestre" th:value=${trimestre.getTrimestre()}>
                 	<input name= "usuario" th:value="${usuario.getNome()}">
+                	<input name= "turma" th:value="${turma.getCodigo()}">
                 </div>
                 <input type="submit" class="botao-verde" value="Enviar">
             </form>

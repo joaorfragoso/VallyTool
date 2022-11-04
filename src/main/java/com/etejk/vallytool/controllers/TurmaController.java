@@ -74,9 +74,17 @@ public class TurmaController {
 	@GetMapping("")
 	public String turmas(Model model, @Param("search") String search) {
 		if(search != null) {
-		model.addAttribute("turmas", tr.search(search));
+		List<Turma> turmasSearch = tr.search(search);
+		if(turmasSearch.isEmpty()) {
+			turmasSearch = null;
+		}
+		model.addAttribute("turmas", turmasSearch);
 		}else {
-			model.addAttribute("turmas", tr.findAll(Sort.by("codigo").ascending()));
+			List<Turma> turmas = tr.findAll(Sort.by("codigo").ascending());
+			if(turmas.isEmpty()) {
+				turmas = null;
+			}
+			model.addAttribute("turmas", turmas);
 		}
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		return "site/turmas";
@@ -114,10 +122,14 @@ public class TurmaController {
 		Disciplina disciplinaEnt = dr.findByNome(disciplina);
 		if(disciplinaEnt == null) {
 			Disciplina disciplinaNova = new Disciplina(disciplina);
+			try {
 			dr.save(disciplinaNova);
 			Relacao relacao = new Relacao(turmaEnt, disciplinaNova);
 			rer.save(relacao);
-			
+			}catch(Exception e) {
+				model.addAttribute("error", "Algo deu errado!");
+				return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
+			}
 			model.addAttribute("sucess", "Turma Editada!");
 			return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
 		}
@@ -131,7 +143,13 @@ public class TurmaController {
 		}
 		if(!disciplinas.contains(disciplinaEnt)) {
 			Relacao relacao = new Relacao(turmaEnt, disciplinaEnt);
-			rer.save(relacao);
+			try {
+				rer.save(relacao);
+		}
+			catch(Exception e) {
+				model.addAttribute("error", "Algo deu errado!");
+				return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
+			}
 		}
 		
 		model.addAttribute("sucess", "Turma Editada!");
@@ -142,10 +160,17 @@ public class TurmaController {
 	public ModelAndView alterarTurma(ModelMap model, @RequestParam(name="turma") String turma,
 								@RequestParam(name="ativada") boolean ativada){
 		Turma turmaEnt = tr.findByCodigo(turma);
+		if(turma == null) {
+			return new ModelAndView("redirect:/turmas/error");
+		}
 		System.out.println(ativada);
 		turmaEnt.setAtivada(ativada);
-		
+		try {
 		tr.save(turmaEnt);
+		} catch(Exception e) {
+			model.addAttribute("error", "Algo deu errado!");
+			return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma, model);
+		}
 		model.addAttribute("sucess", "Turma Alterada!");
 		return new ModelAndView("redirect:/turmas/editar-turma?turma=" + turma);
 	}
@@ -245,7 +270,7 @@ public class TurmaController {
 			}
 		}
 		model.addAttribute("turma", turmaEnt);
-		model.addAttribute("resultadoObj", new PegarResultado(rr));
+		model.addAttribute("resultadoObj", new PegarResultado(rr,rer));
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		model.addAttribute("anos", anos);
 		model.addAttribute("resultados", resultados);
