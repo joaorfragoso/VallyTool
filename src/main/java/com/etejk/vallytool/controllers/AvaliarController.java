@@ -1,12 +1,12 @@
 package com.etejk.vallytool.controllers;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.etejk.vallytool.dao.ResultadoDAO;
 import com.etejk.vallytool.entities.Disciplina;
 import com.etejk.vallytool.entities.PegarResultado;
+import com.etejk.vallytool.entities.Relacao;
 import com.etejk.vallytool.entities.Resultado;
 import com.etejk.vallytool.entities.Trimestre;
 import com.etejk.vallytool.entities.TrimestreDatabase;
@@ -33,8 +34,6 @@ import com.etejk.vallytool.repositories.ResultadoRepository;
 import com.etejk.vallytool.repositories.TrimestreAtualRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
 import com.etejk.vallytool.services.ResultadoService;
-import com.etejk.vallytool.services.TurmaService;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 @Controller
 @RequestMapping("avaliar")
@@ -85,38 +84,44 @@ public class AvaliarController {
 	}
 	
 	@GetMapping("avaliar-turma")
-	public String avaliar(Model model, Authentication auth,
-			@RequestParam(value = "turma") String turma) {
-		Usuario usuario = pr.findByNome(auth.getName());
-		Turma turmaEnt = tr.findByCodigo(turma);
-		model.addAttribute("turma", turmaEnt);
-		model.addAttribute("disciplinas", usuario.getDisciplinas());
-		model.addAttribute("trimestre", tar.getTrimestreAtual());
-		model.addAttribute("relacoes", rer.findByUsuario(usuario));
-		model.addAttribute("competencias", cr.findAll());
-		model.addAttribute("usuario", usuario);
-		return "site/avaliar_turma";
-	}
-	
+    public String avaliar(Model model, Authentication auth,
+            @RequestParam(value = "turma") String turma) {
+        Usuario usuario = pr.findByNome(auth.getName());
+        Turma turmaEnt = tr.findByCodigo(turma);
+        
+        List<Relacao> relacoes = rer.findByTurmaAndUsuario(turmaEnt, usuario);
+        List<Disciplina> disciplinas = new ArrayList<>();
+        for (Relacao relacao : relacoes) {
+			disciplinas.add(relacao.getDisciplina());
+		}
+        
+        model.addAttribute("turma", turmaEnt);
+        model.addAttribute("disciplinas", disciplinas);
+        model.addAttribute("trimestre", tar.getTrimestreAtual());
+        model.addAttribute("competencias", cr.findAll());
+        model.addAttribute("usuario", usuario);
+        return "site/avaliar_turma";
+    }
+
 	@GetMapping("error")
 	public ModelAndView avaliarErro(ModelMap model) {
 		model.addAttribute("error", "Avaliação já foi realizada!");
-		return new ModelAndView("redirect:/avaliar", model);
+		return new ModelAndView("redirect:/avaliar/turmas", model);
 	}
 	
 	@GetMapping("trimestre-error")
 	public ModelAndView trimestreErro(ModelMap model) {
 		model.addAttribute("error", "Trimestre indisponível.");
-		return new ModelAndView("redirect:/avaliar", model);
+		return new ModelAndView("redirect:/avaliar/turmas", model);
 	}
 	
 	@GetMapping("trimestre-fechado-error")
 	public ModelAndView trimestreFechadoErro(ModelMap model) {
 		model.addAttribute("error", "Oops, o trimestre está fechado");
-		return new ModelAndView("redirect:/avaliar", model);
+		return new ModelAndView("redirect:/avaliar/turmas", model);
 	}
 	
-	@PostMapping
+	@PostMapping("avaliar-turma")
 	public ModelAndView avaliar(ModelMap model, @Valid ResultadoDAO resultado) {
 		System.out.println(resultado);
 		
@@ -134,17 +139,17 @@ public class AvaliarController {
 		Turma turma = tr.findByCodigo(resultado.getTurma());
 		if(turma == null) {
 			model.addAttribute("error", "Turma inexistente!");
-			return new ModelAndView("redirect:/avaliar", model);
+			return new ModelAndView("redirect:/avaliar/turmas", model);
 		}
 		Disciplina disciplina = dr.findByNome(resultado.getDisciplina());
 		if(disciplina == null) {
 			model.addAttribute("error", "Disciplina inexistente!");
-			return new ModelAndView("redirect:/avaliar", model);
+			return new ModelAndView("redirect:/avaliar/turmas", model);
 		}
 		Usuario usuario = pr.findByNome(resultado.getUsuario());
 		if(usuario == null) {
 			model.addAttribute("error", "Usuário inexistente!");
-			return new ModelAndView("redirect:/avaliar", model);
+			return new ModelAndView("redirect:/avaliar/turmas", model);
 		}
 		Resultado resultadoOriginal = new Resultado(turma,
 				disciplina,
@@ -163,6 +168,6 @@ public class AvaliarController {
 		}
 		
 		model.addAttribute("sucess", "Resultado salvo!");
-		return new ModelAndView("redirect:/avaliar", model);
+		return new ModelAndView("redirect:/avaliar/turmas", model);
 	}
 }
