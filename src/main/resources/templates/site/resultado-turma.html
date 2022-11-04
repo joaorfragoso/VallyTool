@@ -194,26 +194,32 @@
 		}
 		
 		@media print {
-			body {
-				-webkit-print-color-adjust: exact;
+			
+            body {
+                -webkit-print-color-adjust: exact;
+            }
+            
+            .print{
+				display: none;
 			}
-			.turma-div {
-				border-radius: 4px;
-			}
-			.disciplinas-div {
-				margin-top: 50px;
-				flex-direction: column;
-				row-gap: 50px;
-				padding-bottom: 20px;
-				align-items: center;
-			}
+			
+            .turma-div {
+                border-radius: 4px;
+            }
+            .disciplinas-div {
+                margin-top: 50px;
+                flex-direction: column;
+                row-gap: 50px;
+                padding-bottom: 20px;
+                align-items: center;
+            }
 
-			.disciplina-container {
-				width: 60%;
-				min-width: 33%;
-				flex-wrap: wrap;
-			}
-		}
+            .disciplina-container {
+                width: 60%;
+                min-width: 33%;
+                flex-wrap: wrap;
+            }
+        }
 	</style>
 	<link rel="stylesheet" href="/styles/estrutura.css">
 </head>
@@ -224,6 +230,7 @@
 		<div class="tela">
 			<div sec:authorize="hasRole('PROFESSOR')" th:replace="common/base::menu_prof"></div>
 			<div sec:authorize="hasRole('SOP')" th:replace="common/base::menu_sop"></div>
+			<div id="titulo" style="display: none;" th:text="${turma.getCodigo()} + ' - ' + ${trimestre.getTrimestreParsed()} + ' - ' + ${ano}"></div>
 			<div class="aba">
 				<div class="aba-legenda">
 					<div th:text="${turma.getCodigo}" class="turma-div"></div>
@@ -251,6 +258,7 @@
 						Péssimo
 					</div>
 				</div>
+				<button class="print" onclick="imprimir()">Print</button>
 				<div class="disciplinas-div">
 					<div th:each="resultado: ${resultados}" class="disciplina-container">
 						<div th:text="${resultado.getDisciplina().getNome()}" class="disciplina">Matemática</div>
@@ -270,7 +278,18 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 <script src="/modules/menu.js"></script>
+<script>
+	const newWindow = document.getElementsByClassName("aba")[0].innerHTML;
+	const oldWindow = document.body.innerHTML;
+	const title = document.getElementById("titulo").innerText;
+	function imprimir(){
+		document.body.innerHTML = newWindow;
+		document.title = title;
+		window.print();
+		document.body.innerHTML = oldWindow;
+		document.title = "VallyTool";	
+	}
+</script>
 </html>

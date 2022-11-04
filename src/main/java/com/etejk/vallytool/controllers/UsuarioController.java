@@ -9,6 +9,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -74,10 +75,11 @@ public class UsuarioController {
 			List<Relacao> relacoes = rer.findByUsuario(usuario.get());
 			for (Relacao relacao : relacoes) {
 				try {
-					rer.delete(relacao);
+					relacao.setUsuario(null);
+					rer.save(relacao);
 				} catch (Exception e) {
 					model.addAttribute("error", "Algo deu errado");
-					return new ModelAndView("redirect:/usuarios/error", model);
+					return new ModelAndView("redirect:/usuarios", model);
 				}
 			}
 
@@ -114,7 +116,7 @@ public class UsuarioController {
 			ur.save(usuarioOriginal);
 		} catch (Exception e) {
 			model.addAttribute("error", "Algo deu errado");
-			return new ModelAndView("redirect:/usuarios/error", model);
+			return new ModelAndView("redirect:/usuarios", model);
 		}
 
 		model.addAttribute("sucess", "Usuário cadastrado!");
@@ -122,11 +124,16 @@ public class UsuarioController {
 	}
 
 	@GetMapping("inicio")
-	public String inicio(Model model, @Param("search") String search) {
+	public String inicio(Model model,Authentication auth, @Param("search") String search) {
+		Usuario usuario = ur.findByNome(auth.getName());
+		if(usuario.getAuthority().equals("Professor")) {
+			return "redirect:/avaliar/turmas";
+		}
+		
 		if (search != null) {
 			model.addAttribute("usuarios", ur.search(search));
 		} else {
-			model.addAttribute("usuarios", ur.findAll());
+			model.addAttribute("usuarios", ur.findAll(Sort.by("nome").ascending()));
 		}
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 
@@ -162,9 +169,11 @@ public class UsuarioController {
 		List<Relacao> relacoesTurma = rer.findByTurma(turmaEnt);
 		List<Disciplina> disciplinasTurma = new ArrayList<>();
 		for (Relacao relacao : relacoesTurma) {
-			Disciplina disciplina = relacao.getDisciplina();
-			if(!disciplinasTurma.contains(disciplina)) {
-				disciplinasTurma.add(disciplina);
+			if(relacao.getUsuario() == null) {
+				Disciplina disciplina = relacao.getDisciplina();
+				if(!disciplinasTurma.contains(disciplina)) {
+					disciplinasTurma.add(disciplina);
+				}
 			}
 		}
 		
@@ -200,7 +209,13 @@ public class UsuarioController {
 			}
 		}
 
-		ur.save(usuario);
+		try {
+			ur.save(usuario);
+		} catch (Exception e) {
+			model.addAttribute("error", "Algo deu errado");
+			return new ModelAndView("redirect:/usuarios", model);
+		}
+		
 		model.addAttribute("sucess", "Vínculo feito");
 		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&etapa=0", model);
 
@@ -240,16 +255,21 @@ public class UsuarioController {
 			ur.save(usuario);
 		} catch (Exception e) {
 			model.addAttribute("error", "Algo deu errado");
-			return new ModelAndView("redirect:/usuarios/error", model);
+			return new ModelAndView("redirect:/usuarios", model);
 		}
 		
 		for (Disciplina disciplina : disciplinaList) {
-			Relacao relacao = new Relacao(turmaEnt, disciplina, usuario);
+			Relacao relacao = rer.findByTurmaAndDisciplina(turmaEnt, disciplina);
+			if(relacao == null) {
+				model.addAttribute("error", "Disciplina inexistente!");
+				return new ModelAndView("redirect:/usuarios", model);
+			}
+			relacao.setUsuario(usuario);
 			try {
 				rer.save(relacao);
 			} catch (Exception e) {
 				model.addAttribute("error", "Algo deu errado");
-				return new ModelAndView("redirect:/usuarios/error", model);
+				return new ModelAndView("redirect:/usuarios", model);
 			}
 		}
 		model.addAttribute("sucess", "Professor relacionado!");
@@ -279,14 +299,14 @@ public class UsuarioController {
 				rer.delete(relacao);
 			} catch (Exception e) {
 				model.addAttribute("error", "Algo deu errado");
-				return new ModelAndView("redirect:/usuarios/error", model);
+				return new ModelAndView("redirect:/usuarios", model);
 			}
 		}
 		try {
 			ur.save(usuario);
 		} catch (Exception e) {
 			model.addAttribute("error", "Algo deu errado");
-			return new ModelAndView("redirect:/usuarios/error", model);
+			return new ModelAndView("redirect:/usuarios", model);
 		}
 		model.addAttribute("sucess", "Turma removida!!");
 		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&etapa=0", model);
@@ -316,7 +336,7 @@ public class UsuarioController {
 			rer.delete(relacao);
 		} catch (Exception e) {
 			model.addAttribute("error", "Algo deu errado");
-			return new ModelAndView("redirect:/usuarios/error", model);
+			return new ModelAndView("redirect:/usuarios", model);
 		}
 
 		model.addAttribute("sucess", "Disciplina removida!");
@@ -330,7 +350,7 @@ public class UsuarioController {
 		if (!user.isPresent()) {
 			return "redirect:/inicio";
 		}
-		;
+
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		model.addAttribute("usuarioLogado", auth.getName());
 		model.addAttribute("usuario", user.get());

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.dao.ResultadoDAO;
@@ -32,6 +33,7 @@ import com.etejk.vallytool.services.ResultadoService;
 import com.etejk.vallytool.services.TurmaService;
 
 @Controller
+@RequestMapping("avaliar")
 public class AvaliarController {
 	
 	@Autowired
@@ -58,7 +60,20 @@ public class AvaliarController {
 	@Autowired
 	private TrimestreAtualRepository tar;
 	
-	@GetMapping("avaliar")
+	@GetMapping("turmas")
+	public String turmas(Model model, Authentication auth) {
+		Usuario usuario = pr.findByNome(auth.getName());
+		model.addAttribute("competencias", cr.findAll());
+		List<Turma> turmas = usuario.getTurmas();
+		if(turmas.isEmpty()) {
+			turmas = null;
+		}
+		model.addAttribute("turmas", turmas);
+		model.addAttribute("trimestre", tar.getTrimestreAtual());
+		return "site/inicio";
+	}
+	
+	@GetMapping
 	public String avaliar(Model model, Authentication auth,
 			@Param(value = "turma") String turma) {
 		Usuario usuario = pr.findByNome(auth.getName());
@@ -72,25 +87,25 @@ public class AvaliarController {
 		return "site/avaliar_turma";
 	}
 	
-	@GetMapping("avaliar/error")
+	@GetMapping("error")
 	public ModelAndView avaliarErro(ModelMap model) {
 		model.addAttribute("error", "Avaliação já foi realizada!");
 		return new ModelAndView("redirect:/avaliar", model);
 	}
 	
-	@GetMapping("avaliar/trimestre-error")
+	@GetMapping("trimestre-error")
 	public ModelAndView trimestreErro(ModelMap model) {
 		model.addAttribute("error", "Trimestre indisponível.");
 		return new ModelAndView("redirect:/avaliar", model);
 	}
 	
-	@GetMapping("avaliar/trimestre-fechado-error")
+	@GetMapping("trimestre-fechado-error")
 	public ModelAndView trimestreFechadoErro(ModelMap model) {
 		model.addAttribute("error", "Oops, o trimestre está fechado");
 		return new ModelAndView("redirect:/avaliar", model);
 	}
 	
-	@PostMapping("/avaliar")
+	@PostMapping
 	public ModelAndView avaliar(ModelMap model, @Valid ResultadoDAO resultado) {
 		System.out.println(resultado);
 		

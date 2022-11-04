@@ -1,5 +1,6 @@
 package com.etejk.vallytool.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ public class Disciplina {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
+	@Column(unique = true)
 	private String nome;
 	
 	public Disciplina() {

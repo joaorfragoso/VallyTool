@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.hibernate.dialect.Teradata14Dialect;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,7 +76,7 @@ public class TurmaController {
 		if(search != null) {
 		model.addAttribute("turmas", tr.search(search));
 		}else {
-			model.addAttribute("turmas", tr.findAll());
+			model.addAttribute("turmas", tr.findAll(Sort.by("codigo").ascending()));
 		}
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		return "site/turmas";
@@ -179,7 +179,21 @@ public class TurmaController {
 	@PostMapping("remover-turma")
 	public ModelAndView removerTurma(ModelMap model, @RequestParam(name = "turma") String turma) {
 		Turma turmaEnt = tr.findByCodigo(turma);
+		if(turma == null) {
+			return new ModelAndView("redirect:/turmas/error");
+		}
+		
+		List<Relacao> relacoes = rer.findByTurma(turmaEnt);
+		for (Relacao relacao : relacoes) {
+			rer.delete(relacao);
+		}
+		
+		try {
 		tr.delete(turmaEnt);
+		}catch(Exception e) {
+			model.addAttribute("error", "Oops, Algo deu errado!" );
+			return new ModelAndView("redirect:/turmas", model);
+		}
 		
 		model.addAttribute("sucess", "Turma Removida!");
 		return new ModelAndView("redirect:/turmas", model);
@@ -189,9 +203,13 @@ public class TurmaController {
 	public ModelAndView removerDisciplina(ModelMap model, @RequestParam(name = "turma") String turma,
 									@RequestParam(name = "disciplina") String disciplina) {
 		Turma turmaEnt = tr.findByCodigo(turma);
+		if(turma == null) {
+			return new ModelAndView("redirect:/turmas/error");
+		}
 		Disciplina disciplinaEnt = dr.findByNome(disciplina);
 		
 		Relacao relacao = rer.findByTurmaAndDisciplina(turmaEnt, disciplinaEnt);
+		
 		rer.delete(relacao);
 		
 		model.addAttribute("sucess", "Turma Removida!");

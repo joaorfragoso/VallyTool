@@ -6,8 +6,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>VallyTool</title>
-	<link rel="stylesheet" href="styles/reset.css">
-	<link rel="stylesheet" href="styles/common.css">
+	<link rel="stylesheet" href="/styles/reset.css">
+	<link rel="stylesheet" href="/styles/common.css">
 	<style>
 		.botoes-menu li:nth-child(1) {
 			width: 150px;
@@ -90,9 +90,9 @@
 			}
 		}
 	</style>
-	<link rel="stylesheet" href="styles/estrutura.css">
-	<link rel="stylesheet" href="styles/professor.css" sec:authorize="hasRole('PROFESSOR')">
-	<link rel="stylesheet" href="styles/sop.css" sec:authorize="hasRole('SOP')">
+	<link rel="stylesheet" href="/styles/estrutura.css">
+	<link rel="stylesheet" href="/styles/professor.css" sec:authorize="hasRole('PROFESSOR')">
+	<link rel="stylesheet" href="/styles/sop.css" sec:authorize="hasRole('SOP')">
 </head>
 
 <body>
@@ -103,26 +103,14 @@
 			<div th:replace="common/base::menu_prof"></div>
 			<div class="aba">
 				<div class="aba-legenda">Suas Turmas</div>
-				<div class="mensagem-sem-turma oculto">
-					<img src="./images/poochita.png">
+				<div th:if="!${turmas}"class="mensagem-sem-turma">
+					<img src="/images/poochita.png">
 					<div class="mensagem">Atualmente não há turmas designadas à você.</div>
 				</div>
 				<div class="lista-turmas">
 					<div class="item-div">
-						<div class="turma">350</div>
-						<div class="status">Não Avaliada</div>
-					</div>
-					<div class="item-div">
-						<div class="turma">340</div>
-						<div class="status">Não Avaliada</div>
-					</div>
-					<div class="item-div">
-						<div class="turma">330</div>
-						<div class="status">Avaliada</div>
-					</div>
-					<div class="item-div">
-						<div class="turma">310</div>
-						<div class="status">Não Avaliada</div>
+						<div class="turma"></div>
+						<div class="status"></div>
 					</div>
 				</div>
 			</div>
