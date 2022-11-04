@@ -1,5 +1,6 @@
 package com.etejk.vallytool.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.etejk.vallytool.dao.ResultadoDAO;
 import com.etejk.vallytool.entities.Disciplina;
+import com.etejk.vallytool.entities.PegarResultado;
 import com.etejk.vallytool.entities.Resultado;
 import com.etejk.vallytool.entities.Trimestre;
 import com.etejk.vallytool.entities.TrimestreDatabase;
@@ -31,6 +33,7 @@ import com.etejk.vallytool.repositories.TrimestreAtualRepository;
 import com.etejk.vallytool.repositories.TurmaRepository;
 import com.etejk.vallytool.services.ResultadoService;
 import com.etejk.vallytool.services.TurmaService;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 
 @Controller
 @RequestMapping("avaliar")
@@ -53,6 +56,9 @@ public class AvaliarController {
 	
 	@Autowired
 	private ResultadoService rs;
+	
+	@Autowired
+	private ResultadoRepository resr;
 
 	@Autowired
 	private RelacaoRepository rer;
@@ -65,9 +71,13 @@ public class AvaliarController {
 		Usuario usuario = pr.findByNome(auth.getName());
 		model.addAttribute("competencias", cr.findAll());
 		List<Turma> turmas = usuario.getTurmas();
+		PegarResultado pegarResultado = new PegarResultado(resr);
 		if(turmas.isEmpty()) {
 			turmas = null;
 		}
+
+		model.addAttribute("ano", LocalDate.now().getYear());
+		model.addAttribute("pegarResultado" ,pegarResultado);
 		model.addAttribute("turmas", turmas);
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 		return "site/inicio";

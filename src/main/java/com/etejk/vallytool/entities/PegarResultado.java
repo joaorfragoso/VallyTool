@@ -17,4 +17,5 @@ public class PegarResultado {
 	public List<Resultado> pegarResultado(Integer ano, Turma turma, String trimestre) {
 		return rr.findByEverything(ano, Trimestre.valueOf(trimestre), turma);
 	}
+	
 }

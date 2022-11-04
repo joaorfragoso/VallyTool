@@ -103,14 +103,14 @@
 			<div th:replace="common/base::menu_prof"></div>
 			<div class="aba">
 				<div class="aba-legenda">Suas Turmas</div>
-				<div th:if="!${turmas}"class="mensagem-sem-turma">
+				<div th:if="!${turmas}" class="mensagem-sem-turma">
 					<img src="/images/poochita.png">
 					<div class="mensagem">Atualmente não há turmas designadas à você.</div>
 				</div>
-				<div class="lista-turmas">
-					<div class="item-div">
-						<div class="turma"></div>
-						<div class="status"></div>
+				<div th:if="${turmas}" class="lista-turmas">
+					<div th:each="turma : ${turmas}" class="item-div">
+						<div th:text="${turma.getCodigo()}"class="turma"></div>
+						<div th:text="${pegarResultado.pegarResultado(ano, turma, trimestre.getTrimestre().toString()).isEmpty()} ? 'Não Avaliada' : 'Avaliada' " class="status"></div>
 					</div>
 				</div>
 			</div>
