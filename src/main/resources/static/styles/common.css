@@ -9,6 +9,7 @@
 
 body {
 	background-color: var(--bgcor-secundaria);
+	position: relative;
 }
 
 a {
