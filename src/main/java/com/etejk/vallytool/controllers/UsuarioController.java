@@ -84,7 +84,7 @@ public class UsuarioController {
 					rer.save(relacao);
 				} catch (Exception e) {
 					model.addAttribute("error", "Algo deu errado");
-					return new ModelAndView("redirect:/usuarios", model);
+					return new ModelAndView("redirect:/inicio", model);
 				}
 			}
 
@@ -121,7 +121,7 @@ public class UsuarioController {
 			ur.save(usuarioOriginal);
 		} catch (Exception e) {
 			model.addAttribute("error", "Algo deu errado");
-			return new ModelAndView("redirect:/usuarios", model);
+			return new ModelAndView("redirect:/inicio", model);
 		}
 
 		model.addAttribute("sucess", "Usuário Cadastrado!");
@@ -226,7 +226,7 @@ public class UsuarioController {
 			ur.save(usuario);
 		} catch (Exception e) {
 			model.addAttribute("error", "Algo deu errado");
-			return new ModelAndView("redirect:/usuarios", model);
+			return new ModelAndView("redirect:/inicio", model);
 		}
 		
 		model.addAttribute("sucess", "Vínculo Feito");
@@ -268,21 +268,21 @@ public class UsuarioController {
 			ur.save(usuario);
 		} catch (Exception e) {
 			model.addAttribute("error", "Algo deu errado");
-			return new ModelAndView("redirect:/usuarios", model);
+			return new ModelAndView("redirect:/inicio", model);
 		}
 		
 		for (Disciplina disciplina : disciplinaList) {
 			Relacao relacao = rer.findByTurmaAndDisciplina(turmaEnt, disciplina);
 			if(relacao == null) {
 				model.addAttribute("error", "Disciplina Inexistente!");
-				return new ModelAndView("redirect:/usuarios", model);
+				return new ModelAndView("redirect:/inicio", model);
 			}
 			relacao.setUsuario(usuario);
 			try {
 				rer.save(relacao);
 			} catch (Exception e) {
 				model.addAttribute("error", "Algo deu errado");
-				return new ModelAndView("redirect:/usuarios", model);
+				return new ModelAndView("redirect:/inicio", model);
 			}
 		}
 		model.addAttribute("sucess", "Disciplina Vinculada!");
@@ -313,14 +313,14 @@ public class UsuarioController {
 				rer.save(relacao);
 			} catch (Exception e) {
 				model.addAttribute("error", "Algo deu errado");
-				return new ModelAndView("redirect:/usuarios", model);
+				return new ModelAndView("redirect:/inicio", model);
 			}
 		}
 		try {
 			ur.save(usuario);
 		} catch (Exception e) {
 			model.addAttribute("error", "Algo deu errado");
-			return new ModelAndView("redirect:/usuarios", model);
+			return new ModelAndView("redirect:/inicio", model);
 		}
 		model.addAttribute("sucess", "Turma Removida!!");
 		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&etapa=0", model);
@@ -351,7 +351,7 @@ public class UsuarioController {
 			rer.save(relacao);
 		} catch (Exception e) {
 			model.addAttribute("error", "Algo deu errado");
-			return new ModelAndView("redirect:/usuarios", model);
+			return new ModelAndView("redirect:/inicio", model);
 		}
 
 		model.addAttribute("sucess", "Disciplina Desvinculada!");
@@ -379,7 +379,7 @@ public class UsuarioController {
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
 		if (usuario == null) {
 			model.addAttribute("error", "Usuário Inexistente");
-			return new ModelAndView("redirect:/usuarios", model);
+			return new ModelAndView("redirect:/inicio", model);
 		}
 		
 		List<Relacao> relacaos = rer.findByUsuario(usuario);
@@ -389,7 +389,7 @@ public class UsuarioController {
 			rer.save(relacao);
 			}catch(Exception e) {
 				model.addAttribute("error", "Algo deu errado.");
-				return new ModelAndView("redirect:/usuarios", model);
+				return new ModelAndView("redirect:/inicio", model);
 			}
 		}
 		
@@ -402,7 +402,7 @@ public class UsuarioController {
 			ur.delete(usuario);
 		}catch(Exception e) {
 			model.addAttribute("error", "Algo deu errado.");
-			return new ModelAndView("redirect:/usuarios", model);
+			return new ModelAndView("redirect:/inicio", model);
 		}
 		
 		model.addAttribute("sucess", "Usuario Deletado!");
