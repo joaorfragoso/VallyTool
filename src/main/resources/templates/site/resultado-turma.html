@@ -129,7 +129,7 @@
 			padding: 10px;
 			box-sizing: border-box;
 			border-radius: 4px;
-			background-color: #FDFDFD;
+			background-color: var(--bgcor-secundaria);
 			border: 1px solid rgba(0, 0, 0, 0.1);
 			box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
 			display: grid;
@@ -142,7 +142,7 @@
 			row-gap: 20px;
 			font-size: 14px;
 			padding-right: 2px;
-			border-right: 1px solid rgba(0, 0, 0, 0.2);
+			border-right: 2px solid var(--txtcor-input);
 		}
 
 		.conceitos {
@@ -157,27 +157,27 @@
 
 		.conceito.muitobom {
 			background-color: #0C90F0;
-			width: 70%;
+			width: 75%;
 		}
 
 		.conceito.bom {
 			background-color: #79DE76;
-			width: 55%;
+			width: 60%;
 		}
 
 		.conceito.regular {
 			background-color: #ECE57F;
-			width: 40%;
+			width: 45%;
 		}
 
 		.conceito.insuficiente {
 			background-color: #EEB853;
-			width: 25%;
+			width: 30%;
 		}
 
 		.conceito.péssimo {
 			background-color: #C61010;
-			width: 10%;
+			width: 15%;
 		}
 
 		@media (min-width: 800px) {
@@ -195,9 +195,9 @@
 		}
 		
 		@media print {
-			
             body {
                 -webkit-print-color-adjust: exact;
+                color: black;
             }
             
             .print{
@@ -219,6 +219,7 @@
                 width: 60%;
                 min-width: 33%;
                 flex-wrap: wrap;
+                color: white;
             }
         }
         
@@ -244,7 +245,7 @@
 			<div sec:authorize="hasRole('SOP')" th:replace="common/base::menu_sop"></div>
 			<div id="titulo" style="display: none;" th:text="${turma.getCodigo()} + ' - ' + ${trimestre.getTrimestreParsed()} + ' - ' + ${ano}"></div>
 			<div class="aba">
-				<button class="print" onclick="imprimir()"></button>
+				<button class="print inverterEscuro" onclick="imprimir()"></button>
 				<div class="aba-legenda relative">
 					<div th:text="${turma.getCodigo}" class="turma-div"></div>
 					<div class="data" th:text="${trimestre.getTrimestreParsed()} + ' / ' + ${ano}"></div>
@@ -292,7 +293,7 @@
 	</div>
 </body>
 <script src="/modules/menu.js"></script>
-<script src="modules/botaoModoEscuro.js"></script>
+<script src="/modules/botaoModoEscuro.js"></script>
 <script>
 	const newWindow = document.getElementsByClassName("aba")[0].innerHTML;
 	const oldWindow = document.body.innerHTML;
@@ -300,6 +301,7 @@
 	function imprimir(){
 		document.body.innerHTML = newWindow;
 		document.title = title;
+		
 		window.print();
 		document.body.innerHTML = oldWindow;
 		document.title = "VallyTool";	
