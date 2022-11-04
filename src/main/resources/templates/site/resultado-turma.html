@@ -220,6 +220,17 @@
                 flex-wrap: wrap;
             }
         }
+        
+		.print {
+			background: transparent url(/images/file-arrow-down-solid.svg) no-repeat center;
+			position: absolute;
+			border: 0;
+			width: 30px;
+			height: 30px;
+			right: 10px;
+			top: 10px;
+			cursor: pointer;
+		}
 	</style>
 	<link rel="stylesheet" href="/styles/estrutura.css">
 </head>
@@ -232,7 +243,8 @@
 			<div sec:authorize="hasRole('SOP')" th:replace="common/base::menu_sop"></div>
 			<div id="titulo" style="display: none;" th:text="${turma.getCodigo()} + ' - ' + ${trimestre.getTrimestreParsed()} + ' - ' + ${ano}"></div>
 			<div class="aba">
-				<div class="aba-legenda">
+				<button class="print" onclick="imprimir()"></button>
+				<div class="aba-legenda relative">
 					<div th:text="${turma.getCodigo}" class="turma-div"></div>
 					<div class="data" th:text="${trimestre.getTrimestreParsed()} + ' / ' + ${ano}"></div>
 				</div>
@@ -258,7 +270,6 @@
 						Péssimo
 					</div>
 				</div>
-				<button class="print" onclick="imprimir()">Print</button>
 				<div class="disciplinas-div">
 					<div th:each="resultado: ${resultados}" class="disciplina-container">
 						<div th:text="${resultado.getDisciplina().getNome()}" class="disciplina">Matemática</div>
