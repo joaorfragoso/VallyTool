@@ -129,8 +129,8 @@
 					<button value="submit" class="pesquisar-botao inverterEscuro"></button>
 				</form>
 				<div class="lista-div">
-					<div th:if="!${usuarios}">
-						<img src="/images/capivara-lupa.png" style="width: 300px">
+					<div th:if="!${usuarios}" class="nenhum-resultado">
+						<img src="/images/capivara-lupa.png" >
 						<p>Hmm... Nenhum usuário encontrado.</p>
 					</div>
 					<div th:each="usuario: ${usuarios}" class="item-div">

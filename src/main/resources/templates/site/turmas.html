@@ -103,8 +103,8 @@
 							<button class="criar-botao oculto">Criar</button>
 						</form>
 					</div>
-					<div th:if="!${turmas}">
-						<img src="/images/capivara-lupa.png" style="width: 300px">
+					<div th:if="!${turmas}" class="nenhum-resultado">
+						<img src="/images/capivara-lupa.png">
 						<p>Hmm... Nenhuma turma encontrada.</p>
 					</div>
 					<div th:each="turma: ${turmas}" class="item-div">

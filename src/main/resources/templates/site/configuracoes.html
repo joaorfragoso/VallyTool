@@ -204,9 +204,9 @@
 	                </div>
             	</div>
             	<div class="configuracao-divisao">
-	            	<form th:action="@{configuracoes/deletar-usuario}" method="post">
+	            	<form th:action="@{configuracoes/deletar-conta}" method="post">
 						<input style="display: none" name="id" th:value="${usuario.getId()}"></input>
-	            		<button class="deletar-botao relative requisitarConfirmacao" confirmacaomensagem="Realmente Deseja Excluir sua Conta?">
+	            		<button class="deletar-botao relative requisitarConfirmacao" type="button" confirmacaomensagem="Realmente Deseja Excluir sua Conta?">
 	            			<img src="/images/trash-solid.svg">
 	            			<span>Excluir Conta</span>
 	            		</button>
