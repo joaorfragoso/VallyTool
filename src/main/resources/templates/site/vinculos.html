@@ -6,6 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>VallyTool</title>
+	<script src="/modules/modoEscuro.js"></script>
 	<link rel="stylesheet" href="/styles/reset.css">
 	<link rel="stylesheet" href="/styles/common.css">
 	<style>
@@ -154,7 +155,7 @@
 			padding: 15px 0;
 			box-sizing: border-box;
 			box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
-			background-color: white;
+			background-color: var(--bgcor-primaria);
 			border-radius: 6px;
 			display: grid;
 			justify-items: center;
@@ -318,6 +319,7 @@
 <script src="/modules/janelaFunctions.js"></script>
 <script src="/modules/menu.js"></script>
 <script src="/modules/urlParametros.js"></script>
+<script src="modules/botaoModoEscuro.js"></script>
 <script>
 	document.getElementsByClassName("aba")[urlParametros.etapa].classList.remove("oculto");
 	document.querySelectorAll(".modal-vincular form")[urlParametros.etapa].classList.remove("oculto");

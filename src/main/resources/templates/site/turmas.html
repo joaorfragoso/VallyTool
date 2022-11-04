@@ -5,8 +5,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/styles/reset.css">
 	<title>VallyTool</title>
+	<script src="/modules/modoEscuro.js"></script>
+	<link rel="stylesheet" href="/styles/reset.css">
+	<link rel="stylesheet" href="/styles/common.css">
 	<style>
 		.botoes-menu li:nth-child(2) {
 			width: 150px;
@@ -82,7 +84,6 @@
 		}
 	</style>
 	<link rel="stylesheet" href="/styles/estrutura.css">
-	<link rel="stylesheet" href="/styles/common.css">
 	<link rel="stylesheet" href="/styles/sop.css">
 </head>
 <body>
@@ -93,7 +94,7 @@
 			<div class="aba">
 				<form class="pesquisar-form" th:action="@{/turmas}">
 					<input name="search" type="text" placeholder="Buscar Turma" class="pesquisar-input" autocomplete="off">
-					<button value="submit" class="pesquisar-botao"></button>
+					<button value="submit" class="pesquisar-botao inverterEscuro"></button>
 				</form>
 				<div class="lista-div">
 					<div class="novo-item" onclick="this.getElementsByClassName('novoitem-input')[0].focus()">
@@ -123,6 +124,7 @@
 <script src="/modules/aviso.js"></script>
 <script src="/modules/janelaFunctions.js"></script>
 <script src="/modules/novoItemInput.js"></script>
+<script src="modules/botaoModoEscuro.js"></script>
 <script>
 	const bloqueiaCaractere = (function () {
 	    let ValueAnterior = "";

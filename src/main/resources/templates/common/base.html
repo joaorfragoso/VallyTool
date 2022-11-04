@@ -1,15 +1,15 @@
 <header th:fragment="cabecalho_logado">
 	<div class="menu-div">
-		<button class="menu-botao" onclick="abrirMenu()"></button>
+		<button class="menu-botao inverterEscuro" onclick="abrirMenu()"></button>
 	</div>
 	<div class="logo-div">
-		<img th:src="@{/images/vallytool-logo.png}" alt="vallytool-logo" class="vallytool-logo">
+		<img th:src="@{/images/vallytool-logo.png}" alt="vallytool-logo" class="vallytool-logo inverterEscuro">
 		<h1 class="titulo-logo">VallyTool</h1>
 	</div>
 	<div class="botoes-div">
-		<button class="tema-botao"></button>
+		<button class="tema-botao inverterEscuro"></button>
 		<form th:action="@{/logout}" method="post">
-			<button type="submit" class="sair-botao"></button>
+			<button type="submit" class="sair-botao inverterEscuro"></button>
 		</form>
 	</div>
 </header>
@@ -34,7 +34,7 @@
 
 <div class="menu-extendido-div" id="menu-extendido-div" th:fragment="menu_sop">
 	<div class="usuario-div">
-		<div class="usuario-imagem-div">
+		<div class="usuario-imagem-div inverterEscuro">
 			<img class="usuario-imagem" src="/images/user-solid.svg" alt="usuario">
 		</div>
 		<div class="nome"><span sec:authentication="name">Sunda</span><br><span class="cargo">SOP</span></div>
