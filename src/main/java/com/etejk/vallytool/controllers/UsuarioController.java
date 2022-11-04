@@ -131,9 +131,17 @@ public class UsuarioController {
 		}
 		
 		if (search != null) {
-			model.addAttribute("usuarios", ur.search(search));
+			List<Usuario> usuariosSearch = ur.search(search);
+			if(usuariosSearch.isEmpty()) {
+				usuariosSearch = null;
+			}
+			model.addAttribute("usuarios", usuariosSearch);
 		} else {
-			model.addAttribute("usuarios", ur.findAll(Sort.by("nome").ascending()));
+			List<Usuario> usuarios = ur.findAll(Sort.by("nome").ascending());
+			if(usuarios.isEmpty()) {
+				usuarios = null;
+			}
+			model.addAttribute("usuarios", usuarios);
 		}
 		model.addAttribute("trimestre", tar.getTrimestreAtual());
 
@@ -295,8 +303,9 @@ public class UsuarioController {
 		usuario.getTurmas().remove(turmaEnt);
 		List<Relacao> relacoes = rer.findByTurmaAndUsuario(turmaEnt, usuario);
 		for (Relacao relacao : relacoes) {
+			relacao.setUsuario(null);
 			try {
-				rer.delete(relacao);
+				rer.save(relacao);
 			} catch (Exception e) {
 				model.addAttribute("error", "Algo deu errado");
 				return new ModelAndView("redirect:/usuarios", model);
@@ -332,8 +341,9 @@ public class UsuarioController {
 			return new ModelAndView("redirect:/inicio");
 		}
 		Relacao relacao = rer.findByEverything(turmaEnt, disciplinaEnt, usuario);
+		relacao.setUsuario(null);
 		try {
-			rer.delete(relacao);
+			rer.save(relacao);
 		} catch (Exception e) {
 			model.addAttribute("error", "Algo deu errado");
 			return new ModelAndView("redirect:/usuarios", model);
