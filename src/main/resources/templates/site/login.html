@@ -67,14 +67,14 @@
             <div class="dados">
                 <div class="cpf-div">
                     <label for="input-cpf">CPF</label>
-                    <input type="text" name="username" id="input-cpf" autocomplete="username" pattern=".{14}" maxlength="14" required>
+                    <input type="text" name="username" id="input-cpf" autocomplete="username" pattern=".{14}" maxlength="14" placeholder="Insira seu CPF" required>
                 </div>
                 <div class="senha-div">
                     <div class="senha-legenda-div">
                         <label for="input-senha">Senha</label>
                         <a href="/redefinir" class="redefinir-senha">Esqueci a senha</a>
                     </div>
-                    <input type="password" name="password" id="input-senha" autocomplete="current-password" maxlength="11" required>
+                    <input type="password" name="password" id="input-senha" autocomplete="current-password" maxlength="11" placeholder="Insira sua Senha" required>
                     <button class="senha-visibilidade" id="senha-visibilidade" type="button" onclick="revelarSenha()"></button>
                     <!--
                     <span th:if="${param.error}" class="incorreto"><span class="aviso">&#9888;</span>CPF ou Senha Incorreto</span>
