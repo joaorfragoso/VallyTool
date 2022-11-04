@@ -91,7 +91,7 @@ public class UsuarioController {
 		usuario.get().setRoles(roles);
 
 		ur.save(usuario.get());
-		model.addAttribute("sucess", "Usuário atualizado!");
+		model.addAttribute("sucess", "Usuário Atualizado!");
 		return new ModelAndView("redirect:/usuarios/dados?id=" + id, model);
 
 	}
@@ -119,7 +119,7 @@ public class UsuarioController {
 			return new ModelAndView("redirect:/usuarios", model);
 		}
 
-		model.addAttribute("sucess", "Usuário cadastrado!");
+		model.addAttribute("sucess", "Usuário Cadastrado!");
 		return new ModelAndView("redirect:/inicio", model);
 	}
 
@@ -142,7 +142,7 @@ public class UsuarioController {
 
 	@GetMapping("usuarios/error")
 	public ModelAndView usuarioError(ModelMap model) {
-		model.addAttribute("error", "Usuario já cadastrado!");
+		model.addAttribute("error", "Usuario já Cadastrado!");
 		return new ModelAndView("redirect:/inicio", model);
 	}
 
@@ -195,7 +195,7 @@ public class UsuarioController {
 
 		Optional<Usuario> user = ur.findById(Integer.parseInt(id));
 		if (!user.isPresent()) {
-			model.addAttribute("error", "Usuário inexistente");
+			model.addAttribute("error", "Usuário Inexistente");
 			return new ModelAndView("redirect:/inicio");
 		}
 		Usuario usuario = user.get();
@@ -204,7 +204,7 @@ public class UsuarioController {
 			try {
 			usuario.addTurma(tr.findByCodigo(turma));
 			} catch(Exception e){
-				model.addAttribute("error", "Turma inexistente");
+				model.addAttribute("error", "Turma Inexistente");
 				return new ModelAndView("redirect:/inicio");
 			}
 		}
@@ -216,7 +216,7 @@ public class UsuarioController {
 			return new ModelAndView("redirect:/usuarios", model);
 		}
 		
-		model.addAttribute("sucess", "Vínculo feito");
+		model.addAttribute("sucess", "Vínculo Feito");
 		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&etapa=0", model);
 
 	}
@@ -227,12 +227,12 @@ public class UsuarioController {
 
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
 		if (usuario == null) {
-			model.addAttribute("error", "Usuário inexistente");
+			model.addAttribute("error", "Usuário Inexistente");
 			return new ModelAndView("redirect:/inicio");
 		}
 		Turma turmaEnt = tr.findByCodigo(turma);
 		if (turmaEnt == null) {
-			model.addAttribute("error", "Turma inexistente");
+			model.addAttribute("error", "Turma Inexistente");
 			return new ModelAndView("redirect:/inicio");
 		}
 
@@ -241,7 +241,7 @@ public class UsuarioController {
 
 			Disciplina disciplinaEnt = dr.findByNome(disciplina);
 			if (disciplinaEnt == null) {
-				model.addAttribute("error", "Disciplinas inexistente");
+				model.addAttribute("error", "Disciplinas Inexistente");
 				return new ModelAndView("redirect:/inicio");
 			}
 			disciplinaList.add(disciplinaEnt);
@@ -261,7 +261,7 @@ public class UsuarioController {
 		for (Disciplina disciplina : disciplinaList) {
 			Relacao relacao = rer.findByTurmaAndDisciplina(turmaEnt, disciplina);
 			if(relacao == null) {
-				model.addAttribute("error", "Disciplina inexistente!");
+				model.addAttribute("error", "Disciplina Inexistente!");
 				return new ModelAndView("redirect:/usuarios", model);
 			}
 			relacao.setUsuario(usuario);
@@ -272,7 +272,7 @@ public class UsuarioController {
 				return new ModelAndView("redirect:/usuarios", model);
 			}
 		}
-		model.addAttribute("sucess", "Professor relacionado!");
+		model.addAttribute("sucess", "Disciplina Vinculada!");
 		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&turma=" + turma + "&etapa=1", model);
 
 	}
@@ -283,12 +283,12 @@ public class UsuarioController {
 
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
 		if (usuario == null) {
-			model.addAttribute("error", "Usuário inexistente");
+			model.addAttribute("error", "Usuário Inexistente");
 			return new ModelAndView("redirect:/inicio");
 		}
 		Turma turmaEnt = tr.findByCodigo(turma);
 		if (turmaEnt == null) {
-			model.addAttribute("error", "Turma inexistente");
+			model.addAttribute("error", "Turma Inexistente");
 			return new ModelAndView("redirect:/inicio");
 		}
 
@@ -308,7 +308,7 @@ public class UsuarioController {
 			model.addAttribute("error", "Algo deu errado");
 			return new ModelAndView("redirect:/usuarios", model);
 		}
-		model.addAttribute("sucess", "Turma removida!!");
+		model.addAttribute("sucess", "Turma Removida!!");
 		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&etapa=0", model);
 	}
 
@@ -318,17 +318,17 @@ public class UsuarioController {
 
 		Usuario usuario = ur.findById(Integer.parseInt(id)).get();
 		if (usuario == null) {
-			model.addAttribute("error", "Usuário inexistente");
+			model.addAttribute("error", "Usuário Inexistente");
 			return new ModelAndView("redirect:/inicio");
 		}
 		Turma turmaEnt = tr.findByCodigo(turma);
 		if (turmaEnt == null) {
-			model.addAttribute("error", "Turma inexistente");
+			model.addAttribute("error", "Turma Inexistente");
 			return new ModelAndView("redirect:/inicio");
 		}
 		Disciplina disciplinaEnt = dr.findByNome(disciplina);
 		if (disciplinaEnt == null) {
-			model.addAttribute("error", "Disciplinas inexistente");
+			model.addAttribute("error", "Disciplinas Inexistente");
 			return new ModelAndView("redirect:/inicio");
 		}
 		Relacao relacao = rer.findByEverything(turmaEnt, disciplinaEnt, usuario);
@@ -339,7 +339,7 @@ public class UsuarioController {
 			return new ModelAndView("redirect:/usuarios", model);
 		}
 
-		model.addAttribute("sucess", "Disciplina removida!");
+		model.addAttribute("sucess", "Disciplina Desvinculada!");
 		return new ModelAndView("redirect:/usuarios/vinculos?id=" + id + "&turma=" + turma + "&etapa=1", model);
 	}
 

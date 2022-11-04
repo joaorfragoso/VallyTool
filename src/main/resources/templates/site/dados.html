@@ -54,6 +54,39 @@
 		.dado-div {
 			margin-top: 8px;
 		}
+		
+		
+		button {
+			font-family: inherit;
+			font-size: inherit;
+			font-weight: inherit;
+		}
+		.deletar-botao {
+			background-color: rgba(198, 16, 16, 0.8);
+			border: 1px solid rgb(198, 16, 16);
+		}
+		.deletar-botao:hover {
+			background-color: rgba(198, 16, 16);
+		}
+		.deletar-botao img {
+			height: 50%;
+			filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(310deg) brightness(104%) contrast(101%);
+		}
+		.deletar-botao {
+			width: 180px;
+			height: 2.5em;
+			padding: 0 8px;
+			box-sizing: border-box;
+			border-radius: 6px;
+			color: white;
+			display: grid;
+			grid-template-columns: max-content auto;
+			justify-self: center;
+			justify-items: center;
+			align-items: center;
+			cursor: pointer;
+		}
+		
 		@media (min-width: 800px) {
 			#tela-cadastro, .aba-dados {
 				row-gap: 60px;
@@ -84,6 +117,11 @@
 			}
 			.cargo-opcao:nth-child(5) {
 				grid-row: 2/3;
+			}
+			
+			.deletar-botao {
+				font-size: 18px;
+				width: 200px;
 			}
 		}
 	</style>
@@ -125,6 +163,10 @@
 					</div>
 					<input style="display: none" name ="id" th:value="${usuario.getId()}"></input>
 				</form>
+        		<button class="deletar-botao relative requisitarConfirmacao" confirmacaomensagem="Excluir Usuário?">
+        			<img src="/images/trash-solid.svg">
+        			<span>Excluir Usuário</span>
+        		</button>
 			</div>
 		</div>
 		<div th:if="${param.error}" th:replace="common/base::erro"></div>

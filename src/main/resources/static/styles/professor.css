@@ -61,6 +61,7 @@
 	cursor: pointer;
 	transition: margin 0.5s;
 	box-shadow: 1px 1px rgba(0, 0, 0, 0.4);
+	color: black;
 }
 .lista-turmas .item-div:hover {
 	background-color: rgb(157, 197, 227);

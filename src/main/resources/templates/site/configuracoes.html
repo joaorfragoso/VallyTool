@@ -15,6 +15,10 @@
         .aba {
 			font-weight: 300;
 			padding: 30px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			gap: 40px;
 		}
         .configuracao-divisao {
 			display: flex;
@@ -123,6 +127,43 @@
 		.redefinir-botoes .cancelar-botao {
 			color: rgba(0, 0, 0, 0.6);
 		}
+		
+		
+		button {
+			font-family: inherit;
+			font-size: inherit;
+			font-weight: inherit;
+		}
+		.deletar-botao {
+			background-color: rgba(198, 16, 16, 0.8);
+			border: 1px solid rgb(198, 16, 16);
+		}
+		.deletar-botao:hover {
+			background-color: rgba(198, 16, 16);
+		}
+		.deletar-botao img {
+			height: 50%;
+			filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(310deg) brightness(104%) contrast(101%);
+		}
+		.deletar-botao {
+			width: 180px;
+			height: 2.5em;
+			padding: 0 8px;
+			box-sizing: border-box;
+			border-radius: 6px;
+			color: white;
+			display: grid;
+			grid-template-columns: max-content auto;
+			justify-items: center;
+			align-items: center;
+			cursor: pointer;
+		}
+		@media (min-width: 800px) {
+			.deletar-botao {
+				font-size: 18px;
+				width: 200px;
+			}
+		}
     </style>
 	<link rel="stylesheet" href="/styles/estrutura.css">
 </head>
@@ -160,6 +201,12 @@
 	                	<div class="quebra-linha"></div>
 		                <div th:text="${usuario.getCpf()}" class="dado-div"></div>
 	                </div>
+            	</div>
+            	<div class="configuracao-divisao">
+            		<button class="deletar-botao relative requisitarConfirmacao" confirmacaomensagem="Realmente Deseja Excluir sua Conta?">
+            			<img src="/images/trash-solid.svg">
+            			<span>Excluir Conta</span>
+            		</button>
             	</div>
             </div>
         </div>
