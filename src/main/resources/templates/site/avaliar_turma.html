@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
     <title>VallyTool</title>
-    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="/styles/reset.css">
+    <link rel="stylesheet" href="/styles/common.css">
     <style>
         .botoes-menu li:nth-child(2){
             width: 150px;
@@ -27,10 +28,17 @@
             justify-self: center;
         }
         .turma-div {
-            --largura-opcoes: 100px;
-            --altura-opcoes: 40px;
-            --cor-select: #0C90F0;
-            --cor-texto: white;
+        	width: 100px;
+			height: 2.3em;
+			padding: 0 4px;
+			background-color: #0C90F0;
+			color: white;
+			border-radius: 0 0 6px 6px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 18px;
+			font-weight: 300;
         }
         .disciplina-div {
             --largura-opcoes: 200px;
@@ -170,9 +178,7 @@
 		    }
 		}
     </style>
-    <link rel="stylesheet" href="styles/common.css">
-	<link rel="stylesheet" href="styles/estrutura.css">
-    <link rel="stylesheet" href="styles/professor.css">
+	<link rel="stylesheet" href="/styles/estrutura.css">
 </head>
 <body>
 	<header th:replace="common/base::cabecalho_logado"></header>
@@ -180,14 +186,7 @@
         <div class="tela">
 			<div th:replace="common/base::menu_prof"></div>
             <form class="aba avaliacao-form" th:action="@{/avaliar}" method="post" th:object="${resultado}">
-	                <div class="turma-div select-customizado">
-	                    <select name="turma" class="turma-select" id="turmas" required>
-	                        <option value="">Turmas</option>
-	                        <div th:each="turma: ${turmas}"> 
-	                        	<option th:text="${turma.codigo}" th:value="${turma.codigo}"></option>
-	                        </div>
-	                    </select>
-	                </div>
+	                <div class="turma-div" th:text="'Turma ' + ${turma.getCodigo()}"></div>
                 <div class="disciplina-div select-customizado">
                     <select name="disciplina" class="disciplina-select" id="disciplinas" required>
                         <option value="">Disciplinas</option>

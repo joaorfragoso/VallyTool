@@ -108,7 +108,7 @@
 					<div class="mensagem">Atualmente não há turmas designadas à você.</div>
 				</div>
 				<div th:if="${turmas}" class="lista-turmas">
-					<a th:each="turma : ${turmas}" th:href="@{avaliar(turma=${turma.getCodigo()})}" class="item-div">
+					<a th:each="turma : ${turmas}" th:href="@{avaliar-turma(turma=${turma.getCodigo()})}" class="item-div">
 						<div th:text="${turma.getCodigo()}"class="turma"></div>
 						<div th:text="${pegarResultado.pegarResultado(ano, turma, trimestre.getTrimestre().toString()).isEmpty()} ? 'Não Avaliada' : 'Avaliada' " class="status"></div>
 					</a>
