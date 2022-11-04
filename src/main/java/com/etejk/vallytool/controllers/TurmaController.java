@@ -179,7 +179,21 @@ public class TurmaController {
 	@PostMapping("remover-turma")
 	public ModelAndView removerTurma(ModelMap model, @RequestParam(name = "turma") String turma) {
 		Turma turmaEnt = tr.findByCodigo(turma);
+		if(turma == null) {
+			return new ModelAndView("redirect:/turmas/error");
+		}
+		
+		List<Relacao> relacoes = rer.findByTurma(turmaEnt);
+		for (Relacao relacao : relacoes) {
+			rer.delete(relacao);
+		}
+		
+		try {
 		tr.delete(turmaEnt);
+		}catch(Exception e) {
+			model.addAttribute("error", "Oops, Algo deu errado!" );
+			return new ModelAndView("redirect:/turmas", model);
+		}
 		
 		model.addAttribute("sucess", "Turma Removida!");
 		return new ModelAndView("redirect:/turmas", model);
@@ -189,6 +203,9 @@ public class TurmaController {
 	public ModelAndView removerDisciplina(ModelMap model, @RequestParam(name = "turma") String turma,
 									@RequestParam(name = "disciplina") String disciplina) {
 		Turma turmaEnt = tr.findByCodigo(turma);
+		if(turma == null) {
+			return new ModelAndView("redirect:/turmas/error");
+		}
 		Disciplina disciplinaEnt = dr.findByNome(disciplina);
 		
 		Relacao relacao = rer.findByTurmaAndDisciplina(turmaEnt, disciplinaEnt);
