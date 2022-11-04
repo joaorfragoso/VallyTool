@@ -115,7 +115,7 @@
 				</div>
 				<form action="turmas/fechar-trimestre" method="post">
 					<button th:unless="${!trimestre.isAberto()}" type="button" class="botao-verde requisitarConfirmacao" confirmacaomensagem="Fechar Trimestre?">Fechar Trimestre</button>
-					<div style="text-align: center; font-size:24px"th:if="${!trimestre.isAberto() && trimestre.getTrimestre().toString() == 'TERCEIRO'}">Os trimestre vai reabrir!<br> falta bem pouqinho.</div>
+					<div style="text-align: center; font-size:24px"th:if="${!trimestre.isAberto() && trimestre.getTrimestre().toString() == 'TERCEIRO'}">O trimestre vai reabrir!<br> falta bem pouqinho.</div>
 				</form>
 			</div>
 		</div>
