@@ -12,7 +12,7 @@ import com.etejk.vallytool.entities.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
 	Usuario findByCpf(String cpf);
 	
-	@Query("SELECT u FROM Usuario u WHERE u.nome LIKE %?1%")
+	@Query("SELECT u FROM Usuario u WHERE u.nome LIKE %?1% ORDER BY u.nome ASC")
 	List<Usuario> search(String search);
 	
 	Usuario findByNome(String nome);
