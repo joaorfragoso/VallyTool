@@ -234,7 +234,7 @@
 					<img src="/images/link-solid.svg">
 					Vínculos
 				</a>
-				<a href="/inicio" class="fechar-botao"></a>
+				<a href="/inicio" class="fechar-botao inverterEscuro"></a>
 				<div class="etapas">
 					<div class="etapa-botao selecionado">Turmas</div>
 					<div class="etapa-botao">Disciplinas</div>
@@ -256,10 +256,10 @@
 
 			<!--Disciplinas-->
 			<div class="aba oculto">
-				<a th:href="@{vinculos(id=${usuario.getId()}, etapa=0)}" class="voltar-botao"></a>
+				<a th:href="@{vinculos(id=${usuario.getId()}, etapa=0)}" class="voltar-botao inverterEscuro"></a>
 				<a th:href="@{dados(id=${usuario.getId()})}" class="aba-selecionada"><img
 						src="/images/link-solid.svg">Vínculos</a>
-				<a href="/inicio" class="fechar-botao"></a>
+				<a href="/inicio" class="fechar-botao inverterEscuro"></a>
 				<div class="etapas">
 					<div class="etapa-botao">Turma
 						<th:block th:text="${param.turma}" />

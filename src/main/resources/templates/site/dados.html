@@ -136,7 +136,7 @@
 			<div class="aba">
 				<a th:if="${usuario.getAuthority() == 'Professor'}" th:href="@{vinculos(id=${usuario.getId()}, etapa=0)}" class="aba-selecionada"><img th:src="@{/images/database-solid.svg}">Dados</a>
 				<a th:if="${usuario.getAuthority() == 'SOP'}" class="aba-selecionada remover-after"><img th:src="@{/images/database-solid.svg}">Dados</a>
-				<a href="/inicio" class="fechar-botao"></a>
+				<a href="/inicio" class="fechar-botao inverterEscuro"></a>
 				<form th:action="@{/usuarios/update}" method="post">
 					<div class="text-input">
 						<label>Nome</label>
