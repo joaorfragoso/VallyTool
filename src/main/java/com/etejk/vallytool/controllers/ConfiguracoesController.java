@@ -63,7 +63,7 @@ public class ConfiguracoesController {
 		try {
 		ur.save(usuario);
 		}catch(Exception e) {
-			model.addAttribute("error", "Oops! Algo deu errado!");
+			model.addAttribute("error", "Nome já esta sendo usado!");
 			return new ModelAndView("redirect:/configuracoes", model);
 		}
 		
