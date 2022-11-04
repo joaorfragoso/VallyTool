@@ -1,12 +1,10 @@
 package com.etejk.vallytool.controllers;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.hibernate.dialect.Teradata14Dialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
@@ -96,6 +94,7 @@ public class TurmaController {
 				disciplinas.add(disciplina);
 			}
 		}
+		
 		model.addAttribute("disciplinas", disciplinas);
 		model.addAttribute("turma", turmaEnt);
 		List<Resultado> resultados = rr.findByTurma(turmaEnt);

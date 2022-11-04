@@ -124,7 +124,12 @@ public class UsuarioController {
 	}
 
 	@GetMapping("inicio")
-	public String inicio(Model model, @Param("search") String search) {
+	public String inicio(Model model,Authentication auth, @Param("search") String search) {
+		Usuario usuario = ur.findByNome(auth.getName());
+		if(usuario.getAuthority().equals("Professor")) {
+			return "redirect:/avaliar/turmas";
+		}
+		
 		if (search != null) {
 			model.addAttribute("usuarios", ur.search(search));
 		} else {
