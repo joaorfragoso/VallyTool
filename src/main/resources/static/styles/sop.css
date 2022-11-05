@@ -95,7 +95,8 @@
 }
 .nenhum-resultado img {
 	width: 256px;
+	max-width: 50%;
 }
 .nenhum-resultado p {
-	color: white;
+	filter: invert(var(--inverter));
 }
