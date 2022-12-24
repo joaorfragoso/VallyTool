@@ -8,6 +8,26 @@
 ![image](https://user-images.githubusercontent.com/86073233/209441794-ef1942f5-5105-4daf-9536-68358c44643d.png)
 ![image](https://user-images.githubusercontent.com/86073233/209441824-720524b3-f241-430c-a147-bb8e73ba7009.png)
 
+# Introdução
+
+## Como projeto final da FAETEC o nosso grupo ficou encarregado de criar uma solução para os problemas que existiam no SOP (Serviço de Educação Pedagógica) em relação à realização do pré-conselho de classe.
+## O sistema que os funcionários usavam era de planilhas no Excel para informar a situação das turmas, que chegava por meio das imensas papeladas que vinham dos professores.
+## A solução foi criar uma plataforma web para resolver tanto a situação dos professores, que precisavam escrever muito, tanto a situação dos funcionários que precisavam transcrever à mão as informações que vinham dos professores para uma planilha do Excel.
+
+# Projeto
+
+## A base da aplicação é a existência de 2 tipos de usuários.
+
+> ## Professor
+> - Encarregado de avaliar as disciplinas das turmas do qual foi relacionado.
+
+> ## Admin (SOP)
+> - Encarregado de relacionar professores nas suas respectivas turmas e disciplinas.
+> - Fechar o trimestre.
+> - Remover usuários ou Adicionar novos, podendo ser do tipo Admin ou Professor.
+> - Adicionar turmas e disciplinas.
+> - Gerenciar os resultados trimestrais.
+> - Emitir PDF com todos os resultados do trimestre.
 
 # Contribuidores do Projeto
 
