@@ -1,6 +1,11 @@
 # VallyTool
 ## Aplicação criada para informatizar o processo de pré conselho de classe na ETEJK.
 
+- [Introdução](https://github.com/toxxxey/VallyTool#introdu%C3%A7%C3%A3o)  
+- [Projeto](https://github.com/toxxxey/VallyTool#projeto) 
+- [Arquitetura e Stack](https://github.com/toxxxey/VallyTool/edit/aula/README.md#arquitetura-e-stack)  
+- [Desenvolvedores](https://github.com/toxxxey/VallyTool/edit/aula/README.md#desenvolvedores-do-projeto)
+
 ![image](https://user-images.githubusercontent.com/86073233/209441740-f81a5a97-20b5-4df0-ab34-901999a35538.png)
 ![image](https://user-images.githubusercontent.com/86073233/209441756-1e8afa11-087c-4e49-8c7e-738c07d24dda.png)
 ![image](https://user-images.githubusercontent.com/86073233/209441772-d5acc514-d45e-4f47-87fc-7369b60fdb32.png)
@@ -47,7 +52,7 @@ Os serviços estão organizados em arquitetura de camadas hexagonal, clique para
 > ***[Bibliotecas Usadas]()***
 
 
-# Contribuidores do Projeto
+# Desenvolvedores do Projeto
 
 > ## [João Victor](https://github.com/joaorfragoso)
 > - Design e Front-End da Aplicação
