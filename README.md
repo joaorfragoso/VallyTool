@@ -68,7 +68,6 @@ spring.mail.properties..mail.smtp.starttls.enable=true
 # Para rodar usando a build pronta siga estes passos:
 
 - ### Tenha certeza de que baixou todas as dependências necessárias:
-- #### Maven
 - #### MySQL
 - #### Java 17
 
