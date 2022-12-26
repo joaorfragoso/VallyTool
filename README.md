@@ -3,8 +3,8 @@
 
 - [Introdução](https://github.com/toxxxey/VallyTool#introdu%C3%A7%C3%A3o)  
 - [Projeto](https://github.com/toxxxey/VallyTool#projeto) 
-- [Arquitetura e Stack](https://github.com/toxxxey/VallyTool/edit/aula/README.md#arquitetura-e-stack)  
 - [Desenvolvedores](https://github.com/toxxxey/VallyTool/edit/aula/README.md#desenvolvedores-do-projeto)
+- [Documentação Técnica](https://github.com/toxxxey/VallyTool/blob/aula/DOCUMENTACAO.md)
 
 ![image](https://user-images.githubusercontent.com/86073233/209441740-f81a5a97-20b5-4df0-ab34-901999a35538.png)
 ![image](https://user-images.githubusercontent.com/86073233/209441756-1e8afa11-087c-4e49-8c7e-738c07d24dda.png)
@@ -71,7 +71,7 @@
 
 
 > ## [Marcos Guimarães](https://github.com/toxxxey)
-> - Modelagem de Dados, Arquitetura e Back-End da Aplicação  
+> - Documentação, Modelagem de Dados, Arquitetura e Back-End da Aplicação  
 
 
 # [Documentação Técnica](https://github.com/toxxxey/VallyTool/blob/aula/DOCUMENTACAO.md)
