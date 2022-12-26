@@ -6,7 +6,7 @@ Os serviços estão organizados em arquitetura de camadas hexagonal, clique para
 
 > ## Detalhes de stack   
 > ***A implementação do serviço é feita em [Java 17](https://docs.oracle.com/en/java/javase/17/) usando [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/).*** 
-> - A persistência de dados deste serviço é feita em um banco relacional [MySQL](https://dev.mysql.com/doc/). [Modelo de Dados]()  
+> - A persistência de dados deste serviço é feita em um banco relacional [MySQL](https://dev.mysql.com/doc/). [Modelo de Dados](https://user-images.githubusercontent.com/86073233/209569569-b560de94-2e7d-4199-adcf-16870464f274.png)  
 > 
 > No Front-end é usado as seguintes tecnologias:
 > - HTML5
