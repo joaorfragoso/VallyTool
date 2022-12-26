@@ -30,27 +30,39 @@
 > - Encarregado de relacionar professores nas suas respectivas turmas e disciplinas.
 > - Fechar o trimestre.
 > - Remover usuários ou Adicionar novos, podendo ser do tipo Admin ou Professor.
+> > - A senha de todo usuário novo adicionado é o seu CPF
 > - Adicionar turmas e disciplinas.
 > - Gerenciar os resultados trimestrais.
 > - Emitir PDF com todos os resultados do trimestre.
 
-# Arquitetura e Stack
+# Como rodar
 
-Feito em uma arqutetura monolitica, com todos os compoonentes ligados a uma unica aplicação Spring Boot.
+### Se tratando de um projeto Spring Boot, você pode baixar o projeto, baixar as dependências usando o ***Maven*** e rodar o arquivo ***VallyToolApplication.java*** como um arquivo java normal. 
 
-Os serviços estão organizados em arquitetura de camadas hexagonal, clique para ver o [modelo](https://user-images.githubusercontent.com/86073233/209199986-478711fc-afd2-47ae-8887-4e2a700dc5f9.png).
+## Para rodar usando a build pronta siga estes passos:
 
-> ## Detalhes de stack   
-> ***A implementação do serviço é feita em [Java 17](https://docs.oracle.com/en/java/javase/17/) usando [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/).*** 
-> - A persistência de dados deste serviço é feita em um banco relacional [MySQL](https://dev.mysql.com/doc/). [Modelo de Dados]()  
-> 
-> No Front-end é usado as seguintes tecnologias:
-> - HTML5
-> - CSS3
-> - [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
->
-> ***[Bibliotecas Usadas]()***
+- ### Tenha certeza de que baixou todas as dependências necessárias:
+- #### Maven
+- #### MySQL
+- #### Java 17
 
+### Agora que você já tem baixado as dependências e o arquivo jar
+- ### Abra o prompt de comando na localização do arquivo jar.
+- ### Digite ***java -jar vallytool.jar*** --spring.datasource.password=suasenhadomysql --spring.datasource.username=seuusuariomysql
+
+## Se tiver aparecido uma mensagem parecida com essa:
+![image](https://user-images.githubusercontent.com/86073233/209565313-b617c8a2-8f8f-4449-ace6-68f46016ad14.png)
+
+### Vá no seu MySQL Workbench e rode o seguinte script:
+      use vallytooldb;
+      INSERT INTO `trimestre_atual` VALUES(default, true, 'PRIMEIRO');
+      INSERT INTO `usuario` VALUES (1,'00000000000', 'host@gmail.com','Host', '$2a$10$JRZrRRmKHjAfVrWQsyP43u3aBgy7oStir847QlIe6YRkWYr1R2CxG');
+      INSERT INTO `roles` VALUES (1,'ROLE_PROFESSOR'),(2,'ROLE_SOP');
+      INSERT INTO `usuario_roles` VALUES (1,2);
+
+## Agora o projeto está rodando na sua máquina.
+## Para acessar acesse http://localhost:8080/login
+## O usuário padrão é 000.000.000-00 e sua senha é admin.
 
 # Desenvolvedores do Projeto
 
@@ -58,6 +70,8 @@ Os serviços estão organizados em arquitetura de camadas hexagonal, clique para
 > - Design e Front-End da Aplicação
 
 
-> ## [Marcos Guimarães](https://github.com/joaorfragoso)
-> - Modelagem de Dados, Arquitetura e Back-End da Aplicação
+> ## [Marcos Guimarães](https://github.com/toxxxey)
+> - Modelagem de Dados, Arquitetura e Back-End da Aplicação  
 
+
+# [Documentação Técnica](https://github.com/toxxxey/VallyTool/blob/aula/DOCUMENTACAO.md)
