@@ -36,10 +36,36 @@
 > - Emitir PDF com todos os resultados do trimestre.
 
 # Como rodar
+- # Rodar utilizando o código fonte
+### Se tratando de um projeto Spring Boot, você pode baixar o projeto, baixar as dependências usando o ***Maven*** e rodar o arquivo ***VallyToolApplication.java*** como um arquivo java normal.
 
-### Se tratando de um projeto Spring Boot, você pode baixar o projeto, baixar as dependências usando o ***Maven*** e rodar o arquivo ***VallyToolApplication.java*** como um arquivo java normal. 
+### Crie o arquivo application.properties em src/main/resources e insira mudando as suas informações.
+```
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.username=seuusuariomysql      
+spring.datasource.password=suasenhamysql
+spring.datasource.url=jdbc:mysql://localhost:3306/vallytooldb?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
 
-## Para rodar usando a build pronta siga estes passos:
+# jpa properties
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.show_sql=false
+spring.jpa.properties.hibernate.format_sql=true
+server.error.whitelabel.enabled=false
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+server.error.path=/error
+
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=seuemail
+spring.mail.password=suasenha (Senha de APP)
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties..mail.smtp.starttls.enable=true
+```
+
+### OBS: Coloque a sua senha e usuario do MySQL no arquivo application.properties.
+
+# Para rodar usando a build pronta siga estes passos:
 
 - ### Tenha certeza de que baixou todas as dependências necessárias:
 - #### Maven
@@ -48,20 +74,24 @@
 
 ### Agora que você já tem baixado as dependências e o arquivo jar
 - ### Abra o prompt de comando na localização do arquivo jar.
-- ### Digite ***java -jar VallyTool.jar*** --spring.datasource.password=suasenhadomysql --spring.datasource.username=seuusuariomysql
-
+- ### Digite:  
+```bash
+java -jar VallyTool.jar --spring.datasource.password=suasenhadomysql --spring.datasource.username=seuusuariomysql
+```
 ## Se tiver aparecido uma mensagem parecida com essa:
-![image](https://user-images.githubusercontent.com/86073233/209565313-b617c8a2-8f8f-4449-ace6-68f46016ad14.png)
+![Sucesso](https://user-images.githubusercontent.com/86073233/209565313-b617c8a2-8f8f-4449-ace6-68f46016ad14.png)
 
 ### Vá no seu MySQL Workbench e rode o seguinte script:
-      use vallytooldb;
-      INSERT INTO `trimestre_atual` VALUES(default, true, 'PRIMEIRO');
-      INSERT INTO `usuario` VALUES (1,'00000000000', 'host@gmail.com','Host', '$2a$10$JRZrRRmKHjAfVrWQsyP43u3aBgy7oStir847QlIe6YRkWYr1R2CxG');
-      INSERT INTO `roles` VALUES (1,'ROLE_PROFESSOR'),(2,'ROLE_SOP');
-      INSERT INTO `usuario_roles` VALUES (1,2);
+```sql
+use vallytooldb;
+INSERT INTO `trimestre_atual` VALUES(default, true, 'PRIMEIRO');
+INSERT INTO `usuario` VALUES (1,'00000000000', 'host@gmail.com','Host', '$2a$10$JRZrRRmKHjAfVrWQsyP43u3aBgy7oStir847QlIe6YRkWYr1R2CxG');
+INSERT INTO `roles` VALUES (1,'ROLE_PROFESSOR'),(2,'ROLE_SOP');
+INSERT INTO `usuario_roles` VALUES (1,2);
+```
 
 ## Agora o projeto está rodando na sua máquina.
-## Para acessar acesse http://localhost:8080/login
+## Para acessar: http://localhost:8080/login
 ## O usuário padrão é 000.000.000-00 e sua senha é admin.
 
 # Desenvolvedores do Projeto
