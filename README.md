@@ -48,7 +48,7 @@
 
 ### Agora que você já tem baixado as dependências e o arquivo jar
 - ### Abra o prompt de comando na localização do arquivo jar.
-- ### Digite ***java -jar vallytool.jar*** --spring.datasource.password=suasenhadomysql --spring.datasource.username=seuusuariomysql
+- ### Digite ***java -jar VallyTool.jar*** --spring.datasource.password=suasenhadomysql --spring.datasource.username=seuusuariomysql
 
 ## Se tiver aparecido uma mensagem parecida com essa:
 ![image](https://user-images.githubusercontent.com/86073233/209565313-b617c8a2-8f8f-4449-ace6-68f46016ad14.png)
