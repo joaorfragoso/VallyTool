@@ -36,9 +36,7 @@ public class WebSecurityConfig{
                 .anyRequest().authenticated()
                 .and()
                 .logout()
-                .logoutUrl("/logout")
-                .and()
-                .csrf().disable();
+                .logoutUrl("/logout");
         return http.build();
     }
 
